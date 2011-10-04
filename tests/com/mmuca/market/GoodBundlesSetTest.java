@@ -4,12 +4,12 @@ import org.junit.*;
 
 import static junit.framework.Assert.assertEquals;
 
-public class GoodBundleSetTest {
+public class GoodBundlesSetTest {
 
 
     @Test
     public void addingBundlesWithSameGood(){
-        GoodBundleSet bundles = new GoodBundleSet();
+        GoodBundlesSet bundles = new GoodBundlesSet();
         Good car = new Good("car");
         Good rocket = new Good("rocket");
         GoodBundle bundle1a= new GoodBundle(car, 1);

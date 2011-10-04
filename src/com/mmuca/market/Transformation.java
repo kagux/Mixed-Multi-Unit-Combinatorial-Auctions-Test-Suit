@@ -1,19 +1,19 @@
 package com.mmuca.market;
 
 public class Transformation implements Cloneable{
-    GoodBundleSet input;
-    GoodBundleSet output;
+    GoodBundlesSet input;
+    GoodBundlesSet output;
 
     public Transformation(){
-        input=new GoodBundleSet();
-        output=new GoodBundleSet();
+        input=new GoodBundlesSet();
+        output=new GoodBundlesSet();
     }
 
     public void addInput(GoodBundle bundle) {
         input.add(bundle);
     }
 
-    public GoodBundleSet getInput() {
+    public GoodBundlesSet getInput() {
         return input;
     }
 
@@ -21,7 +21,7 @@ public class Transformation implements Cloneable{
         output.add(bundle);
     }
 
-    public GoodBundleSet getOutput() {
+    public GoodBundlesSet getOutput() {
         return output;
     }
 
@@ -30,7 +30,7 @@ public class Transformation implements Cloneable{
         return (Transformation) super.clone();
        }
        catch (CloneNotSupportedException e){
-           return null; //todo this is wrong
+           throw new InternalError();
        }
     }
 }
