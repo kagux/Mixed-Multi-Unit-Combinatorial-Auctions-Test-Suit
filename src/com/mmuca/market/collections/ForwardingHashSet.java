@@ -1,10 +1,8 @@
-package collections;
+package com.mmuca.market.collections;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
-public class ForwardingHashSet<E> implements Cloneable{
+public class ForwardingHashSet<E> implements Cloneable {
     protected HashSet<E> set;
 
     public ForwardingHashSet(){

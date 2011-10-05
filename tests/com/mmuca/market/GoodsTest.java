@@ -15,12 +15,13 @@ public class GoodsTest{
     
     @Test
     public void IsValueObject(){
-        Good car1 = new Good("car");
-        Good car2 = new Good("car");
-        Good rocket = new Good("rocket");
+        Good good1a = new Good("car");
+        Good good1b = new Good("car");
+        Good good2 = new Good("rocket");
         
-        assertTrue("same goods should be equal", car1.equals(car2));
-        assertFalse("different goods should not be equal", car1.equals(rocket));
+        assertTrue("same goods should be equal", good1a.equals(good1b));
+        assertFalse("different goods should not be equal", good1a.equals(good2));
+        assertTrue("same goods should have equal hashCodes", good1a.hashCode() == good1b.hashCode());
     }
     
 }

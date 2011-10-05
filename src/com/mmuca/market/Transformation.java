@@ -1,5 +1,7 @@
 package com.mmuca.market;
 
+import com.mmuca.market.collections.GoodBundlesSet;
+
 public class Transformation implements Cloneable{
     GoodBundlesSet input;
     GoodBundlesSet output;

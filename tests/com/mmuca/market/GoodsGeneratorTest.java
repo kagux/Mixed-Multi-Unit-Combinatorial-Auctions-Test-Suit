@@ -1,6 +1,7 @@
 package com.mmuca.market;
 
-import distributions.IDistribution;
+import com.mmuca.market.distributions.IDistribution;
+import com.mmuca.market.distributions.ValueRange;
 import org.junit.Before;
 import org.junit.Test;
 

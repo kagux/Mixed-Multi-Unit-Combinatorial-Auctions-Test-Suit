@@ -1,4 +1,4 @@
-package com.mmuca.market;
+package com.mmuca.market.distributions;
 
 public class ValueRange {
     private int first;

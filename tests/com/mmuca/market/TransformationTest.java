@@ -7,7 +7,7 @@ import static junit.framework.Assert.*;
 public class TransformationTest {
    
     @Test
-    public void hasInputAndOutputGoodsBundles(){
+    public void InputAndOutputGoodsBundles(){
         Transformation transformation = new Transformation();
 
         Good flour = new Good("flour");
@@ -23,7 +23,7 @@ public class TransformationTest {
     }
     
     @Test
-    public  void addingBundleWithAGoodThatAlreadyUsedInPreviousBundles(){
+    public  void AddingBundleWithAGoodThatAlreadyUsedInPreviousBundles(){
         Transformation transformation = new Transformation();
 
         Good flour = new Good("flour");

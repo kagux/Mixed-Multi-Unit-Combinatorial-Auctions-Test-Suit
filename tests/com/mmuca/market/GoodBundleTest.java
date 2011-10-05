@@ -26,5 +26,6 @@ public class GoodBundleTest {
         assertTrue("same bundles should be equal", bundle1a.equals(bundle1b));
         assertFalse("bundles with diff amount are not equal", bundle1a.equals(bundle2b));
         assertFalse("bundles with diff goods are not equal", bundle1a.equals(bundle2a));
+        assertTrue("same bundles should have equal hashCodes",bundle1a.hashCode() == bundle1b.hashCode());
     }
 }

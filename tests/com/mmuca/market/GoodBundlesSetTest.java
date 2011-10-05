@@ -1,5 +1,6 @@
 package com.mmuca.market;
 
+import com.mmuca.market.collections.GoodBundlesSet;
 import org.junit.*;
 
 import static junit.framework.Assert.assertEquals;

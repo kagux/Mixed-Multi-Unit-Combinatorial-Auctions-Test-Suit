@@ -1,6 +1,8 @@
-package com.mmuca.market;
+package com.mmuca.market.collections;
 
-import collections.ForwardingHashSet;
+import com.mmuca.market.Good;
+import com.mmuca.market.GoodBundle;
+import com.mmuca.market.collections.ForwardingHashSet;
 
 import java.util.HashMap;
 

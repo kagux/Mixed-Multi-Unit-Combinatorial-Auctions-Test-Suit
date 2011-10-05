@@ -1,6 +1,6 @@
 package com.mmuca.market;
 
-import distributions.IDistribution;
+import com.mmuca.market.distributions.IDistribution;
 
 import java.util.ArrayList;
 import java.util.Iterator;
