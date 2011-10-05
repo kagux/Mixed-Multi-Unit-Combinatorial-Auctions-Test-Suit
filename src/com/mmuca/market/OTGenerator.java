@@ -2,18 +2,18 @@ package com.mmuca.market;
 
 import java.util.ArrayList;
 
-public class ITGenerator extends  SingleBundleTransformationsGenerator{
+public class OTGenerator extends SingleBundleTransformationsGenerator{
 
     protected ArrayList<Good> getGoodsList(ArrayList<MarketLevel> levels, int currentKey) {
-            return new ArrayList<Good>(levels.get(currentKey).getGoods());
+        return new ArrayList<Good>(levels.get(currentKey - 1).getGoods());
     }
 
     protected void populateTransformation(Good good, Transformation transformation) {
-        transformation.addInput(new GoodBundle(good, 1));
+        transformation.addOutput(new GoodBundle(good,1));
     }
 
     protected int fromLevelOffset() {
-        return 0;
+        return 1;
     }
 
     protected int toLevelOffset() {
