@@ -1,5 +1,6 @@
 package com.mmuca.market;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -17,11 +18,12 @@ public class MarketLevel {
     }
 
     public Good getGood(int key) {
+        //TODO Fast fail
         return goods.get(key);
     }
 
-    public Collection<Good> getGoods() {
-        return goods.values();
+    public ArrayList<Good> getAllGoods() {
+        return new ArrayList<Good>(goods.values());
     }
 
     public void addTransformation(Transformation transformation) {
@@ -29,10 +31,11 @@ public class MarketLevel {
     }
 
     public Transformation getTransformation(int key) {
+        //TODO Fast fail
         return transformations.get(key).clone();
     }
 
-    public Collection<Transformation> getTransformations() {
+    public Collection<Transformation> getAllTransformations() {
         return transformations.values();
     }
 }

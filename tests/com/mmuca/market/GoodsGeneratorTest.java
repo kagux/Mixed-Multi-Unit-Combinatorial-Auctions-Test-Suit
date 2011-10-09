@@ -1,5 +1,6 @@
 package com.mmuca.market;
 
+import com.mmuca.market.Stubs.StubLevelDistribution;
 import com.mmuca.market.distributions.IDistribution;
 import com.mmuca.market.distributions.ValueRange;
 import org.junit.Before;
@@ -30,25 +31,25 @@ public class GoodsGeneratorTest {
         levels.add(level_2);
         levels.add(level_3);
         ValueRange range = new ValueRange(0,2);
-        IDistribution goodLevelDistribution = new StubDistribution(range);
+        IDistribution goodLevelDistribution = new StubLevelDistribution(range);
         GoodsGenerator generator= new GoodsGenerator(goodLevelDistribution, NUMBER_OF_GOODS, MINIMUM_GOODS_PER_LEVEL);
         generator.populate(levels);
     }
 
     @Test
     public void numberOfGeneratedGoods(){
-        assertEquals("total number should be equal to requested", NUMBER_OF_GOODS, level_1.getGoods().size() + level_2.getGoods().size() + level_3.getGoods().size());
-        assertTrue("Minimum requirement should be fulfilled", level_1.getGoods().size() >= MINIMUM_GOODS_PER_LEVEL);
-        assertTrue("Minimum requirement should be fulfilled", level_2.getGoods().size() >= MINIMUM_GOODS_PER_LEVEL);
-        assertTrue("Minimum requirement should be fulfilled", level_3.getGoods().size() >= MINIMUM_GOODS_PER_LEVEL);
+        assertEquals("total number should be equal to requested", NUMBER_OF_GOODS, level_1.getAllGoods().size() + level_2.getAllGoods().size() + level_3.getAllGoods().size());
+        assertTrue("Minimum requirement should be fulfilled", level_1.getAllGoods().size() >= MINIMUM_GOODS_PER_LEVEL);
+        assertTrue("Minimum requirement should be fulfilled", level_2.getAllGoods().size() >= MINIMUM_GOODS_PER_LEVEL);
+        assertTrue("Minimum requirement should be fulfilled", level_3.getAllGoods().size() >= MINIMUM_GOODS_PER_LEVEL);
     }
     
     @Test
     public void goodsAreUnique(){
         HashSet<Good> goods = new HashSet<Good>();
-        goods.addAll(level_1.getGoods());
-        goods.addAll(level_2.getGoods());
-        goods.addAll(level_3.getGoods());
+        goods.addAll(level_1.getAllGoods());
+        goods.addAll(level_2.getAllGoods());
+        goods.addAll(level_3.getAllGoods());
         assertEquals("number of unique goods should be equal to requested number of goods", NUMBER_OF_GOODS,goods.size());
     }
     

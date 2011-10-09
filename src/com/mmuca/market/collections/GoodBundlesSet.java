@@ -2,16 +2,22 @@ package com.mmuca.market.collections;
 
 import com.mmuca.market.Good;
 import com.mmuca.market.GoodBundle;
-import com.mmuca.market.collections.ForwardingHashSet;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
-public class GoodBundlesSet extends ForwardingHashSet<GoodBundle> {
+public class GoodBundlesSet extends ForwardingHashSet<GoodBundle>{
     private HashMap<Good, GoodBundle> goodsMap;
 
     public GoodBundlesSet(){
         this.goodsMap=new HashMap<Good, GoodBundle>();
     }
+
+    @Override
+    public Iterator<GoodBundle> iterator(){
+        return set.iterator();
+    }
+
     @Override
     public boolean add(GoodBundle bundle) {
         prepareSet(bundle.getGood());

@@ -12,13 +12,12 @@ public class MarketLevelTest {
         Good car =  new Good("car");  
         Good rocket  =  new Good("rocket");  
         level.addGood(car);
-        assertEquals("Number of goods in a level", 1, level.getGoods().size());
-        assertEquals("Good is the same", car, level.getGoods().iterator().next());
+        assertEquals("Number of goods in a level", 1, level.getAllGoods().size());
+        assertEquals("Good is the same", car, level.getAllGoods().iterator().next());
         assertEquals("fetching good by key", car, level.getGood(0));
         level.addGood(rocket);
-        assertEquals("Number of goods in a level", 2, level.getGoods().size());
+        assertEquals("Number of goods in a level", 2, level.getAllGoods().size());
         assertEquals("fetching another good by key", rocket, level.getGood(1));
-        
     }
 
     @Test
@@ -29,7 +28,7 @@ public class MarketLevelTest {
        GoodBundle bundle = new GoodBundle(car,1);
        transformation1a.addInput(bundle);
        level.addTransformation(transformation1a);
-       assertTrue("when we get all transformations they should be references",level.getTransformations().contains(transformation1a));
+       assertTrue("when we get all transformations they should be references",level.getAllTransformations().contains(transformation1a));
 
        Transformation transformation1b=level.getTransformation(0);
        assertEquals("input bundles should be same", transformation1a.getInput(), transformation1b.getInput());

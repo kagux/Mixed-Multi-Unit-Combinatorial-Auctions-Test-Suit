@@ -1,27 +1,57 @@
 package com.mmuca.market;
 
+import com.mmuca.market.collections.GoodBundlesSet;
 import org.junit.Test;
 
-import static junit.framework.Assert.*;
+import java.util.Iterator;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 public class TransformationTest {
    
     @Test
-    public void InputAndOutputGoodsBundles(){
+    public void addingInputBundle(){
         Transformation transformation = new Transformation();
 
         Good flour = new Good("flour");
         GoodBundle inputBundle = new GoodBundle(flour, 2);
         transformation.addInput(inputBundle);
-        assertEquals("get input bundle", inputBundle, transformation.getInput().iterator().next());
+        assertEquals("input bundle should have been added", inputBundle, transformation.getInput().iterator().next());
+    }
 
+    @Test
+    public void addingInputInBulk(){
+        Transformation transformation = new Transformation();
+        GoodBundlesSet bundles = bundlesFixture();
+        transformation.addAllInput(bundles);
+        assertEquals("input bundles should have been added", bundles.size(),transformation.getInput().size());
+        for (Iterator<GoodBundle> iterator=bundles.iterator();iterator.hasNext();){
+            assertTrue("input bundles should be same", bundles.contains(iterator.next()));
+        }
+    }
+
+    @Test
+    public void addingOutputBundle(){
+        Transformation transformation = new Transformation();
         Good bread = new Good("bread");
         GoodBundle outputBundle = new GoodBundle(bread, 1);
         transformation.addOutput(outputBundle);
-        assertEquals("get output bundle", outputBundle, transformation.getOutput().iterator().next());
-
+        assertEquals("output bundle bundle should have been added", outputBundle, transformation.getOutput().iterator().next());
     }
-    
+
+
+    @Test
+    public void addingOutputInBulk(){
+        Transformation transformation = new Transformation();
+        GoodBundlesSet bundles = bundlesFixture();
+        transformation.addAllOutput(bundles);
+        assertEquals("output bundles should have been added", bundles.size(),transformation.getOutput().size());
+        for (Iterator<GoodBundle> iterator=bundles.iterator();iterator.hasNext();){
+            assertTrue("output bundles should be same", bundles.contains(iterator.next()));
+        }
+    }
+
     @Test
     public  void AddingBundleWithAGoodThatAlreadyUsedInPreviousBundles(){
         Transformation transformation = new Transformation();
@@ -44,5 +74,14 @@ public class TransformationTest {
         assertEquals("adding already existing good in a bundle to input",1,transformation.getOutput().size());
         assertEquals("amount is combined", 3, transformation.getOutput().iterator().next().getAmount());
     }
+
+    private GoodBundlesSet bundlesFixture() {
+        GoodBundlesSet bundles = new GoodBundlesSet();
+        bundles.add(new GoodBundle(new Good("good 1"),1));
+        bundles.add(new GoodBundle(new Good("good 2"),1));
+        bundles.add(new GoodBundle(new Good("good 3"),1));
+        return bundles;
+    }
+
     
 }

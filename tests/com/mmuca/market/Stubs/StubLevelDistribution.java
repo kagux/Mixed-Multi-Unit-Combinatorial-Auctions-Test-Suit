@@ -1,16 +1,16 @@
-package com.mmuca.market;
+package com.mmuca.market.Stubs;
 
 import com.mmuca.market.distributions.IDistribution;
 import com.mmuca.market.distributions.ValueRange;
 
 import java.util.Random;
 
-public class StubDistribution implements IDistribution {
+public class StubLevelDistribution implements IDistribution {
 
     private ValueRange range;
     private Random random;
 
-    public  StubDistribution(ValueRange range){
+    public StubLevelDistribution(ValueRange range){
         this.range = range;
         this.random= new Random();
     }

@@ -49,7 +49,7 @@ public class ITGeneratorTest {
     @Test
     public void numberOfTransformations(){
         for (MarketLevel level: levels){
-            assertEquals("number of transformations should equal to number of goods", level.getGoods().size(),level.getTransformations().size());
+            assertEquals("number of transformations should equal to number of goods", level.getAllGoods().size(),level.getAllTransformations().size());
         }
     }
     
@@ -57,7 +57,7 @@ public class ITGeneratorTest {
     public void GoodBundles(){
         HashSet<GoodBundle> bundles = new HashSet<GoodBundle>();
         for (MarketLevel level : levels){
-            for(Transformation transformation: level.getTransformations()){
+            for(Transformation transformation: level.getAllTransformations()){
                 assertEquals("only one input bundle",1,transformation.getInput().size());
                 assertEquals("No output bundles",0,transformation.getOutput().size());
                 assertTrue("bundle should be unique", bundles.add(transformation.getInput().iterator().next()));
@@ -68,8 +68,8 @@ public class ITGeneratorTest {
     @Test
     public void transformationsUseGoodsFromSameLevel(){
         for (MarketLevel level : levels){
-            for(Transformation transformation: level.getTransformations()){
-                assertTrue("goods are from same level", level.getGoods().contains(transformation.getInput().iterator().next().getGood()));
+            for(Transformation transformation: level.getAllTransformations()){
+                assertTrue("goods are from same level", level.getAllGoods().contains(transformation.getInput().iterator().next().getGood()));
             }
         }
     }

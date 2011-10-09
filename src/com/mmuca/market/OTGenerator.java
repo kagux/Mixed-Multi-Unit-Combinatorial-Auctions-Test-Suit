@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class OTGenerator extends SingleBundleTransformationsGenerator{
 
     protected ArrayList<Good> getGoodsList(ArrayList<MarketLevel> levels, int currentKey) {
-        return new ArrayList<Good>(levels.get(currentKey - 1).getGoods());
+        return new ArrayList<Good>(levels.get(currentKey - 1).getAllGoods());
     }
 
     protected void populateTransformation(Good good, Transformation transformation) {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ITGenerator extends  SingleBundleTransformationsGenerator{
 
     protected ArrayList<Good> getGoodsList(ArrayList<MarketLevel> levels, int currentKey) {
-            return new ArrayList<Good>(levels.get(currentKey).getGoods());
+        return new ArrayList<Good>(levels.get(currentKey).getAllGoods());
     }
 
     protected void populateTransformation(Good good, Transformation transformation) {
