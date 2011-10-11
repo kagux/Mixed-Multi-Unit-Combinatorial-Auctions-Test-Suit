@@ -20,6 +20,11 @@ public class GoodBundle {
     }
 
     @Override
+    public String toString (){
+        return "Bundle of "+good+", "+amount+" items";
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

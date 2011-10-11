@@ -2,7 +2,7 @@ package com.mmuca.expLab.domain.collections;
 
 import java.util.*;
 
-public class ForwardingHashSet<E> implements Cloneable {
+public class ForwardingHashSet<E> implements Cloneable, Iterable<E> {
     protected HashSet<E> set;
 
     public ForwardingHashSet(){
@@ -49,11 +49,9 @@ public class ForwardingHashSet<E> implements Cloneable {
         set.clear();
     }
 
-    public Object clone() {
+    public ForwardingHashSet<E> clone() {
        try{
-           ForwardingHashSet<E> newForwarder= (ForwardingHashSet<E>)super.clone();
-           newForwarder.set=(HashSet<E>) set.clone();
-           return newForwarder;
+           return (ForwardingHashSet<E>)super.clone();
        }
        catch(CloneNotSupportedException e){
            throw new InternalError();

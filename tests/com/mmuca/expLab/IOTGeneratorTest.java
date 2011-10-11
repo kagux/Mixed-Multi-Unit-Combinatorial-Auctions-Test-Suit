@@ -1,23 +1,28 @@
 package com.mmuca.expLab;
 
 import com.mmuca.expLab.Stubs.distributions.StubBundlesDistribution;
-import com.mmuca.expLab.Stubs.StubBundlesGenerator;
 import com.mmuca.expLab.Stubs.distributions.StubIOTGoodsLevelDistribution;
 import com.mmuca.expLab.Stubs.distributions.StubIOTLevelDistribution;
 import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.MarketLevel;
+import com.mmuca.expLab.domain.Market.collections.GoodBundlesSet;
 import com.mmuca.expLab.domain.Market.goods.Good;
 import com.mmuca.expLab.domain.Market.goods.bundles.BundlesGenerator;
 import com.mmuca.expLab.domain.Market.goods.bundles.GoodBundle;
 import com.mmuca.expLab.domain.Market.transformations.IOTGenerator;
 import com.mmuca.expLab.domain.Market.transformations.Transformation;
+import com.mmuca.expLab.domain.distributions.IDistribution;
 import org.junit.Test;
+import org.mockito.internal.matchers.InstanceOf;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 
 import static junit.framework.Assert.*;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.argThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class IOTGeneratorTest {
 
@@ -27,82 +32,68 @@ public class IOTGeneratorTest {
 
     @Test
     public  void numberOfTransformationsShouldBeAsRequested(){
-        HashSet<Transformation> transformations = new HashSet<Transformation>();
-        for (MarketLevel level : newPopulatedMarket(defaultGenerator()).getAllLevels())
-            transformations.addAll(level.getAllTransformations());
-        assertEquals("number of transformations should be equal to requested", NUMBER_OF_IO_TRANSFORMATIONS, transformations.size() );
+        assertEquals("number of transformations should be equal to requested", NUMBER_OF_IO_TRANSFORMATIONS, newPopulatedMarket(defaultGenerator(),NUMBER_OF_IO_TRANSFORMATIONS).getAllTransformations().size() );
     }
 
     @Test
     public  void transformationsUseGoodsFromMarket(){
-        Market market = newPopulatedMarket(defaultGenerator());
+        Market market = newPopulatedMarket(defaultGenerator(), NUMBER_OF_IO_TRANSFORMATIONS);
         ArrayList<Good> goods=market.getAllGoods();
         for(Transformation transformation: market.getAllTransformations()){
             for (Iterator<GoodBundle> iterator=transformation.getInput().iterator();iterator.hasNext();) {
-               assertTrue("goods should be from expLab only",goods.contains(iterator.next().getGood()));
+               assertTrue("goods should be from market only",goods.contains(iterator.next().getGood()));
             }
         }
     }
 
     @Test
     public void eachTransformationContainsBothInputAndOutput(){
-        for(Transformation transformation: newPopulatedMarket(defaultGenerator()).getAllTransformations()){
+        for(Transformation transformation: newPopulatedMarket(defaultGenerator(), NUMBER_OF_IO_TRANSFORMATIONS).getAllTransformations()){
             assertFalse("transformation should contain input", transformation.getInput().isEmpty());
             assertFalse("transformation should contain output", transformation.getOutput().isEmpty());
         }
     }
     
     @Test
-    public void transformationLevelIsDeterminedByDistribution(){
-        //this stub distribution returns fixed value
-        StubIOTLevelDistribution levelDistribution = new StubIOTLevelDistribution();
-        IOTGenerator generator = new IOTGenerator(levelDistribution, bundlesGenerator(),bundlesGenerator());
+    public void transformationLevelIsSubjectToDistribution(){
+        IDistribution levelDistribution = mock(IDistribution.class);
+        when(levelDistribution.flipCoin()).thenReturn(1,1,2,2);
+        IOTGenerator generator = new IOTGenerator(levelDistribution,bundlesGenerator(),bundlesGenerator());
+        //first run
+        assertEquals("transformations should have levels according to distribution", 2, newPopulatedMarket(generator,2).getLevel(1).getAllTransformations().size());
+        assertEquals("levels not mentioned in distribution should not have transformations", 2, newPopulatedMarket(generator, 2).getAllTransformations().size());
+        //second run
+        assertEquals("transformations should have levels according to distribution", 2, newPopulatedMarket(generator,2).getLevel(2).getAllTransformations().size());
+        assertEquals("levels not mentioned in distribution should not have transformations", 2, newPopulatedMarket(generator, 2).getAllTransformations().size());
 
-        //predefined fixed values for stub distribution
-        ArrayList<Integer> levelSerialNumbers = new ArrayList<Integer>();
-        levelSerialNumbers.add(1);
-        levelSerialNumbers.add(2);
 
-        for (Integer IOTLevel: levelSerialNumbers){
-            levelDistribution.setIOTLevel(IOTLevel);
-            Market market =  newPopulatedMarket(generator);
-            assertEquals("transformations should have levels according to distribution", NUMBER_OF_IO_TRANSFORMATIONS, market.getLevel(IOTLevel).getAllTransformations().size());
-            assertEquals("levels not mentioned in distribution should not have transformations", NUMBER_OF_IO_TRANSFORMATIONS, market.getAllTransformations().size());
-        }
     }
-    
+
     @Test
     public void bundlesAreFormedByBundlesGenerator(){
-        StubBundlesGenerator bundlesGenerator = new StubBundlesGenerator(null,null);
-        IOTGenerator generator = new IOTGenerator(IOTLevelDistribution(), bundlesGenerator,bundlesGenerator);
-        
-        ArrayList<Integer> possibleNumberOfBundles = new ArrayList<Integer>();
-        possibleNumberOfBundles.add(1);
-        possibleNumberOfBundles.add(2);
-        
-        ArrayList<Integer> possibleLevelsToPickGoodsFrom = new ArrayList<Integer>();
-        possibleLevelsToPickGoodsFrom.add(1);
-        possibleLevelsToPickGoodsFrom.add(2);
-        
-        for(Integer numberOfBundles: possibleNumberOfBundles){
-            bundlesGenerator.setNumberOfBundles(numberOfBundles);
-            for(Integer levelSerialNumToPickGoodFrom: possibleLevelsToPickGoodsFrom){
-                bundlesGenerator.setGoodsLevel(levelSerialNumToPickGoodFrom);
-                Market market = newPopulatedMarket(generator);
-                for (Transformation transformation : market.getAllTransformations()){
-                   assertEquals("number of input bundles should be defined by bundles generator", numberOfBundles.intValue(),transformation.getInput().size());
-                   assertEquals("number of output bundles should be defined by bundles generator", numberOfBundles.intValue(),transformation.getOutput().size());
-
-                   ArrayList<Good> goods = market.getLevel(levelSerialNumToPickGoodFrom).getAllGoods();
-                   for (Iterator<GoodBundle> iterator=transformation.getInput().iterator();iterator.hasNext();) {
-                       assertTrue("Goods for input should be picked by bundles generator",goods.contains(iterator.next().getGood()));
-                   }
-                   for (Iterator<GoodBundle> iterator=transformation.getOutput().iterator();iterator.hasNext();) {
-                       assertTrue("Goods for output should be picked by bundles generator",goods.contains(iterator.next().getGood()));
-                   }
-                }
-            }
+        BundlesGenerator inputGenerator = mock(BundlesGenerator.class);
+        BundlesGenerator outputGenerator = mock(BundlesGenerator.class);
+        GoodBundle bundleA = new GoodBundle(new Good("good A"),1);
+        GoodBundle bundleB = new GoodBundle(new Good("good B"),1);
+        GoodBundlesSet inputBundles = new GoodBundlesSet();
+        inputBundles.add(bundleA);
+        GoodBundlesSet outputBundles = new GoodBundlesSet();
+        outputBundles.add(bundleB);
+        when(inputGenerator.generate(anyMarket(), anyInt())).thenReturn(inputBundles);
+        when(outputGenerator.generate(anyMarket(), anyInt())).thenReturn(outputBundles);
+        IOTGenerator generator = new IOTGenerator(IOTLevelDistribution(),inputGenerator,outputGenerator);
+        Market market = newMarket();
+        generator.populate(market, NUMBER_OF_IO_TRANSFORMATIONS);
+        for (Transformation transformation: market.getAllTransformations()){
+            assertEquals("number of input bundles should match", inputBundles.size(), transformation.getInput().size());
+            assertEquals("input bundle should be from generator", bundleA, transformation.getInput().iterator().next());
+            assertEquals("number of output bundles should match", inputBundles.size(), transformation.getOutput().size());
+            assertEquals("output bundle should be from generator", bundleB, transformation.getOutput().iterator().next());
         }
+    }
+
+    private Market anyMarket() {
+        return (Market)argThat(new InstanceOf(Market.class));
     }
 
     private IOTGenerator defaultGenerator(){
@@ -121,9 +112,9 @@ public class IOTGeneratorTest {
         return new StubIOTGoodsLevelDistribution();
     }
 
-    private Market newPopulatedMarket(IOTGenerator generator) {
+    private Market newPopulatedMarket(IOTGenerator generator, int numberOfTransformations) {
         Market market  = newMarket();
-        generator.populate(market, NUMBER_OF_IO_TRANSFORMATIONS);
+        generator.populate(market, numberOfTransformations);
         return market;
     }
 

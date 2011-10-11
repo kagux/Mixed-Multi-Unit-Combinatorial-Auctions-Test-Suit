@@ -29,9 +29,7 @@ public class TransformationTest {
         GoodBundlesSet bundles = bundlesFixture();
         transformation.addAllInput(bundles);
         assertEquals("input bundles should have been added", bundles.size(),transformation.getInput().size());
-        for (Iterator<GoodBundle> iterator=bundles.iterator();iterator.hasNext();){
-            assertTrue("input bundles should be same", bundles.contains(iterator.next()));
-        }
+        assertTrue("input bundles should be same", bundles.containsAll(transformation.getInput()));
     }
 
     @Test

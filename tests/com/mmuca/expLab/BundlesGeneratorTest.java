@@ -1,67 +1,44 @@
 package com.mmuca.expLab;
 
-import com.mmuca.expLab.Stubs.distributions.StubBundlesDistribution;
-import com.mmuca.expLab.Stubs.distributions.StubIOTGoodsLevelDistribution;
 import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.MarketLevel;
 import com.mmuca.expLab.domain.Market.collections.GoodBundlesSet;
 import com.mmuca.expLab.domain.Market.goods.Good;
 import com.mmuca.expLab.domain.Market.goods.bundles.BundlesGenerator;
-import com.mmuca.expLab.domain.Market.goods.bundles.GoodBundle;
+import com.mmuca.expLab.domain.distributions.IDistribution;
+import com.mmuca.expLab.domain.distributions.ISeededDistribution;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Iterator;
+import org.mockito.InOrder;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 public class BundlesGeneratorTest {
 
     public static final int targetLevelSerialNum = 1;
 
     @Test
-    public void numberOfBundlesIsDeterminedByDistribution(){
-        //this stub distribution returns fixed value
-        StubBundlesDistribution goodsDistribution = new StubBundlesDistribution();
-        BundlesGenerator generator = new BundlesGenerator(new StubIOTGoodsLevelDistribution(), goodsDistribution);
+    public  void generatedBundles(){
+        IDistribution goodsDistribution = mock (IDistribution.class);
+        when(goodsDistribution.flipCoin()).thenReturn(1,3);
+
+        ISeededDistribution goodsLevelDistribution = mock(ISeededDistribution.class);
+        when(goodsLevelDistribution.flipCoin()).thenReturn(targetLevelSerialNum);
+
+        BundlesGenerator generator = new BundlesGenerator(goodsLevelDistribution,goodsDistribution);
         Market market = newMarket();
+        GoodBundlesSet bundles = generator.generate(market, targetLevelSerialNum);
 
-        //predefined fixed values for stub distribution
-        ArrayList<Integer> possibleNumberOfBundles = new ArrayList<Integer>();
-        possibleNumberOfBundles.add(3);
-        possibleNumberOfBundles.add(4);
+        InOrder inOrder  = inOrder(goodsLevelDistribution);
+        inOrder.verify(goodsLevelDistribution).setSeed(targetLevelSerialNum);
+        inOrder.verify(goodsLevelDistribution).flipCoin();
+        verify(goodsDistribution).flipCoin();
 
-        for (Integer numberOfBundles: possibleNumberOfBundles){
-            goodsDistribution.setNumberOfBundles(numberOfBundles);
-            assertEquals(
-                    "number of bundles should be defined by distribution or by number of goods at selected level by goods level distribution",
-                    Math.min(market.getLevel(targetLevelSerialNum).getAllGoods().size(), numberOfBundles.intValue()),
-                    generator.generate(market,targetLevelSerialNum).size()
-                    );
-        }
+        assertEquals("# of bundles should be set by distribution", 1, bundles.size());
+        assertTrue("goods should be picked from level set by distribution", market.getLevel(targetLevelSerialNum).getAllGoods().containsAll(bundles.getAllGoods()));
+        assertEquals("# of bundles is capped by # of goods at selected level", 2, generator.generate(newMarket(), targetLevelSerialNum).size());
     }
-
-    @Test
-    public void bundlesAreFormedFromGoodsDeterminedByDistribution(){
-        //stub for this distribution returns good's level same as seeded value, which we force to be targetLevelSerialNum
-        BundlesGenerator generator = new BundlesGenerator(new StubIOTGoodsLevelDistribution(), new StubBundlesDistribution(3));
-        Market market = newMarket();
-
-        ArrayList<Integer> possibleTargetLevel = new ArrayList<Integer>();
-                possibleTargetLevel.add(1);
-                possibleTargetLevel.add(2);
-
-        for (Integer targetLevelSerialNum: possibleTargetLevel){
-            ArrayList<Good> goods = market.getLevel(targetLevelSerialNum).getAllGoods();
-            GoodBundlesSet bundles = generator.generate(market, targetLevelSerialNum);
-            for (Iterator<GoodBundle> iterator=bundles.iterator();iterator.hasNext();) {
-                assertTrue("Goods for input should be picked as per distribution",goods.contains(iterator.next().getGood()));
-            }
-        }
-
-    }
-    
 
     private Market newMarket() {
         MarketLevel level_1 = new MarketLevel();
