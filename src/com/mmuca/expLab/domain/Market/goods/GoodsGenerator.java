@@ -1,10 +1,8 @@
 package com.mmuca.expLab.domain.Market.goods;
 
+import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.MarketLevel;
 import com.mmuca.expLab.domain.distributions.IDistribution;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class GoodsGenerator {
     private IDistribution levelDistribution;
@@ -18,20 +16,27 @@ public class GoodsGenerator {
         this.minimumGoodsPerLevel = minimumGoodsPerLevel;
     }
 
-    public void populate(ArrayList<MarketLevel> levels) {
+    public void populate(Market market) {
         numberOfCreatedGoods =0;
-        fulfilMinimumRequirement(levels.iterator());
-        distributeLeftOverGoods(levels);
+        fulfilMinimumRequirement(market);
+        distributeLeftOverGoods(market);
         
     }
 
-    private void fulfilMinimumRequirement(Iterator<MarketLevel> levelsIterator) {
-        while (levelsIterator.hasNext()){
-            populateSingleLevel(levelsIterator.next());
+    private void fulfilMinimumRequirement(Market market) {
+        for (MarketLevel level : market.getAllLevels()){
+            addMinimumGoods(level);
         }
     }
 
-    private void populateSingleLevel(MarketLevel level) {
+    private void distributeLeftOverGoods(Market market) {
+        for (int i=numberOfCreatedGoods; i< numberOfGoodsToCreate;i++){
+            addGoodToLevel(market.getLevel(levelDistribution.flipCoin()));
+        }
+    }
+
+
+    private void addMinimumGoods(MarketLevel level) {
         for (int i=0; i < minimumGoodsPerLevel; i++){
             addGoodToLevel(level);
         }
@@ -41,16 +46,9 @@ public class GoodsGenerator {
         level.addGood(createUniqueGood());
     }
 
-    private void distributeLeftOverGoods(ArrayList<MarketLevel> levels) {
-        for (int i=numberOfCreatedGoods; i< numberOfGoodsToCreate;i++){
-            addGoodToLevel(levels.get(levelDistribution.flipCoin()));
-        }
-    }
-    
     private Good createUniqueGood(){
         Good good = new Good(String.format("Good_%03d", numberOfCreatedGoods +1));
         numberOfCreatedGoods++;
         return good;
     }
-
 }

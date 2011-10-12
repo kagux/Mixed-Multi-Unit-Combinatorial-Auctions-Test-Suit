@@ -1,61 +1,59 @@
 package com.mmuca.expLab;
 
-import com.mmuca.expLab.Stubs.distributions.StubLevelDistribution;
+import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.MarketLevel;
-import com.mmuca.expLab.domain.distributions.IDistribution;
-import com.mmuca.expLab.domain.distributions.ValueRange;
 import com.mmuca.expLab.domain.Market.goods.Good;
 import com.mmuca.expLab.domain.Market.goods.GoodsGenerator;
-import org.junit.Before;
+import com.mmuca.expLab.domain.distributions.IDistribution;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GoodsGeneratorTest {
 
     public static final int MINIMUM_GOODS_PER_LEVEL = 2;
-    public static final int NUMBER_OF_GOODS = 20;
-    private MarketLevel level_1;
-    private MarketLevel level_2;
-    private MarketLevel level_3;
-    private ArrayList<MarketLevel> levels;
-
-    @Before
-    public void setUp(){
-        level_1 = new MarketLevel();
-        level_2 = new MarketLevel();
-        level_3 = new MarketLevel();
-        levels = new ArrayList<MarketLevel>();
-        levels.add(level_1);
-        levels.add(level_2);
-        levels.add(level_3);
-        ValueRange range = new ValueRange(0,2);
-        IDistribution goodLevelDistribution = new StubLevelDistribution(range);
-        GoodsGenerator generator= new GoodsGenerator(goodLevelDistribution, NUMBER_OF_GOODS, MINIMUM_GOODS_PER_LEVEL);
-        generator.populate(levels);
-    }
+    public static final int NUMBER_OF_GOODS =10;
 
     @Test
     public void numberOfGeneratedGoods(){
-        assertEquals("total number should be equal to requested", NUMBER_OF_GOODS, level_1.getAllGoods().size() + level_2.getAllGoods().size() + level_3.getAllGoods().size());
-        assertTrue("Minimum requirement should be fulfilled", level_1.getAllGoods().size() >= MINIMUM_GOODS_PER_LEVEL);
-        assertTrue("Minimum requirement should be fulfilled", level_2.getAllGoods().size() >= MINIMUM_GOODS_PER_LEVEL);
-        assertTrue("Minimum requirement should be fulfilled", level_3.getAllGoods().size() >= MINIMUM_GOODS_PER_LEVEL);
+        Market market = newMarket();
+        GoodsGenerator generator= new GoodsGenerator(goodLevelDistribution(), NUMBER_OF_GOODS, MINIMUM_GOODS_PER_LEVEL);
+        generator.populate(market);
+        assertEquals("total # of goods should be as requested", NUMBER_OF_GOODS, market.getAllGoods().size());
+        for (MarketLevel level: market.getAllLevels()) {
+            assertTrue("minimum requirement should be fulfilled", level.getAllGoods().size() >= MINIMUM_GOODS_PER_LEVEL);
+        }
+        assertEquals("all goods should be unique", NUMBER_OF_GOODS, new HashSet<Good>(market.getAllGoods()).size());
     }
-    
-    @Test
-    public void goodsAreUnique(){
-        HashSet<Good> goods = new HashSet<Good>();
-        goods.addAll(level_1.getAllGoods());
-        goods.addAll(level_2.getAllGoods());
-        goods.addAll(level_3.getAllGoods());
-        assertEquals("number of unique goods should be equal to requested number of goods", NUMBER_OF_GOODS,goods.size());
-    }
-    
-    
 
+    @Test
+    public void goodsAreAssignedToLevelsAsPerDistribution(){
+        IDistribution levelDistribution = mock(IDistribution.class);
+        when(levelDistribution.flipCoin()).thenReturn(0,0,2,2);
+        Market market = newMarket();
+        GoodsGenerator generator = new GoodsGenerator(levelDistribution,2,0);
+        generator.populate(market);
+        assertEquals("goods level should be set by distribution", 2, market.getLevel(0).getAllGoods().size());
+        generator.populate(market);
+        assertEquals("goods level should be set by distribution", 2, market.getLevel(2).getAllGoods().size());
+    }
+
+    private IDistribution goodLevelDistribution() {
+        IDistribution goodLevelDistribution = mock(IDistribution.class);
+        when(goodLevelDistribution.flipCoin()).thenReturn(0);
+        return goodLevelDistribution;
+    }
+
+    private Market newMarket() {
+        Market market = new Market();
+        market.add(new MarketLevel());
+        market.add(new MarketLevel());
+        market.add(new MarketLevel());
+        return market;
+    }
 }

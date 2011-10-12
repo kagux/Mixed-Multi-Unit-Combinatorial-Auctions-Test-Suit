@@ -25,6 +25,15 @@ public class MarketLevelTest {
     }
 
     @Test
+    public void duplicatedGoods(){
+        MarketLevel level = new MarketLevel();
+        level.addGood(new Good("good"));
+        assertEquals("adding good to empty level", 1, level.getAllGoods().size());
+        level.addGood(new Good("good"));
+        assertEquals("duplicated good should not be added", 1, level.getAllGoods().size());
+    }
+
+    @Test
     public void Transformations(){
        MarketLevel level = new MarketLevel();
        Transformation transformation1a=new Transformation();
