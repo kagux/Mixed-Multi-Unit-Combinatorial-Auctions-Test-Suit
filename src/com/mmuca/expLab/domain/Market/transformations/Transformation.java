@@ -1,9 +1,7 @@
 package com.mmuca.expLab.domain.Market.transformations;
 
-import com.mmuca.expLab.domain.Market.goods.bundles.GoodBundle;
 import com.mmuca.expLab.domain.Market.collections.GoodBundlesSet;
-
-import java.util.Iterator;
+import com.mmuca.expLab.domain.Market.goods.bundles.GoodBundle;
 
 public class Transformation implements Cloneable{
     GoodBundlesSet input;
@@ -19,10 +17,8 @@ public class Transformation implements Cloneable{
     }
 
     public void addAllInput(GoodBundlesSet bundles) {
-        for (Iterator<GoodBundle> iterator=bundles.iterator();iterator.hasNext();)
-            addInput(iterator.next());
+        for (GoodBundle bundle : bundles) addInput(bundle);
     }
-
 
     public GoodBundlesSet getInput() {
         return input;
@@ -33,8 +29,7 @@ public class Transformation implements Cloneable{
     }
 
     public void addAllOutput(GoodBundlesSet bundles) {
-        for (Iterator<GoodBundle> iterator=bundles.iterator();iterator.hasNext();)
-            addOutput(iterator.next());
+        for (GoodBundle bundle : bundles) addOutput(bundle);
     }
 
     public GoodBundlesSet getOutput() {
@@ -49,4 +44,5 @@ public class Transformation implements Cloneable{
            throw new InternalError();
        }
     }
+
 }

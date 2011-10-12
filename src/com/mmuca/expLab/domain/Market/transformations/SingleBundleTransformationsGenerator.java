@@ -1,20 +1,20 @@
 package com.mmuca.expLab.domain.Market.transformations;
 
+import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.MarketLevel;
 import com.mmuca.expLab.domain.Market.goods.Good;
 
 import java.util.ArrayList;
 
 abstract public class SingleBundleTransformationsGenerator {
-    abstract protected ArrayList<Good> getGoodsList(ArrayList<MarketLevel> levels, int currentKey) ;
-    abstract protected void populateTransformation(Good good, Transformation transformation) ;
+    abstract protected ArrayList<Good> getGoodsList(Market market, int currentKey) ;
+    abstract protected void addBundle(Good good, Transformation transformation) ;
     abstract protected int fromLevelOffset();
-    abstract protected int toLevelOffset();
 
 
-    public void populate(ArrayList<MarketLevel> levels) {
-       for (int i=0+fromLevelOffset(); i<levels.size()-toLevelOffset(); i++){
-           populateLevel(levels.get(i), getGoodsList(levels,i));
+    public void populate(Market market) {
+        for (int i=market.getAllLevels().size()-1; i>= fromLevelOffset();  i--){
+           populateLevel(market.getLevel(i), getGoodsList(market,i));
        }
     }
 
@@ -26,7 +26,7 @@ abstract public class SingleBundleTransformationsGenerator {
 
     public  Transformation createTransformation(Good good){
         Transformation transformation = new Transformation();
-        populateTransformation(good, transformation);
+        addBundle(good, transformation);
         return  transformation;
     }
 

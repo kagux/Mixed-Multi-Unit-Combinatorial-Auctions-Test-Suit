@@ -5,9 +5,7 @@ import com.mmuca.expLab.domain.Market.goods.Good;
 import com.mmuca.expLab.domain.Market.goods.bundles.GoodBundle;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 public class GoodBundlesSetTest {
 
@@ -59,8 +57,7 @@ public class GoodBundlesSetTest {
         bundles_3.add(new GoodBundle(new Good("other good"),1));
         assertTrue("should contain all", bundles_2.containsAll(bundles_1));
         assertFalse("should not contain", bundles_2.containsAll(bundles_3));
-
-
     }
+
 
 }

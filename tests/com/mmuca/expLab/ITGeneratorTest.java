@@ -1,5 +1,6 @@
 package com.mmuca.expLab;
 
+import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.MarketLevel;
 import com.mmuca.expLab.domain.Market.goods.Good;
 import com.mmuca.expLab.domain.Market.goods.bundles.GoodBundle;
@@ -8,7 +9,6 @@ import com.mmuca.expLab.domain.Market.transformations.Transformation;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import static junit.framework.Assert.assertEquals;
@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertTrue;
 
 public class ITGeneratorTest {
 
-    private ArrayList<MarketLevel> levels;
+    private Market market;
 
     @Before
     public void setUp(){
@@ -25,11 +25,11 @@ public class ITGeneratorTest {
         MarketLevel level_3 = new MarketLevel();
         MarketLevel level_4 = new MarketLevel();
 
-        levels= new ArrayList<MarketLevel>();
-        levels.add(level_1);
-        levels.add(level_2);
-        levels.add(level_3);
-        levels.add(level_4);
+        market = new Market();
+        market.add(level_1);
+        market.add(level_2);
+        market.add(level_3);
+        market.add(level_4);
 
         Good good_1 = new Good("good 1");
         Good good_2 = new Good("good 2");
@@ -48,33 +48,29 @@ public class ITGeneratorTest {
         level_3.addGood(good_6);
 
         ITGenerator generator = new ITGenerator();
-        generator.populate(levels);
+        generator.populate(market);
     }
 
     @Test
     public void numberOfTransformations(){
-        for (MarketLevel level: levels){
-            assertEquals("number of transformations should equal to number of goods", level.getAllGoods().size(),level.getAllTransformations().size());
-        }
+        assertEquals("number of transformations should equal to number of goods", market.getAllGoods().size(),market.getAllTransformations().size());
     }
     
     @Test
     public void GoodBundles(){
         HashSet<GoodBundle> bundles = new HashSet<GoodBundle>();
-        for (MarketLevel level : levels){
-            for(Transformation transformation: level.getAllTransformations()){
-                assertEquals("only one input bundle",1,transformation.getInput().size());
-                assertEquals("No output bundles",0,transformation.getOutput().size());
-                assertTrue("bundle should be unique", bundles.add(transformation.getInput().iterator().next()));
-            }
+        for(Transformation transformation: market.getAllTransformations()){
+            assertEquals("only one input bundle",1,transformation.getInput().size());
+            assertEquals("No output bundles",0,transformation.getOutput().size());
+            assertTrue("bundle should be unique", bundles.add(transformation.getInput().iterator().next()));
         }
     }
 
     @Test
     public void transformationsUseGoodsFromSameLevel(){
-        for (MarketLevel level : levels){
+        for (MarketLevel level : market.getAllLevels()){
             for(Transformation transformation: level.getAllTransformations()){
-                assertTrue("goods are from same level", level.getAllGoods().contains(transformation.getInput().iterator().next().getGood()));
+                assertTrue("goods are from same level", level.getAllGoods().containsAll(transformation.getInput().getAllGoods()));
             }
         }
     }

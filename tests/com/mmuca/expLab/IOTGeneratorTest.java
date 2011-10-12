@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.mockito.internal.matchers.InstanceOf;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import static junit.framework.Assert.*;
 import static org.mockito.Matchers.anyInt;
@@ -40,9 +39,8 @@ public class IOTGeneratorTest {
         Market market = newPopulatedMarket(defaultGenerator(), NUMBER_OF_IO_TRANSFORMATIONS);
         ArrayList<Good> goods=market.getAllGoods();
         for(Transformation transformation: market.getAllTransformations()){
-            for (Iterator<GoodBundle> iterator=transformation.getInput().iterator();iterator.hasNext();) {
-               assertTrue("goods should be from market only",goods.contains(iterator.next().getGood()));
-            }
+            assertTrue("goods should be from market only", goods.containsAll(transformation.getInput().getAllGoods()));
+            assertTrue("goods should be from market only", goods.containsAll(transformation.getOutput().getAllGoods()));
         }
     }
 

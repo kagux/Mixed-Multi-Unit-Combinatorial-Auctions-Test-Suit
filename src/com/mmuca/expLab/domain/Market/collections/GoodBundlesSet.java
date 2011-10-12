@@ -52,4 +52,5 @@ public class GoodBundlesSet extends ForwardingHashSet<GoodBundle>{
         if (goodsMap.containsKey(good))
             goodsMap.remove(good);
     }
+
 }
