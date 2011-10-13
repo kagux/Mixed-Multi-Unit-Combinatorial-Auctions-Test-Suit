@@ -6,7 +6,7 @@ import com.mmuca.expLab.domain.Market.collections.GoodBundlesSet;
 import com.mmuca.expLab.domain.Market.goods.Good;
 import com.mmuca.expLab.domain.Market.goods.bundles.BundlesGenerator;
 import com.mmuca.expLab.domain.distributions.IDistribution;
-import com.mmuca.expLab.domain.distributions.ISeededDistribution;
+import com.mmuca.expLab.domain.distributions.ITargetedDistribution;
 import org.junit.Test;
 import org.mockito.InOrder;
 
@@ -16,28 +16,28 @@ import static org.mockito.Mockito.*;
 
 public class BundlesGeneratorTest {
 
-    public static final int targetLevelSerialNum = 1;
+    public static final int targetLevelIndex = 1;
 
     @Test
     public  void generatedBundles(){
         IDistribution numberOfBundlesDistribution = mock (IDistribution.class);
         when(numberOfBundlesDistribution.flipCoin()).thenReturn(1, 3);
 
-        ISeededDistribution goodsLevelDistribution = mock(ISeededDistribution.class);
-        when(goodsLevelDistribution.flipCoin()).thenReturn(targetLevelSerialNum);
+        ITargetedDistribution goodsLevelDistribution = mock(ITargetedDistribution.class);
+        when(goodsLevelDistribution.flipCoin()).thenReturn(targetLevelIndex);
 
         BundlesGenerator generator = new BundlesGenerator(goodsLevelDistribution,numberOfBundlesDistribution);
         Market market = newMarket();
-        GoodBundlesSet bundles = generator.generate(market, targetLevelSerialNum);
+        GoodBundlesSet bundles = generator.generate(market, targetLevelIndex);
 
         InOrder inOrder  = inOrder(goodsLevelDistribution);
-        inOrder.verify(goodsLevelDistribution).setSeed(targetLevelSerialNum);
+        inOrder.verify(goodsLevelDistribution).setTarget(targetLevelIndex);
         inOrder.verify(goodsLevelDistribution).flipCoin();
         verify(numberOfBundlesDistribution).flipCoin();
 
         assertEquals("# of bundles should be set by distribution", 1, bundles.size());
-        assertTrue("goods should be picked only from level set by distribution", market.getLevel(targetLevelSerialNum).getAllGoods().containsAll(bundles.getAllGoods()));
-        assertEquals("# of bundles is capped by # of goods at selected level", 2, generator.generate(newMarket(), targetLevelSerialNum).size());
+        assertTrue("goods should be picked only from level set by distribution", market.getLevel(targetLevelIndex).getAllGoods().containsAll(bundles.getAllGoods()));
+        assertEquals("# of bundles is capped by # of goods at selected level", 2, generator.generate(newMarket(), targetLevelIndex).size());
     }
 
     private Market newMarket() {

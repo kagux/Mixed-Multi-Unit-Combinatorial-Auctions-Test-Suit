@@ -3,23 +3,23 @@ package com.mmuca.expLab.domain.Market.goods.bundles;
 import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.collections.GoodBundlesSet;
 import com.mmuca.expLab.domain.distributions.IDistribution;
-import com.mmuca.expLab.domain.distributions.ISeededDistribution;
+import com.mmuca.expLab.domain.distributions.ITargetedDistribution;
 import com.mmuca.expLab.domain.Market.goods.Good;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class BundlesGenerator {
-    private ISeededDistribution goodsLevelDistribution;
+    private ITargetedDistribution goodsLevelDistribution;
     private IDistribution numberOfBundlesDistribution;
 
-    public BundlesGenerator(ISeededDistribution goodsLevelDistribution, IDistribution numberOfBundlesDistribution) {
+    public BundlesGenerator(ITargetedDistribution goodsLevelDistribution, IDistribution numberOfBundlesDistribution) {
         this.goodsLevelDistribution = goodsLevelDistribution;
         this.numberOfBundlesDistribution = numberOfBundlesDistribution;
     }
 
-    public GoodBundlesSet generate(Market market, int targetLevelSerialNum) {
-        goodsLevelDistribution.setSeed(targetLevelSerialNum);
+    public GoodBundlesSet generate(Market market, int targetLevelIndex) {
+        goodsLevelDistribution.setTarget(targetLevelIndex);
         ArrayList<Good> goods = getShuffledGoodsPool(market);
         GoodBundlesSet bundles = new GoodBundlesSet();
         for (int i = numberOfBundles(goods); i> 0; i--){
