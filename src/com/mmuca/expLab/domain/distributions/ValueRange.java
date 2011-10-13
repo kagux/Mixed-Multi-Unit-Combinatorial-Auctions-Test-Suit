@@ -1,19 +1,28 @@
 package com.mmuca.expLab.domain.distributions;
 
 public class ValueRange {
-    private int first;
-    private int last;
+    private int start;
+    private int end;
 
-    public ValueRange(int first, int last){
-        this.first = first;
-        this.last = last;
+    public ValueRange(int start, int end){
+        this.start = start;
+        this.end = end;
     }
 
-    public int getFirst() {
-        return first;
+    public int getStart() {
+        return start;
     }
 
-    public int getLast() {
-        return last;
+    public int getEnd() {
+        return end;
+    }
+
+    public int size() {
+        return end - start +1;
+    }
+
+    public int indexOf(int value) {
+        //TODO fast fail
+        return value - start;
     }
 }
