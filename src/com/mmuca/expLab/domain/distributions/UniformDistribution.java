@@ -13,6 +13,6 @@ public class UniformDistribution implements IDistribution {
 
     @Override
     public int flipCoin() {
-        return randomGenerator.nextInt(range.getEnd() - range.getStart()) + range.getStart();
+        return randomGenerator.nextInt(range.getEnd() - range.getStart()+1) + range.getStart();
     }
 }

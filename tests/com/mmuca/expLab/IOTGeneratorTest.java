@@ -16,8 +16,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.argThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class IOTGeneratorTest {
 
@@ -65,7 +64,7 @@ public class IOTGeneratorTest {
         outputBundles.add(bundleB);
         when(inputGenerator.generate(anyMarket(), anyInt())).thenReturn(inputBundles);
         when(outputGenerator.generate(anyMarket(), anyInt())).thenReturn(outputBundles);
-        IOTGenerator generator = new IOTGenerator(IOTLevelDistribution(),inputGenerator,outputGenerator);
+        IOTGenerator generator = new IOTGenerator(IOTLevelDistribution(1),inputGenerator,outputGenerator);
         Market market = newMarket();
         generator.populate(market, NUMBER_OF_IO_TRANSFORMATIONS);
         for (Transformation transformation: market.getAllTransformations()){
@@ -76,17 +75,36 @@ public class IOTGeneratorTest {
         }
     }
 
+    @Test
+    public void forInputBundles_BundlesGeneratorIsTargetingSameLevel(){
+        int targetLevelIndex = 2;
+        BundlesGenerator inputGenerator = bundlesGenerator();
+        IOTGenerator generator = new IOTGenerator(IOTLevelDistribution(targetLevelIndex),inputGenerator,bundlesGenerator());
+        generator.populate(newMarket(), NUMBER_OF_IO_TRANSFORMATIONS);
+        verify(inputGenerator, atLeastOnce()).generate(anyMarket(), eq(targetLevelIndex));
+    }
+
+    @Test
+    public void forOutputBundles_BundlesGeneratorIsTargetingPreviousLevel(){
+        int targetLevelIndex = 2;
+        BundlesGenerator outputGenerator = bundlesGenerator();
+        IOTGenerator generator = new IOTGenerator(IOTLevelDistribution(targetLevelIndex),bundlesGenerator(),outputGenerator);
+        generator.populate(newMarket(),NUMBER_OF_IO_TRANSFORMATIONS);
+        verify(outputGenerator, atLeastOnce()).generate(anyMarket(), eq(targetLevelIndex-1));
+    }
+
+
     private Market anyMarket() {
         return (Market)argThat(new InstanceOf(Market.class));
     }
 
     private IOTGenerator defaultGenerator(){
-        return new IOTGenerator(IOTLevelDistribution(), bundlesGenerator(), bundlesGenerator());
+        return new IOTGenerator(IOTLevelDistribution(1), bundlesGenerator(), bundlesGenerator());
     }
 
-    private IDistribution IOTLevelDistribution() {
+    private IDistribution IOTLevelDistribution(int targetLevel) {
         IDistribution levelDistribution = mock(IDistribution.class);
-        when(levelDistribution.flipCoin()).thenReturn(1);
+        when(levelDistribution.flipCoin()).thenReturn(targetLevel);
         return levelDistribution;
     }
 

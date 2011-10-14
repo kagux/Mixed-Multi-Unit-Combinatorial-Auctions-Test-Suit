@@ -5,21 +5,22 @@ import java.util.Random;
 abstract public class MarkovDistribution implements ITargetedDistribution {
     protected Parameters parameters;
     protected ValueRange range;
-    protected int currentValue;
+    protected int initialValue;
     protected Random randomGenerator;
 
     public MarkovDistribution(ValueRange range, Parameters parameters) {
         this.range = range;
         this.randomGenerator = new Random();
         this.parameters = parameters;
-        this.currentValue =range.getStart();
+        this.initialValue =range.getStart();
     }
 
     public void setTarget(int initialValue) {
-       this.currentValue =initialValue;
+       this.initialValue =initialValue;
     }
 
     public int flipCoin() {
+        int currentValue = this.initialValue;
         while (changeValue()){
             currentValue= nextValueTo(currentValue);
         }
@@ -27,7 +28,8 @@ abstract public class MarkovDistribution implements ITargetedDistribution {
     }
 
     private boolean changeValue() {
-        return randomGenerator.nextDouble() < parameters.probabilityOfChangingValue;
+        boolean changeValue = randomGenerator.nextDouble() < parameters.probabilityOfChangingValue;
+        return changeValue;
     }
 
     protected int nextValueTo(int value) {

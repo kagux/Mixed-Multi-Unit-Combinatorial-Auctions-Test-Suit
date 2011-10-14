@@ -17,7 +17,7 @@ public class CenteredDistribution implements IDistribution{
     }
 
     public int flipCoin(){
-        double rnd = randomGenerator.nextDouble();
+        double rnd = randomGenerator.nextDouble()*cumulativeFunction.getMax();
         for (int i = range.getStart(); i<= range.getEnd();i++){
             if (cumulativeFunction.getProbabilityFor(i) > rnd)
                 return i;
@@ -46,7 +46,7 @@ public class CenteredDistribution implements IDistribution{
     }
 
     private class CumulativeFunction{
-
+        private double max=0;
         private DensityFunction densityFunction;
         private ArrayList<Double> cumulativeFunction;
 
@@ -68,6 +68,17 @@ public class CenteredDistribution implements IDistribution{
             return cumulativeFunction;
         }
 
+        public double getMax() {
+            if (max == 0) max=assessMax();
+            return max;
+        }
+
+        private double assessMax(){
+            double max= 0;
+            for(double value: cumulativeFunction)
+                max = Math.max(value,max);
+            return max;
+        }
     }
 
     private class DensityFunction{
@@ -88,9 +99,9 @@ public class CenteredDistribution implements IDistribution{
         private ArrayList<Double> prepareDensityFunction(){
             ArrayList<Double> densityFunction = new ArrayList<Double>();
             for (int i =0; i< range.size(); i++){
-                densityFunction.add(i, probabilityFunction()*centerBasedCoefficient(i));
+                densityFunction.add(i, probabilityFunction() * centerBasedCoefficient(i));
             }
-            return  densityFunction;
+            return densityFunction;
 
         }
         private double probabilityFunction() {
@@ -99,7 +110,7 @@ public class CenteredDistribution implements IDistribution{
         }
 
         private double centerBasedCoefficient(int valueIndex) {
-            return Math.pow(parameters.alpha, distanceFromCenter(valueIndex));
+            return Math.pow(parameters.alpha, distanceFromCenter(valueIndex)+1);
         }
 
         private double probabilityDivisor() {

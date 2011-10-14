@@ -19,6 +19,7 @@ public class BundlesGenerator {
     }
 
     public GoodBundlesSet generate(Market market, int targetLevelIndex) {
+        //todo fastfail if level is out of range
         goodsLevelDistribution.setTarget(targetLevelIndex);
         ArrayList<Good> goods = getShuffledGoodsPool(market);
         GoodBundlesSet bundles = new GoodBundlesSet();
