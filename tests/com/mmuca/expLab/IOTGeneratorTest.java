@@ -53,26 +53,15 @@ public class IOTGeneratorTest {
     }
 
     @Test
-    public void bundlesAreFormedByBundlesGenerator(){
-        BundlesGenerator inputGenerator = mock(BundlesGenerator.class);
-        BundlesGenerator outputGenerator = mock(BundlesGenerator.class);
-        GoodBundle bundleA = new GoodBundle(new Good("good A"),1);
-        GoodBundle bundleB = new GoodBundle(new Good("good B"),1);
-        GoodBundlesSet inputBundles = new GoodBundlesSet();
-        inputBundles.add(bundleA);
-        GoodBundlesSet outputBundles = new GoodBundlesSet();
-        outputBundles.add(bundleB);
-        when(inputGenerator.generate(anyMarket(), anyInt())).thenReturn(inputBundles);
-        when(outputGenerator.generate(anyMarket(), anyInt())).thenReturn(outputBundles);
-        IOTGenerator generator = new IOTGenerator(IOTLevelDistribution(1),inputGenerator,outputGenerator);
+    public void bundlesGeneratorIsUsed(){
+        int targetLevelIndex = 1;
+        BundlesGenerator inputGenerator = bundlesGenerator();
+        BundlesGenerator outputGenerator = bundlesGenerator();
+        IOTGenerator generator = new IOTGenerator(IOTLevelDistribution(targetLevelIndex),inputGenerator,outputGenerator);
         Market market = newMarket();
-        generator.populate(market, NUMBER_OF_IO_TRANSFORMATIONS);
-        for (Transformation transformation: market.getAllTransformations()){
-            assertEquals("number of input bundles should match", inputBundles.size(), transformation.getInput().size());
-            assertEquals("input bundle should be from generator", bundleA, transformation.getInput().iterator().next());
-            assertEquals("number of output bundles should match", inputBundles.size(), transformation.getOutput().size());
-            assertEquals("output bundle should be from generator", bundleB, transformation.getOutput().iterator().next());
-        }
+        generator.populate(market,NUMBER_OF_IO_TRANSFORMATIONS);
+        verify(inputGenerator,times(NUMBER_OF_IO_TRANSFORMATIONS)).generate(eq(market), anyInt());
+        verify(outputGenerator,times(NUMBER_OF_IO_TRANSFORMATIONS)).generate(eq(market), anyInt());
     }
 
     @Test
@@ -103,18 +92,14 @@ public class IOTGeneratorTest {
     }
 
     private IDistribution IOTLevelDistribution(int targetLevel) {
-        IDistribution levelDistribution = mock(IDistribution.class);
-        when(levelDistribution.nextInt()).thenReturn(targetLevel);
-        return levelDistribution;
+        return when( mock(IDistribution.class).nextInt()).thenReturn(targetLevel).getMock();
     }
 
     private BundlesGenerator bundlesGenerator() {
-        BundlesGenerator generator = mock(BundlesGenerator.class);
         GoodBundlesSet bundles = new GoodBundlesSet();
         bundles.add(new GoodBundle(new Good("good 1"),1));
         bundles.add(new GoodBundle(new Good("good 2"),1));
-        when(generator.generate(anyMarket(), anyInt())).thenReturn(bundles);
-        return generator;
+        return when(mock(BundlesGenerator.class).generate(anyMarket(), anyInt())).thenReturn(bundles).getMock();
     }
 
     private Market newPopulatedMarket(IOTGenerator generator, int numberOfTransformations) {

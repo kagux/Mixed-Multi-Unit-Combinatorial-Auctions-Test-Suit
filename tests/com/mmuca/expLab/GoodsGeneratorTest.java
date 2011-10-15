@@ -33,8 +33,7 @@ public class GoodsGeneratorTest {
 
     @Test
     public void goodsAreAssignedToLevelsAsPerDistribution(){
-        IDistribution levelDistribution = mock(IDistribution.class);
-        when(levelDistribution.nextInt()).thenReturn(0,0,2,2);
+        IDistribution levelDistribution = when(mock(IDistribution.class).nextInt()).thenReturn(0,0,2,2).getMock();
         Market market = newMarket();
         GoodsGenerator generator = new GoodsGenerator(levelDistribution);
         generator.populate(market,2,0);
@@ -44,9 +43,7 @@ public class GoodsGeneratorTest {
     }
 
     private IDistribution goodLevelDistribution() {
-        IDistribution goodLevelDistribution = mock(IDistribution.class);
-        when(goodLevelDistribution.nextInt()).thenReturn(0);
-        return goodLevelDistribution;
+        return when(mock(IDistribution.class).nextInt()).thenReturn(0).getMock();
     }
 
     private Market newMarket() {

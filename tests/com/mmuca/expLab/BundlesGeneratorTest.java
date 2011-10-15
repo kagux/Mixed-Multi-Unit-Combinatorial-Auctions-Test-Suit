@@ -20,11 +20,8 @@ public class BundlesGeneratorTest {
 
     @Test
     public  void generatedBundles(){
-        IDistribution numberOfBundlesDistribution = mock (IDistribution.class);
-        when(numberOfBundlesDistribution.nextInt()).thenReturn(1, 3);
-
-        ITargetedDistribution goodsLevelDistribution = mock(ITargetedDistribution.class);
-        when(goodsLevelDistribution.nextInt()).thenReturn(targetLevelIndex);
+        IDistribution numberOfBundlesDistribution = when(mock(IDistribution.class).nextInt()).thenReturn(1, 3).getMock();
+        ITargetedDistribution goodsLevelDistribution = when(mock(ITargetedDistribution.class).nextInt()).thenReturn(targetLevelIndex).getMock();
 
         BundlesGenerator generator = new BundlesGenerator(goodsLevelDistribution,numberOfBundlesDistribution);
         Market market = newMarket();
