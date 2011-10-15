@@ -2,8 +2,8 @@ package com.mmuca.expLab.domain.distributions;
 
 public class ForwardMarkovDistribution extends MarkovDistribution{
 
-    public ForwardMarkovDistribution(ValueRange range, Parameters parameters) {
-        super(range, parameters);
+    public ForwardMarkovDistribution(Parameters parameters) {
+        super(parameters);
     }
 
     protected int directStep(int value) {

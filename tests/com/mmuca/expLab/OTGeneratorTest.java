@@ -26,10 +26,10 @@ public class OTGeneratorTest {
         MarketLevel level_4 = new MarketLevel();
 
         market = new Market();
-        market.add(level_1);
-        market.add(level_2);
-        market.add(level_3);
-        market.add(level_4);
+        market.addLevel(level_1);
+        market.addLevel(level_2);
+        market.addLevel(level_3);
+        market.addLevel(level_4);
 
         Good good_1 = new Good("good 1");
         Good good_2 = new Good("good 2");

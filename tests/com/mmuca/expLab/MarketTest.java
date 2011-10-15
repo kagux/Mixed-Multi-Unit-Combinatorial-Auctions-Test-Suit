@@ -56,10 +56,10 @@ public class MarketTest {
         levels.get(2).addTransformation(transformations.get(3));
 
         market = new Market();
-        market.add(levels.get(0));
-        market.add(levels.get(1));
-        market.add(levels.get(2));
-        market.add(levels.get(3));
+        market.addLevel(levels.get(0));
+        market.addLevel(levels.get(1));
+        market.addLevel(levels.get(2));
+        market.addLevel(levels.get(3));
     }
     
     @Test

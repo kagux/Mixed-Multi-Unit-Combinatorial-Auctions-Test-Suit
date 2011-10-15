@@ -19,14 +19,14 @@ public class BackwardMarkovDistributionTest {
       int testRuns = 20;
       distribution.setTarget(1);
       for (int i=0; i<testRuns;i++){
-          int distributedValue = distribution.flipCoin();
+          int distributedValue = distribution.nextInt();
           assertTrue("values should be in specified range", distributedValue >= 0 && distributedValue <= 3);
       }
 
       distribution = backwardMarkovDistribution(4, 6);
       distribution.setTarget(6);
       for (int i=0; i<testRuns;i++){
-          int distributedValue = distribution.flipCoin();
+          int distributedValue = distribution.nextInt();
           assertTrue("values should be in specified range", distributedValue >= 4 && distributedValue <= 6);
       }
 
@@ -40,15 +40,14 @@ public class BackwardMarkovDistributionTest {
         HashMap<Integer, Integer> histogram = new HashMap<Integer, Integer>();
         int testRuns = 1000;
         for (int i=0; i<testRuns;i++){
-           int value =distribution.flipCoin();
+           int value =distribution.nextInt();
            histogram.put(value,histogram.get(value) == null ?1:histogram.get(value)+1);
         }
         histogram.size();
     }
 
   private ITargetedDistribution backwardMarkovDistribution(int start, int end) {
-      ValueRange range = new ValueRange(start, end);
-      MarkovDistribution.Parameters parameters = new MarkovDistribution.Parameters(0.2, 0.1);
-      return new BackwardMarkovDistribution(range, parameters);
+      MarkovDistribution.Parameters parameters = new MarkovDistribution.Parameters(new ValueRange(start, end), 0.2, 0.1);
+      return new BackwardMarkovDistribution(parameters);
   }
 }

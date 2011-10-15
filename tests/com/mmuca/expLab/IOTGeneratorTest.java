@@ -40,7 +40,7 @@ public class IOTGeneratorTest {
     @Test
     public void transformationLevelIsSubjectToDistribution(){
         IDistribution levelDistribution = mock(IDistribution.class);
-        when(levelDistribution.flipCoin()).thenReturn(1,1,2,2);
+        when(levelDistribution.nextInt()).thenReturn(1,1,2,2);
         IOTGenerator generator = new IOTGenerator(levelDistribution,bundlesGenerator(),bundlesGenerator());
         //first run
         assertEquals("transformations should have levels according to distribution", 2, newPopulatedMarket(generator,2).getLevel(1).getAllTransformations().size());
@@ -104,7 +104,7 @@ public class IOTGeneratorTest {
 
     private IDistribution IOTLevelDistribution(int targetLevel) {
         IDistribution levelDistribution = mock(IDistribution.class);
-        when(levelDistribution.flipCoin()).thenReturn(targetLevel);
+        when(levelDistribution.nextInt()).thenReturn(targetLevel);
         return levelDistribution;
     }
 
@@ -150,10 +150,10 @@ public class IOTGeneratorTest {
         level_4.addGood(good_7);
 
         Market market= new Market();
-        market.add(level_1);
-        market.add(level_2);
-        market.add(level_3);
-        market.add(level_4);
+        market.addLevel(level_1);
+        market.addLevel(level_2);
+        market.addLevel(level_3);
+        market.addLevel(level_4);
         return market;
     }
 

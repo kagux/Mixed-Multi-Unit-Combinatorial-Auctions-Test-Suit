@@ -22,8 +22,8 @@ public class GoodsGeneratorTest {
     @Test
     public void numberOfGeneratedGoods(){
         Market market = newMarket();
-        GoodsGenerator generator= new GoodsGenerator(goodLevelDistribution(), NUMBER_OF_GOODS, MINIMUM_GOODS_PER_LEVEL);
-        generator.populate(market);
+        GoodsGenerator generator= new GoodsGenerator(goodLevelDistribution());
+        generator.populate(market, NUMBER_OF_GOODS, MINIMUM_GOODS_PER_LEVEL);
         assertEquals("total # of goods should be as requested", NUMBER_OF_GOODS, market.getAllGoods().size());
         for (MarketLevel level: market.getAllLevels()) {
             assertTrue("minimum requirement should be fulfilled", level.getAllGoods().size() >= MINIMUM_GOODS_PER_LEVEL);
@@ -34,26 +34,26 @@ public class GoodsGeneratorTest {
     @Test
     public void goodsAreAssignedToLevelsAsPerDistribution(){
         IDistribution levelDistribution = mock(IDistribution.class);
-        when(levelDistribution.flipCoin()).thenReturn(0,0,2,2);
+        when(levelDistribution.nextInt()).thenReturn(0,0,2,2);
         Market market = newMarket();
-        GoodsGenerator generator = new GoodsGenerator(levelDistribution,2,0);
-        generator.populate(market);
+        GoodsGenerator generator = new GoodsGenerator(levelDistribution);
+        generator.populate(market,2,0);
         assertEquals("goods level should be set by distribution", 2, market.getLevel(0).getAllGoods().size());
-        generator.populate(market);
+        generator.populate(market,2,0);
         assertEquals("goods level should be set by distribution", 2, market.getLevel(2).getAllGoods().size());
     }
 
     private IDistribution goodLevelDistribution() {
         IDistribution goodLevelDistribution = mock(IDistribution.class);
-        when(goodLevelDistribution.flipCoin()).thenReturn(0);
+        when(goodLevelDistribution.nextInt()).thenReturn(0);
         return goodLevelDistribution;
     }
 
     private Market newMarket() {
         Market market = new Market();
-        market.add(new MarketLevel());
-        market.add(new MarketLevel());
-        market.add(new MarketLevel());
+        market.addLevel(new MarketLevel());
+        market.addLevel(new MarketLevel());
+        market.addLevel(new MarketLevel());
         return market;
     }
 }

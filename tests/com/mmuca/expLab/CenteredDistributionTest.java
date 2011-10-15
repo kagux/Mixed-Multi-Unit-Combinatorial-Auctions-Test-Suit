@@ -17,13 +17,13 @@ public class CenteredDistributionTest {
       IDistribution distribution = centeredDistribution(0, 3, 2);
       int testRuns = 20;
       for (int i=0; i<testRuns;i++){
-          int distributedValue = distribution.flipCoin();
+          int distributedValue = distribution.nextInt();
           assertTrue("values should be in specified range", distributedValue >= 0 && distributedValue <= 3);
       }
 
       distribution = centeredDistribution(4, 6, 5);
       for (int i=0; i<testRuns;i++){
-          int distributedValue = distribution.flipCoin();
+          int distributedValue = distribution.nextInt();
           assertTrue("values should be in specified range", distributedValue >= 4 && distributedValue <= 6);
       }
 
@@ -36,15 +36,14 @@ public class CenteredDistributionTest {
         HashMap<Integer, Integer> histogram = new HashMap<Integer, Integer>();
         int testRuns = 1000;
         for (int i=0; i<testRuns;i++){
-           int value =distribution.flipCoin();
+           int value =distribution.nextInt();
            histogram.put(value,histogram.get(value) == null ?1:histogram.get(value)+1);
         }
         histogram.size();
     }
 
   private IDistribution centeredDistribution(int start, int end, int center) {
-      ValueRange range = new ValueRange(start, end);
-      CenteredDistribution.Parameters parameters = new CenteredDistribution.Parameters(center, 0.8);
-      return new CenteredDistribution(range, parameters);
+      CenteredDistribution.Parameters parameters = new CenteredDistribution.Parameters(new ValueRange(start, end), center, 0.8);
+      return new CenteredDistribution(parameters);
   }
 }

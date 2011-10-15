@@ -21,10 +21,10 @@ public class BundlesGeneratorTest {
     @Test
     public  void generatedBundles(){
         IDistribution numberOfBundlesDistribution = mock (IDistribution.class);
-        when(numberOfBundlesDistribution.flipCoin()).thenReturn(1, 3);
+        when(numberOfBundlesDistribution.nextInt()).thenReturn(1, 3);
 
         ITargetedDistribution goodsLevelDistribution = mock(ITargetedDistribution.class);
-        when(goodsLevelDistribution.flipCoin()).thenReturn(targetLevelIndex);
+        when(goodsLevelDistribution.nextInt()).thenReturn(targetLevelIndex);
 
         BundlesGenerator generator = new BundlesGenerator(goodsLevelDistribution,numberOfBundlesDistribution);
         Market market = newMarket();
@@ -32,8 +32,8 @@ public class BundlesGeneratorTest {
 
         InOrder inOrder  = inOrder(goodsLevelDistribution);
         inOrder.verify(goodsLevelDistribution).setTarget(targetLevelIndex);
-        inOrder.verify(goodsLevelDistribution).flipCoin();
-        verify(numberOfBundlesDistribution).flipCoin();
+        inOrder.verify(goodsLevelDistribution).nextInt();
+        verify(numberOfBundlesDistribution).nextInt();
 
         assertEquals("# of bundles should be set by distribution", 1, bundles.size());
         assertTrue("goods should be picked only from level set by distribution", market.getLevel(targetLevelIndex).getAllGoods().containsAll(bundles.getAllGoods()));
@@ -66,10 +66,10 @@ public class BundlesGeneratorTest {
         level_4.addGood(good_7);
 
         Market market= new Market();
-        market.add(level_1);
-        market.add(level_2);
-        market.add(level_3);
-        market.add(level_4);
+        market.addLevel(level_1);
+        market.addLevel(level_2);
+        market.addLevel(level_3);
+        market.addLevel(level_4);
         return market;
     }
 

@@ -23,7 +23,7 @@ public class IOTGenerator {
     }
 
     private void addTransformation(Market market) {
-        int levelSerialNumber = levelDistribution.flipCoin();
+        int levelSerialNumber = levelDistribution.nextInt();
         Transformation transformation = new Transformation();
         transformation.addAllOutput(outputBundlesGenerator.generate(market, levelSerialNumber-1));
         transformation.addAllInput(inputBundlesGenerator.generate(market, levelSerialNumber));

@@ -1,5 +1,7 @@
 package com.mmuca.expLab.domain.distributions;
 
+import com.mmuca.expLab.domain.Require;
+
 public class ValueRange {
     private int start;
     private int end;
@@ -22,7 +24,7 @@ public class ValueRange {
     }
 
     public int indexOf(int value) {
-        //TODO fast fail
+        Require.that(value >=start && value <= end,"Value needs to be in range ("+start+","+end+"); was "+value);
         return value - start;
     }
 }

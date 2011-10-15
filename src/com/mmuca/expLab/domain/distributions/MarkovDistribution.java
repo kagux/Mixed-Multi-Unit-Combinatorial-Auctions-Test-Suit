@@ -4,22 +4,20 @@ import java.util.Random;
 
 abstract public class MarkovDistribution implements ITargetedDistribution {
     protected Parameters parameters;
-    protected ValueRange range;
     protected int initialValue;
     protected Random randomGenerator;
 
-    public MarkovDistribution(ValueRange range, Parameters parameters) {
-        this.range = range;
+    public MarkovDistribution(Parameters parameters) {
         this.randomGenerator = new Random();
         this.parameters = parameters;
-        this.initialValue =range.getStart();
+        this.initialValue =parameters.range.getStart();
     }
 
     public void setTarget(int initialValue) {
        this.initialValue =initialValue;
     }
 
-    public int flipCoin() {
+    public int nextInt() {
         int currentValue = this.initialValue;
         while (changeValue()){
             currentValue= nextValueTo(currentValue);
@@ -28,13 +26,12 @@ abstract public class MarkovDistribution implements ITargetedDistribution {
     }
 
     private boolean changeValue() {
-        boolean changeValue = randomGenerator.nextDouble() < parameters.probabilityOfChangingValue;
-        return changeValue;
+        return randomGenerator.nextDouble() < parameters.probabilityOfChangingValue;
     }
 
     protected int nextValueTo(int value) {
-        if (value == range.getStart())  return value+1;
-        if (value == range.getEnd())    return value-1;
+        if (value == parameters.range.getStart())  return value+1;
+        if (value == parameters.range.getEnd())    return value-1;
         return switchDirection() ? reverseStep(value): directStep(value);
     }
 
@@ -46,10 +43,12 @@ abstract public class MarkovDistribution implements ITargetedDistribution {
     protected abstract int reverseStep(int value);
 
     public static class Parameters{
+        private ValueRange range;
         private double probabilityOfChangingValue;
         private double probabilityOfSwitchingDirection;
 
-        public Parameters(double probabilityOfChangingValue, double probabilityOfSwitchingDirection) {
+        public Parameters(ValueRange range, double probabilityOfChangingValue, double probabilityOfSwitchingDirection) {
+            this.range = range;
             this.probabilityOfSwitchingDirection = probabilityOfSwitchingDirection;
             this.probabilityOfChangingValue = probabilityOfChangingValue;
         }
@@ -61,5 +60,9 @@ abstract public class MarkovDistribution implements ITargetedDistribution {
         public double getProbabilityOfChangingValue() {
             return probabilityOfChangingValue;
         }
-   }
+
+        public ValueRange getRange() {
+            return range;
+        }
+    }
 }

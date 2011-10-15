@@ -2,6 +2,7 @@ package com.mmuca.expLab.domain.Market;
 
 import com.mmuca.expLab.domain.Market.goods.Good;
 import com.mmuca.expLab.domain.Market.transformations.Transformation;
+import com.mmuca.expLab.domain.Require;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,7 +25,7 @@ public class MarketLevel {
     }
 
     public Good getGood(int key) {
-        //TODO Fast fail
+        Require.that(key >=0 && key < goods.size(), "Good Index should correspond to existing Good in range (0,"+(goods.size()-1)+"); was "+key);
         return goods.get(key);
     }
 
@@ -37,7 +38,7 @@ public class MarketLevel {
     }
 
     public Transformation getTransformation(int key) {
-        //TODO Fast fail
+        Require.that(key >=0 && key < transformations.size(), "Transformation index should correspond to existing Transformation in range (0,"+(transformations.size()-1)+"); was "+key);
         return transformations.get(key).clone();
     }
 

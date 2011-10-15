@@ -6,49 +6,38 @@ import com.mmuca.expLab.domain.distributions.IDistribution;
 
 public class GoodsGenerator {
     private IDistribution levelDistribution;
-    private int numberOfGoodsToCreate;
-    private int minimumGoodsPerLevel;
-    private int numberOfCreatedGoods;
+    private static int goodSerialNumber =1;
 
-    public GoodsGenerator(IDistribution levelDistribution, int numberOfGoodsToCreate, int minimumGoodsPerLevel) {
+    public GoodsGenerator(IDistribution levelDistribution) {
         this.levelDistribution = levelDistribution;
-        this.numberOfGoodsToCreate = numberOfGoodsToCreate;
-        this.minimumGoodsPerLevel = minimumGoodsPerLevel;
     }
 
-    public void populate(Market market) {
-        numberOfCreatedGoods =0;
-        fulfilMinimumRequirement(market);
-        distributeLeftOverGoods(market);
+    public void populate(Market market, int numberOfGoodsToCreate, int minimumGoodsPerLevel) {
+        fulfilMinimumRequirement(market,minimumGoodsPerLevel);
+        int amountLeftToCreate = numberOfGoodsToCreate - minimumGoodsPerLevel * market.getAllLevels().size();
+        distributeLeftOverGoods(market, amountLeftToCreate);
         
     }
 
-    private void fulfilMinimumRequirement(Market market) {
+    private void fulfilMinimumRequirement(Market market, int minimumGoodsPerLevel) {
         for (MarketLevel level : market.getAllLevels()){
-            addMinimumGoods(level);
+            addGoodsToLevel(level, minimumGoodsPerLevel);
         }
     }
 
-    private void distributeLeftOverGoods(Market market) {
-        for (int i=numberOfCreatedGoods; i< numberOfGoodsToCreate;i++){
-            addGoodToLevel(market.getLevel(levelDistribution.flipCoin()));
+    private void distributeLeftOverGoods(Market market, int numberOfGoodsToCreate) {
+        for (int i=0; i< numberOfGoodsToCreate;i++){
+            market.getLevel(levelDistribution.nextInt()).addGood(createUniqueGood());
         }
     }
 
-
-    private void addMinimumGoods(MarketLevel level) {
-        for (int i=0; i < minimumGoodsPerLevel; i++){
-            addGoodToLevel(level);
+    private void addGoodsToLevel(MarketLevel level, int amount) {
+        for (int i=0; i < amount; i++){
+            level.addGood(createUniqueGood());
         }
-    }
-
-    private void addGoodToLevel(MarketLevel level){
-        level.addGood(createUniqueGood());
     }
 
     private Good createUniqueGood(){
-        Good good = new Good(String.format("Good_%03d", numberOfCreatedGoods +1));
-        numberOfCreatedGoods++;
-        return good;
+        return new Good(String.format("Good_%03d", goodSerialNumber++));
     }
 }
