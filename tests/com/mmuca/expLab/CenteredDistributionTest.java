@@ -43,7 +43,8 @@ public class CenteredDistributionTest {
     }
 
   private IDistribution centeredDistribution(int start, int end, int center) {
-      CenteredDistribution.Parameters parameters = new CenteredDistribution.Parameters(new ValueRange(start, end), center, 0.8);
-      return new CenteredDistribution(parameters);
+      IDistribution distribution = new CenteredDistribution(center, 0.8);
+      distribution.setValueRange(new ValueRange(start, end));
+      return distribution;
   }
 }

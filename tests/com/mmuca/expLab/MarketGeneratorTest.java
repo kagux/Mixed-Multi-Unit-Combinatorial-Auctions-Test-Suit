@@ -83,14 +83,14 @@ public class MarketGeneratorTest {
     }
 
     private Market generateMarket(GoodsGenerator goodsGenerator, ITGenerator itGenerator, OTGenerator otGenerator, IOTGenerator iotGenerator) {
-        MarketGenerator generator = new MarketGenerator(goodsGenerator, itGenerator, otGenerator,iotGenerator);
         MarketGenerator.Parameters parameters = new MarketGenerator.Parameters(
                 NUMBER_OF_LEVELS,
                 NUMBER_OF_GOODS,
                 MINIMUM_NUM_GOODS_PER_LEVEL,
                 NUMBER_OF_IO_TRANSFORMATIONS
         );
-        return generator.generate(parameters);
+        MarketGenerator generator = new MarketGenerator(parameters,goodsGenerator, itGenerator, otGenerator,iotGenerator);
+        return generator.generate();
     }
 
     private IDistribution goodLevelDistribution() {

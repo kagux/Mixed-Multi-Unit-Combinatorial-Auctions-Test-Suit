@@ -7,6 +7,7 @@ import com.mmuca.expLab.domain.Market.goods.Good;
 import com.mmuca.expLab.domain.Market.goods.bundles.BundlesGenerator;
 import com.mmuca.expLab.domain.distributions.IDistribution;
 import com.mmuca.expLab.domain.distributions.ITargetedDistribution;
+import com.mmuca.expLab.domain.distributions.ValueRange;
 import org.junit.Test;
 import org.mockito.InOrder;
 
@@ -17,6 +18,8 @@ import static org.mockito.Mockito.*;
 public class BundlesGeneratorTest {
 
     public static final int targetLevelIndex = 1;
+    public static final int NUM_LEVELS = 4;
+    public static final int NUM_GOODS = 7;
 
     @Test
     public  void generatedBundles(){
@@ -26,6 +29,9 @@ public class BundlesGeneratorTest {
         BundlesGenerator generator = new BundlesGenerator(goodsLevelDistribution,numberOfBundlesDistribution);
         Market market = newMarket();
         GoodBundlesSet bundles = generator.generate(market, targetLevelIndex);
+        
+        verify(goodsLevelDistribution).setValueRange(new ValueRange(0, NUM_LEVELS-1));
+        verify(numberOfBundlesDistribution).setValueRange(new ValueRange(0, NUM_GOODS-1));
 
         InOrder inOrder  = inOrder(goodsLevelDistribution);
         inOrder.verify(goodsLevelDistribution).setTarget(targetLevelIndex);

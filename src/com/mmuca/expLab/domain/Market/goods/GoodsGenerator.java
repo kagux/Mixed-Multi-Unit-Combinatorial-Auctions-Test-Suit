@@ -3,6 +3,7 @@ package com.mmuca.expLab.domain.Market.goods;
 import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.MarketLevel;
 import com.mmuca.expLab.domain.distributions.IDistribution;
+import com.mmuca.expLab.domain.distributions.ValueRange;
 
 public class GoodsGenerator {
     private IDistribution levelDistribution;
@@ -13,7 +14,8 @@ public class GoodsGenerator {
     }
 
     public void populate(Market market, int numberOfGoodsToCreate, int minimumGoodsPerLevel) {
-        fulfilMinimumRequirement(market,minimumGoodsPerLevel);
+        levelDistribution.setValueRange(new ValueRange(0,market.getAllLevels().size()-1));
+        fulfilMinimumRequirement(market, minimumGoodsPerLevel);
         int amountLeftToCreate = numberOfGoodsToCreate - minimumGoodsPerLevel * market.getAllLevels().size();
         distributeLeftOverGoods(market, amountLeftToCreate);
         

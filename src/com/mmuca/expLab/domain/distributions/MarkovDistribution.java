@@ -1,20 +1,28 @@
 package com.mmuca.expLab.domain.distributions;
 
+import com.mmuca.expLab.domain.Require;
+
 import java.util.Random;
 
 abstract public class MarkovDistribution implements ITargetedDistribution {
-    protected Parameters parameters;
     protected int initialValue;
     protected Random randomGenerator;
+    private ValueRange range;
+    private double probabilityOfChangingValue;
+    private double probabilityOfSwitchingDirection;
 
-    public MarkovDistribution(Parameters parameters) {
+    public MarkovDistribution(double probabilityOfChangingValue, double probabilityOfSwitchingDirection) {
+        this.probabilityOfChangingValue = probabilityOfChangingValue;
+        this.probabilityOfSwitchingDirection = probabilityOfSwitchingDirection;
         this.randomGenerator = new Random();
-        this.parameters = parameters;
-        this.initialValue =parameters.range.getStart();
     }
 
     public void setTarget(int initialValue) {
        this.initialValue =initialValue;
+    }
+
+    public void setValueRange(ValueRange range) {
+        this.range = range;
     }
 
     public int nextInt() {
@@ -26,43 +34,20 @@ abstract public class MarkovDistribution implements ITargetedDistribution {
     }
 
     private boolean changeValue() {
-        return randomGenerator.nextDouble() < parameters.probabilityOfChangingValue;
+        return randomGenerator.nextDouble() < probabilityOfChangingValue;
     }
 
     protected int nextValueTo(int value) {
-        if (value == parameters.range.getStart())  return value+1;
-        if (value == parameters.range.getEnd())    return value-1;
+        Require.that(range != null, "Value range has to be set before generating next value");
+        if (value == range.getStart())  return value+1;
+        if (value == range.getEnd())    return value-1;
         return switchDirection() ? reverseStep(value): directStep(value);
     }
 
     protected boolean switchDirection() {
-        return (randomGenerator.nextDouble() < parameters.probabilityOfSwitchingDirection);
+        return (randomGenerator.nextDouble() < probabilityOfSwitchingDirection);
     }
 
     protected abstract int directStep(int value);
     protected abstract int reverseStep(int value);
-
-    public static class Parameters{
-        private ValueRange range;
-        private double probabilityOfChangingValue;
-        private double probabilityOfSwitchingDirection;
-
-        public Parameters(ValueRange range, double probabilityOfChangingValue, double probabilityOfSwitchingDirection) {
-            this.range = range;
-            this.probabilityOfSwitchingDirection = probabilityOfSwitchingDirection;
-            this.probabilityOfChangingValue = probabilityOfChangingValue;
-        }
-
-        public double getProbabilityOfSwitchingDirection() {
-            return probabilityOfSwitchingDirection;
-        }
-
-        public double getProbabilityOfChangingValue() {
-            return probabilityOfChangingValue;
-        }
-
-        public ValueRange getRange() {
-            return range;
-        }
-    }
 }

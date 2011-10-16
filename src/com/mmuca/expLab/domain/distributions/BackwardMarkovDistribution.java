@@ -2,8 +2,8 @@ package com.mmuca.expLab.domain.distributions;
 
 public class BackwardMarkovDistribution extends MarkovDistribution {
 
-    public BackwardMarkovDistribution(Parameters parameters) {
-        super(parameters);
+    public BackwardMarkovDistribution(double probabilityOfChangingValue, double probabilityOfSwitchingDirection) {
+        super(probabilityOfChangingValue, probabilityOfSwitchingDirection);
     }
 
     protected int directStep(int value) {

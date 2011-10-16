@@ -5,6 +5,7 @@ import com.mmuca.expLab.domain.Market.MarketLevel;
 import com.mmuca.expLab.domain.Market.goods.Good;
 import com.mmuca.expLab.domain.Market.goods.GoodsGenerator;
 import com.mmuca.expLab.domain.distributions.IDistribution;
+import com.mmuca.expLab.domain.distributions.ValueRange;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -12,12 +13,14 @@ import java.util.HashSet;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class GoodsGeneratorTest {
 
     public static final int MINIMUM_GOODS_PER_LEVEL = 2;
     public static final int NUMBER_OF_GOODS =10;
+    public static final int NUM_LEVELS = 3;
 
     @Test
     public void numberOfGeneratedGoods(){
@@ -37,6 +40,7 @@ public class GoodsGeneratorTest {
         Market market = newMarket();
         GoodsGenerator generator = new GoodsGenerator(levelDistribution);
         generator.populate(market,2,0);
+        verify(levelDistribution).setValueRange(new ValueRange(0, NUM_LEVELS -1));
         assertEquals("goods level should be set by distribution", 2, market.getLevel(0).getAllGoods().size());
         generator.populate(market,2,0);
         assertEquals("goods level should be set by distribution", 2, market.getLevel(2).getAllGoods().size());

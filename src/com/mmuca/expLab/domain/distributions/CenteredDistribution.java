@@ -6,19 +6,23 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class CenteredDistribution implements IDistribution{
-    private Parameters parameters;
     private CumulativeFunction cumulativeFunction;
     private Random randomGenerator;
+    private ValueRange range;
+    private int center;
+    private double alpha;
 
-    public CenteredDistribution(Parameters parameters) {
-        this.parameters = parameters;
+    public CenteredDistribution(int center, double alpha) {
+        this.center = center;
+        this.alpha = alpha;
         this.cumulativeFunction = new CumulativeFunction();
         this.randomGenerator = new Random();
     }
 
     public int nextInt(){
+        Require.that(range != null, "Value range has to be set before generating next value");
         double rnd = randomGenerator.nextDouble()*cumulativeFunction.getMax();
-        for (int i = parameters.range.getStart(); i<= parameters.range.getEnd();i++){
+        for (int i = range.getStart(); i<= range.getEnd();i++){
             if (cumulativeFunction.getProbabilityFor(i) > rnd)
                 return i;
         }
@@ -26,29 +30,8 @@ public class CenteredDistribution implements IDistribution{
         return -1;
     }
 
-
-    public static class Parameters {
-        private ValueRange range;
-        private double alpha;
-        private int center;
-
-        public Parameters(ValueRange range, int center, double alpha) {
-            this.range = range;
-            this.center = center;
-            this.alpha = alpha;
-        }
-
-        public double getAlpha() {
-            return alpha;
-        }
-
-        public int getCenter() {
-            return center;
-        }
-
-        public ValueRange getRange() {
-            return range;
-        }
+    public void setValueRange(ValueRange range){
+        this.range = range;
     }
 
     private class CumulativeFunction{
@@ -58,17 +41,22 @@ public class CenteredDistribution implements IDistribution{
 
         public CumulativeFunction(){
             this.densityFunction = new DensityFunction();
-            this.cumulativeFunction=cumulativeFunction();
         }
 
         public double getProbabilityFor(int value){
-           return cumulativeFunction.get(parameters.range.indexOf(value));
+           return cumulativeFunction().get(range.indexOf(value));
         }
 
         private ArrayList<Double>  cumulativeFunction() {
-            ArrayList<Double>  cumulativeFunction = new ArrayList<Double>();
+            if (cumulativeFunction != null) return cumulativeFunction;
+            cumulativeFunction=initCumulativeFunction();
+            return cumulativeFunction;
+        }
+
+        private ArrayList<Double> initCumulativeFunction() {
+            ArrayList<Double> cumulativeFunction = new ArrayList<Double>();
             cumulativeFunction.add(0,densityFunction.getProbabilityFor(0));
-            for (int i=1; i<parameters.range.size();i++){
+            for (int i=1; i<range.size();i++){
                 cumulativeFunction.add(i,cumulativeFunction.get(i-1)+densityFunction.getProbabilityFor(i));
             }
             return cumulativeFunction;
@@ -81,7 +69,7 @@ public class CenteredDistribution implements IDistribution{
 
         private double assessMax(){
             double max= 0;
-            for(double value: cumulativeFunction)
+            for(double value: cumulativeFunction())
                 max = Math.max(value,max);
             return max;
         }
@@ -90,45 +78,47 @@ public class CenteredDistribution implements IDistribution{
     private class DensityFunction{
         private ArrayList<Double> densityFunction;
 
-        public DensityFunction() {
-            this.densityFunction = prepareDensityFunction();
-        }
-
         public double getProbabilityFor(int valueIndex){
-            return densityFunction.get(valueIndex);
+            return densityFunction().get(valueIndex);
         }
 
         private int centerIndex() {
-            return parameters.range.indexOf(parameters.center);
+            return range.indexOf(center);
         }
 
-        private ArrayList<Double> prepareDensityFunction(){
+        private ArrayList<Double> densityFunction(){
+            if (densityFunction != null) return  densityFunction;
+            densityFunction=initDensityFunction();
+            return densityFunction;
+        }
+
+        private ArrayList<Double> initDensityFunction() {
             ArrayList<Double> densityFunction = new ArrayList<Double>();
-            for (int i =0; i< parameters.range.size(); i++){
+            for (int i =0; i< range.size(); i++){
                 densityFunction.add(i, probabilityFunction() * centerBasedCoefficient(i));
             }
             return densityFunction;
-
         }
+
         private double probabilityFunction() {
 
-            return (1 - parameters.alpha)/ probabilityDivisor();
+            return (1 - alpha)/ probabilityDivisor();
         }
 
         private double centerBasedCoefficient(int valueIndex) {
-            return Math.pow(parameters.alpha, distanceFromCenter(valueIndex)+1);
+            return Math.pow(alpha, distanceFromCenter(valueIndex)+1);
         }
 
         private double probabilityDivisor() {
-            return (1  + parameters.alpha - firstSubtrahend() - secondSubtrahend());
+            return (1  + alpha - firstSubtrahend() - secondSubtrahend());
         }
 
         private double firstSubtrahend() {
-            return Math.pow(parameters.alpha, parameters.range.size() - centerIndex() +1);
+            return Math.pow(alpha, range.size() - centerIndex() +1);
         }
 
         private double secondSubtrahend() {
-            return Math.pow(parameters.alpha, centerIndex());
+            return Math.pow(alpha, centerIndex());
         }
 
         private int distanceFromCenter(int valueIndex) {

@@ -3,6 +3,7 @@ package com.mmuca.expLab.domain.Market.transformations;
 import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.goods.bundles.BundlesGenerator;
 import com.mmuca.expLab.domain.distributions.IDistribution;
+import com.mmuca.expLab.domain.distributions.ValueRange;
 
 public class IOTGenerator {
     private IDistribution levelDistribution;
@@ -17,6 +18,7 @@ public class IOTGenerator {
     }
 
     public void populate(Market market, int numberOfIOTransformations) {
+        levelDistribution.setValueRange(new ValueRange(1,market.getAllLevels().size()-2));
         for (int i=0; i<numberOfIOTransformations; i++){
             addTransformation(market);
         }

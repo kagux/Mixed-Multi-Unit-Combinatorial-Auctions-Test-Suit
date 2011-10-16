@@ -9,6 +9,7 @@ import com.mmuca.expLab.domain.Market.goods.bundles.GoodBundle;
 import com.mmuca.expLab.domain.Market.transformations.IOTGenerator;
 import com.mmuca.expLab.domain.Market.transformations.Transformation;
 import com.mmuca.expLab.domain.distributions.IDistribution;
+import com.mmuca.expLab.domain.distributions.ValueRange;
 import org.junit.Test;
 import org.mockito.internal.matchers.InstanceOf;
 
@@ -23,6 +24,7 @@ public class IOTGeneratorTest {
     public static final int NUMBER_OF_IO_TRANSFORMATIONS = 10;
     public static final int NUMBER_OF_BUNDLES_IN_INPUT_OR_OUTPUT = 4;
     public static final int IOT_LEVEL = 2;
+    public static final int NUM_LEVELS = 4;
 
     @Test
     public  void numberOfTransformationsShouldBeAsRequested(){
@@ -44,10 +46,12 @@ public class IOTGeneratorTest {
         IOTGenerator generator = new IOTGenerator(levelDistribution,bundlesGenerator(),bundlesGenerator());
         //first run
         assertEquals("transformations should have levels according to distribution", 2, newPopulatedMarket(generator,2).getLevel(1).getAllTransformations().size());
+        verify(levelDistribution).setValueRange(new ValueRange(1,NUM_LEVELS-2));
         assertEquals("levels not mentioned in distribution should not have transformations", 2, newPopulatedMarket(generator, 2).getAllTransformations().size());
         //second run
         assertEquals("transformations should have levels according to distribution", 2, newPopulatedMarket(generator,2).getLevel(2).getAllTransformations().size());
         assertEquals("levels not mentioned in distribution should not have transformations", 2, newPopulatedMarket(generator, 2).getAllTransformations().size());
+
 
 
     }
