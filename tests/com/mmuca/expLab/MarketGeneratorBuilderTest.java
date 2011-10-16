@@ -12,14 +12,17 @@ public class MarketGeneratorBuilderTest {
     public static final int MINIMUM_NUM_GOODS_PER_LEVEL = 2;
     public static final int NUMBER_OF_IO_TRANSFORMATIONS = 10;
 
+    //not a proper test to be honest, since I dont know how to test private fields for correct distributions and yet I dont feel like
+    //making getters just for testing purposes
     @Test
     public void builder(){
-        MarketGenerator.Parameters parameters = new MarketGenerator.Parameters(
+        MarketGenerator.Parameters marketParameters = new MarketGenerator.Parameters(
                 NUMBER_OF_LEVELS,
                 NUMBER_OF_GOODS,
                 MINIMUM_NUM_GOODS_PER_LEVEL,
                 NUMBER_OF_IO_TRANSFORMATIONS
         );
+
         IDistribution goodLevelDistribution = new UniformDistribution();
         IDistribution iotLevelDistribution = new UniformDistribution();
         ITargetedDistribution inputBundlesGoodLevelDistribution = new ForwardMarkovDistribution(0.1,0.1);
@@ -27,15 +30,16 @@ public class MarketGeneratorBuilderTest {
         IDistribution numberOfInputBundlesDistribution = new UniformDistribution();
         IDistribution numberOfOutputBundlesDistribution = new UniformDistribution();
 
-        MarketGeneratorBuilder builder = new MarketGeneratorBuilder(
-                parameters,
-                goodLevelDistribution,iotLevelDistribution,
+        MarketGeneratorBuilder.Distributions distributions = new MarketGeneratorBuilder.Distributions(
+                goodLevelDistribution,
+                iotLevelDistribution,
                 inputBundlesGoodLevelDistribution,
                 outputBundlesGoodLevelDistribution,
                 numberOfInputBundlesDistribution,
                 numberOfOutputBundlesDistribution
+        );
 
-                );
+        MarketGeneratorBuilder builder = new MarketGeneratorBuilder(marketParameters, distributions);
         MarketGenerator generator = builder.build();
         Market market = generator.generate();
     }

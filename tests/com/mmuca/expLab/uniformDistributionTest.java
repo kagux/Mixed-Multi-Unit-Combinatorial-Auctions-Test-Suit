@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import static junit.framework.Assert.assertTrue;
 
+// can't commit file to GIT with capital U in the class...
 public class uniformDistributionTest {
     @Test
       public void valuesAreInRange(){
