@@ -16,6 +16,21 @@
        <string>this</string> 
       </void> 
       <void method="add"> 
+       <object class="com.jformdesigner.model.FormComponent"> 
+        <string>com.mmuca.expLab.ui.MarketDesignerPane</string> 
+        <void property="name"> 
+         <string>marketDesignerPane</string> 
+        </void> 
+       </object> 
+       <object class="com.jformdesigner.model.FormLayoutConstraints"> 
+        <null/> 
+        <void method="setProperty"> 
+         <string>title</string> 
+         <string>Market Designer</string> 
+        </void> 
+       </object> 
+      </void> 
+      <void method="add"> 
        <object class="com.jformdesigner.model.FormContainer"> 
         <string>javax.swing.JPanel</string> 
         <object class="com.jformdesigner.model.FormLayoutManager"> 
@@ -57,105 +72,21 @@
         </void> 
        </object> 
       </void> 
-      <void method="add"> 
-       <object class="com.jformdesigner.model.FormContainer"> 
-        <string>javax.swing.JPanel</string> 
-        <object class="com.jformdesigner.model.FormLayoutManager"> 
-         <class>java.awt.GridBagLayout</class> 
-         <void method="setProperty"> 
-          <string>$columnSpecs</string> 
-          <string>0, 0</string> 
-         </void> 
-         <void method="setProperty"> 
-          <string>$rowSpecs</string> 
-          <string>0, 0, 0</string> 
-         </void> 
-         <void method="setProperty"> 
-          <string>$hGap</string> 
-          <int>5</int> 
-         </void> 
-         <void method="setProperty"> 
-          <string>$vGap</string> 
-          <int>5</int> 
-         </void> 
-         <void method="setProperty"> 
-          <string>$alignLeft</string> 
-          <boolean>true</boolean> 
-         </void> 
-         <void method="setProperty"> 
-          <string>$alignTop</string> 
-          <boolean>true</boolean> 
-         </void> 
-        </object> 
-        <void property="name"> 
-         <string>panel2</string> 
-        </void> 
-       </object> 
-       <object class="com.jformdesigner.model.FormLayoutConstraints"> 
-        <null/> 
-        <void method="setProperty"> 
-         <string>title</string> 
-         <string>text</string> 
-        </void> 
-       </object> 
-      </void> 
-      <void method="add"> 
-       <object class="com.jformdesigner.model.FormContainer"> 
-        <string>javax.swing.JPanel</string> 
-        <object class="com.jformdesigner.model.FormLayoutManager"> 
-         <class>java.awt.GridBagLayout</class> 
-         <void method="setProperty"> 
-          <string>$columnSpecs</string> 
-          <string>0, 0</string> 
-         </void> 
-         <void method="setProperty"> 
-          <string>$rowSpecs</string> 
-          <string>0, 0, 0</string> 
-         </void> 
-         <void method="setProperty"> 
-          <string>$hGap</string> 
-          <int>5</int> 
-         </void> 
-         <void method="setProperty"> 
-          <string>$vGap</string> 
-          <int>5</int> 
-         </void> 
-         <void method="setProperty"> 
-          <string>$alignLeft</string> 
-          <boolean>true</boolean> 
-         </void> 
-         <void method="setProperty"> 
-          <string>$alignTop</string> 
-          <boolean>true</boolean> 
-         </void> 
-        </object> 
-        <void property="name"> 
-         <string>panel3</string> 
-        </void> 
-       </object> 
-       <object class="com.jformdesigner.model.FormLayoutConstraints"> 
-        <null/> 
-        <void method="setProperty"> 
-         <string>title</string> 
-         <string>text</string> 
-        </void> 
-       </object> 
-      </void> 
      </object> 
      <object class="com.jformdesigner.model.FormLayoutConstraints"> 
       <null/> 
       <void method="setProperty"> 
        <string>location</string> 
        <object class="java.awt.Point"> 
-        <int>230</int> 
-        <int>165</int> 
+        <int>90</int> 
+        <int>60</int> 
        </object> 
       </void> 
       <void method="setProperty"> 
        <string>size</string> 
        <object class="java.awt.Dimension"> 
-        <int>665</int> 
-        <int>385</int> 
+        <int>810</int> 
+        <int>500</int> 
        </object> 
       </void> 
      </object> 

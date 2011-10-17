@@ -2,7 +2,9 @@
  * Created by JFormDesigner on Mon Oct 17 16:56:58 CEST 2011
  */
 
-package com.mmuca.expLab.ui;
+package com.mmuca.expLab.ui.frames;
+
+import com.mmuca.expLab.ui.panels.MainTabbedPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +34,6 @@ public class ApplicationFrame extends JFrame {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Boris Mikhaylov
-    private JTabbedPane mainTabbedPane;
+    private MainTabbedPane mainTabbedPane;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
