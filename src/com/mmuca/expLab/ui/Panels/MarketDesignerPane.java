@@ -82,6 +82,9 @@ public class MarketDesignerPane extends JPanel {
             marketConfigPane.add(lbNumberOfLevels, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(0, 0, 5, 5), 0, 0));
+
+            //---- tfNumberOfLevels ----
+            tfNumberOfLevels.setText("5");
             marketConfigPane.add(tfNumberOfLevels, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(0, 0, 5, 0), 0, 0));
@@ -91,6 +94,9 @@ public class MarketDesignerPane extends JPanel {
             marketConfigPane.add(lbNumberOfGoods, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(0, 0, 5, 5), 0, 0));
+
+            //---- tfNumberOfGoods ----
+            tfNumberOfGoods.setText("20");
             marketConfigPane.add(tfNumberOfGoods, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(0, 0, 5, 0), 0, 0));
@@ -100,6 +106,9 @@ public class MarketDesignerPane extends JPanel {
             marketConfigPane.add(lbMinNumberOfGoodsPerLevel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(0, 0, 5, 5), 0, 0));
+
+            //---- tfMinNumberOfGoodsPerLevel ----
+            tfMinNumberOfGoodsPerLevel.setText("2");
             marketConfigPane.add(tfMinNumberOfGoodsPerLevel, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(0, 0, 5, 0), 0, 0));
@@ -109,6 +118,9 @@ public class MarketDesignerPane extends JPanel {
             marketConfigPane.add(lbNumberOfTransformations, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(0, 0, 5, 5), 0, 0));
+
+            //---- tfNumberOfTransformations ----
+            tfNumberOfTransformations.setText("20");
             marketConfigPane.add(tfNumberOfTransformations, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(0, 0, 5, 0), 0, 0));
