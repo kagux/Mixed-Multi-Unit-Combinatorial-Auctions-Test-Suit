@@ -98,6 +98,10 @@
         <void method="add"> 
          <object class="com.jformdesigner.model.FormComponent"> 
           <string>javax.swing.JTextField</string> 
+          <void method="setProperty"> 
+           <string>text</string> 
+           <string>5</string> 
+          </void> 
           <void property="name"> 
            <string>tfNumberOfLevels</string> 
           </void> 
@@ -132,6 +136,10 @@
         <void method="add"> 
          <object class="com.jformdesigner.model.FormComponent"> 
           <string>javax.swing.JTextField</string> 
+          <void method="setProperty"> 
+           <string>text</string> 
+           <string>20</string> 
+          </void> 
           <void property="name"> 
            <string>tfNumberOfGoods</string> 
           </void> 
@@ -170,6 +178,10 @@
         <void method="add"> 
          <object class="com.jformdesigner.model.FormComponent"> 
           <string>javax.swing.JTextField</string> 
+          <void method="setProperty"> 
+           <string>text</string> 
+           <string>2</string> 
+          </void> 
           <void property="name"> 
            <string>tfMinNumberOfGoodsPerLevel</string> 
           </void> 
@@ -208,6 +220,10 @@
         <void method="add"> 
          <object class="com.jformdesigner.model.FormComponent"> 
           <string>javax.swing.JTextField</string> 
+          <void method="setProperty"> 
+           <string>text</string> 
+           <string>20</string> 
+          </void> 
           <void property="name"> 
            <string>tfNumberOfTransformations</string> 
           </void> 
