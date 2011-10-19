@@ -20,7 +20,7 @@ public class MarketGenerator {
         this.ioTransformationsGenerator = iotGenerator;
     }
 
-    public Market generate() {
+    public Market nextMarket() {
         Market market = new Market();
         createLevels(market, parameters.numberOfLevels-1);
         goodsGenerator.populate(market, parameters.numberOfGoodsToCreate, parameters.minimumGoodsPerLevel);

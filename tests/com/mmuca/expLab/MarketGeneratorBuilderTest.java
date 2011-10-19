@@ -41,7 +41,7 @@ public class MarketGeneratorBuilderTest {
 
         MarketGeneratorBuilder builder = new MarketGeneratorBuilder(marketParameters, distributions);
         MarketGenerator generator = builder.build();
-        Market market = generator.generate();
+        Market market = generator.nextMarket();
     }
 
 }

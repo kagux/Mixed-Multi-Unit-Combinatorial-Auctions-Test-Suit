@@ -31,7 +31,7 @@ public class BundlesGeneratorTest {
         GoodBundlesSet bundles = generator.generate(market, targetLevelIndex);
         
         verify(goodsLevelDistribution).setValueRange(new ValueRange(0, NUM_LEVELS-1));
-        verify(numberOfBundlesDistribution).setValueRange(new ValueRange(0, NUM_GOODS-1));
+        verify(numberOfBundlesDistribution).setValueRange(new ValueRange(1, NUM_GOODS-1));
 
         InOrder inOrder  = inOrder(goodsLevelDistribution);
         inOrder.verify(goodsLevelDistribution).setTarget(targetLevelIndex);

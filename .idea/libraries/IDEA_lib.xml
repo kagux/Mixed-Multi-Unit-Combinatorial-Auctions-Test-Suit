@@ -1,0 +1,24 @@
+<component name="libraryTable">
+  <library name="IDEA lib">
+    <CLASSES>
+      <root url="file://$APPLICATION_HOME_DIR$/lib" />
+      <root url="file://$APPLICATION_HOME_DIR$/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://F:/Downloads/jung sources/jung-visualization-2.0.1-sources" />
+      <root url="file://F:/Downloads/jung sources/jung-visualization-2.0.1-sources" />
+      <root url="file://F:/Downloads/jung sources/jung-visualization-2.0.1-sources" />
+      <root url="jar://F:/Downloads/jung sources/jung-jai-samples-2.0.1-sources.jar!/" />
+      <root url="jar://F:/Downloads/jung sources/jung-algorithms-2.0.1-sources.jar!/" />
+      <root url="jar://F:/Downloads/jung sources/jung-jai-2.0.1-sources.jar!/" />
+      <root url="jar://F:/Downloads/jung sources/jung-3d-demos-2.0.1-sources.jar!/" />
+      <root url="jar://F:/Downloads/jung sources/jung-io-2.0.1-sources.jar!/" />
+      <root url="jar://F:/Downloads/jung sources/jung-3d-2.0.1-sources.jar!/" />
+      <root url="jar://F:/Downloads/jung sources/jung-graph-impl-2.0.1-sources.jar!/" />
+      <root url="jar://F:/Downloads/jung sources/jung-api-2.0.1-sources.jar!/" />
+      <root url="jar://F:/Downloads/jung sources/jung-samples-2.0.1-sources.jar!/" />
+    </SOURCES>
+    <jarDirectory url="file://$APPLICATION_HOME_DIR$/lib" recursive="false" />
+  </library>
+</component>

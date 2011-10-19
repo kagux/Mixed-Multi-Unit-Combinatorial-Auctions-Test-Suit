@@ -5,19 +5,17 @@ import com.mmuca.expLab.domain.Market.transformations.Transformation;
 import com.mmuca.expLab.domain.Require;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class MarketLevel {
     private ArrayList<Good> goods;
     private HashSet<Good> uniqueGoods;
-    private HashMap<Integer,Transformation> transformations;
+    private ArrayList<Transformation> transformations;
 
     public MarketLevel(){
        goods = new ArrayList<Good>();
        uniqueGoods= new HashSet<Good>();
-       transformations=new HashMap<Integer,Transformation>();
+       transformations=new ArrayList<Transformation>();
     }
 
     public boolean addGood(Good newGood) {
@@ -34,7 +32,7 @@ public class MarketLevel {
     }
 
     public void addTransformation(Transformation transformation) {
-       transformations.put(transformations.size(),transformation);
+       transformations.add(transformation);
     }
 
     public Transformation getTransformation(int key) {
@@ -42,7 +40,7 @@ public class MarketLevel {
         return transformations.get(key).clone();
     }
 
-    public Collection<Transformation> getAllTransformations() {
-        return transformations.values();
+    public ArrayList<Transformation> getAllTransformations() {
+        return transformations;
     }
 }

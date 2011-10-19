@@ -90,7 +90,7 @@ public class MarketGeneratorTest {
                 NUMBER_OF_IO_TRANSFORMATIONS
         );
         MarketGenerator generator = new MarketGenerator(parameters,goodsGenerator, itGenerator, otGenerator,iotGenerator);
-        return generator.generate();
+        return generator.nextMarket();
     }
 
     private IDistribution goodLevelDistribution() {

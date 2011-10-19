@@ -1,12 +1,18 @@
 package com.mmuca.expLab.ui.actions;
 
-import com.mmuca.expLab.domain.Market.Market;
-import com.mmuca.expLab.domain.Market.MarketGenerator;
-import com.mmuca.expLab.domain.Market.MarketGeneratorBuilder;
+import com.mmuca.expLab.domain.Market.*;
+import com.mmuca.expLab.domain.Market.graphs.MarketGraphProvider;
+import com.mmuca.expLab.domain.Market.graphs.MarketVertexColorTransformer;
+import com.mmuca.expLab.domain.Market.graphs.MarketVertexLayoutTransformer;
+import com.mmuca.expLab.domain.Market.graphs.MarketVertexShapeTransformer;
 import com.mmuca.expLab.domain.distributions.*;
 import com.mmuca.expLab.ui.panels.MarketDesignerPane;
+import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.algorithms.layout.StaticLayout;
+import edu.uci.ics.jung.visualization.VisualizationViewer;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class GenerateMarketAction extends AbstractAction{
@@ -44,7 +50,14 @@ public class GenerateMarketAction extends AbstractAction{
 
         MarketGeneratorBuilder builder = new MarketGeneratorBuilder(marketParameters, distributions);
         MarketGenerator generator = builder.build();
-        Market market = generator.generate();
-        System.out.println("success");
+        MarketGraphProvider graphProvider = new MarketGraphProvider();
+        Market market = generator.nextMarket();
+        Layout<Object, String> layout = new StaticLayout<Object, String>(graphProvider.graphFor(market),new MarketVertexLayoutTransformer(market,panel.getMarketGraphPane().getSize() )) ;
+        layout.setSize(panel.getMarketGraphPane().getSize());
+        VisualizationViewer<Object,String> graphPanel = new VisualizationViewer<Object,String>(layout);
+        graphPanel.getRenderContext().setVertexShapeTransformer(new MarketVertexShapeTransformer());
+        graphPanel.getRenderContext().setVertexFillPaintTransformer(new MarketVertexColorTransformer());
+        panel.getMarketGraphPane().add(graphPanel, BorderLayout.CENTER);
+        panel.getMarketGraphPane().revalidate();
     }
 }
