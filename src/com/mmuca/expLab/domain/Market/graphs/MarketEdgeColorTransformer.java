@@ -5,7 +5,7 @@ import org.apache.commons.collections15.Transformer;
 import java.awt.*;
 
 public class MarketEdgeColorTransformer implements Transformer<MarketEdge, Paint>{
-    public static final Color DARK_COLOR = Color.BLACK;
+    public static final Color DARK_COLOR = Color.DARK_GRAY;
     public static final Color LIGHT_COLOR = Color.LIGHT_GRAY;
 
     @Override

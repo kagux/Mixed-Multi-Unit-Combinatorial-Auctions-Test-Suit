@@ -2,19 +2,17 @@ package com.mmuca.expLab;
 
 import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.MarketLevel;
-import com.mmuca.expLab.domain.Market.graphs.MarketVertexLayoutTransformer;
 import com.mmuca.expLab.domain.Market.goods.Good;
+import com.mmuca.expLab.domain.Market.graphs.MarketVertexAllTransLayoutTransformer;
 import com.mmuca.expLab.domain.Market.transformations.Transformation;
 import org.junit.Test;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
-public class MarketVertexLayoutTransformerTest {
+public class MarketVertexAllTransLayoutTransformerTest {
 
     @Test
     public void multipleTransformations_MultipleGoods_OneOfEachPerLevel_VerticesPositions(){
@@ -29,7 +27,7 @@ public class MarketVertexLayoutTransformerTest {
         int height = 100;
         Dimension size = new Dimension(width, height);
 
-        MarketVertexLayoutTransformer transformer = new MarketVertexLayoutTransformer(market, size);
+        MarketVertexAllTransLayoutTransformer transformer = new MarketVertexAllTransLayoutTransformer(market, size);
 
         double verticalGap = 100.0 / 5;
 
@@ -59,7 +57,7 @@ public class MarketVertexLayoutTransformerTest {
         int height = 100;
         Dimension size = new Dimension(width, height);
 
-        MarketVertexLayoutTransformer transformer = new MarketVertexLayoutTransformer(market, size);
+        MarketVertexAllTransLayoutTransformer transformer = new MarketVertexAllTransLayoutTransformer(market, size);
 
         double verticalGap = 100.0 / 3;
         double goodsHorizontalGap = 100.0/4;
@@ -80,7 +78,6 @@ public class MarketVertexLayoutTransformerTest {
         assertEquals("position of second good", secondGoodPosition, transformer.transform(new Good("good 0:1")));
         assertEquals("position of third good", thirdGoodPosition, transformer.transform(new Good("good 0:2")));
     }
-
 
 
     private Market newMarket(int numLevels, int goodsPerLevel) {

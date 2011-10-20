@@ -8,11 +8,17 @@ import com.mmuca.expLab.domain.distributions.*;
 import com.mmuca.expLab.ui.panels.MarketDesignerPane;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
+import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.util.Context;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
+import org.apache.commons.collections15.Predicate;
+import org.apache.commons.collections15.Transformer;
+import org.apache.commons.collections15.functors.TruePredicate;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.geom.Point2D;
 
 public class GenerateMarketAction extends AbstractAction{
 
@@ -35,8 +41,8 @@ public class GenerateMarketAction extends AbstractAction{
         IDistribution iotLevelDistribution = new UniformDistribution();
         ITargetedDistribution inputBundlesGoodLevelDistribution = new ForwardMarkovDistribution(0.1,0.1);
         ITargetedDistribution outputBundlesGoodLevelDistribution = new BackwardMarkovDistribution(0.1,0.1);
-        IDistribution numberOfInputBundlesDistribution = new UniformDistribution();
-        IDistribution numberOfOutputBundlesDistribution = new UniformDistribution();
+        IDistribution numberOfInputBundlesDistribution = new CenteredDistribution(1,0.9);
+        IDistribution numberOfOutputBundlesDistribution = new CenteredDistribution(1,0.9);
 
         MarketGeneratorBuilder.Distributions distributions = new MarketGeneratorBuilder.Distributions(
                 goodLevelDistribution,
@@ -51,7 +57,20 @@ public class GenerateMarketAction extends AbstractAction{
         MarketGenerator generator = builder.build();
         MarketGraphProvider graphProvider = new MarketGraphProvider();
         Market market = generator.nextMarket();
-        Layout<Object, MarketEdge> layout = new StaticLayout<Object, MarketEdge>(graphProvider.graphFor(market),new MarketVertexLayoutTransformer(market,panel.getMarketGraphPane().getSize() )) ;
+
+        Transformer<Object, Point2D> initializer;
+        Predicate<Context<Graph<Object, MarketEdge>, Object>> vertexIncludePredicate;
+        if(panel.getOnlyIOTransformationsCheckBox().isSelected()){
+            initializer = new MarketVertexOnlyIOTLayoutTransformer(market, panel.getMarketGraphPane().getSize());
+            vertexIncludePredicate = new MarketVertexIncludeOnlyIOTPredicate() ;
+        }
+        else {
+            initializer = new MarketVertexAllTransLayoutTransformer(market, panel.getMarketGraphPane().getSize());
+            vertexIncludePredicate = TruePredicate.getInstance();
+        }
+
+
+        Layout<Object, MarketEdge> layout = new StaticLayout<Object, MarketEdge>(graphProvider.graphFor(market), initializer) ;
         layout.setSize(panel.getMarketGraphPane().getSize());
         BasicVisualizationServer<Object,MarketEdge> graphPanel = new BasicVisualizationServer<Object,MarketEdge>(layout);
         graphPanel.getRenderContext().setVertexShapeTransformer(new MarketVertexShapeTransformer());
@@ -59,6 +78,8 @@ public class GenerateMarketAction extends AbstractAction{
         graphPanel.getRenderContext().setEdgeDrawPaintTransformer(new MarketEdgeColorTransformer());
         graphPanel.getRenderContext().setArrowDrawPaintTransformer(new MarketEdgeColorTransformer());
         graphPanel.getRenderContext().setArrowFillPaintTransformer(new MarketEdgeColorTransformer());
+        ;
+        graphPanel.getRenderContext().setVertexIncludePredicate(vertexIncludePredicate);
         panel.getMarketGraphPane().add(graphPanel, BorderLayout.CENTER);
         panel.getMarketGraphPane().revalidate();
     }
