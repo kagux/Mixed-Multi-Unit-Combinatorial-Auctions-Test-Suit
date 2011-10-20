@@ -6,6 +6,7 @@ import org.apache.commons.collections15.Transformer;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class MarketVertexLayoutTransformer implements Transformer<Object, Point2D>{
@@ -30,10 +31,15 @@ public class MarketVertexLayoutTransformer implements Transformer<Object, Point2
 
     private void initializeLayoutMap() {
         layoutMap = new HashMap<Object, Point2D>();
-        for (int i=0; i< market.getAllLevels().size(); i++){
-            layout(market.getLevel(i).getAllTransformations(),i*2+1);
-            layout(market.getLevel(i).getAllGoods(),i*2+2);
+        for (int levelIndex=0; levelIndex< market.getAllLevels().size(); levelIndex++){
+            layout(shuffle(market.getLevel(levelIndex).getAllTransformations()),levelIndex*2+1);
+            layout(market.getLevel(levelIndex).getAllGoods(),levelIndex*2+2);
         }
+    }
+
+    private ArrayList shuffle(ArrayList vertices) {
+        Collections.shuffle(vertices);
+        return vertices;
     }
 
     private void layout(ArrayList vertices, int row){

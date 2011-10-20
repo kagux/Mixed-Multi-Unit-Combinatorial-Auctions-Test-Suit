@@ -2,6 +2,7 @@ package com.mmuca.expLab.domain.Market.transformations;
 
 import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.goods.bundles.BundlesGenerator;
+import com.mmuca.expLab.domain.Require;
 import com.mmuca.expLab.domain.distributions.IDistribution;
 import com.mmuca.expLab.domain.distributions.ValueRange;
 

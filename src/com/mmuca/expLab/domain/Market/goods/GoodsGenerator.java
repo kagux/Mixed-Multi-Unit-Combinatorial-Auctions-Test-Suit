@@ -16,9 +16,12 @@ public class GoodsGenerator {
     public void populate(Market market, int numberOfGoodsToCreate, int minimumGoodsPerLevel) {
         levelDistribution.setValueRange(new ValueRange(0,market.getAllLevels().size()-1));
         fulfilMinimumRequirement(market, minimumGoodsPerLevel);
-        int amountLeftToCreate = numberOfGoodsToCreate - minimumGoodsPerLevel * market.getAllLevels().size();
-        distributeLeftOverGoods(market, amountLeftToCreate);
+        distributeLeftOverGoods(market, amountLeftToCreate(market.getAllLevels().size(), numberOfGoodsToCreate, minimumGoodsPerLevel));
         
+    }
+
+    private int amountLeftToCreate(int levelsCount, int totalNumOfGoodsToCreate, int minGoodsPerLevel) {
+        return totalNumOfGoodsToCreate - minGoodsPerLevel * levelsCount;
     }
 
     private void fulfilMinimumRequirement(Market market, int minimumGoodsPerLevel) {

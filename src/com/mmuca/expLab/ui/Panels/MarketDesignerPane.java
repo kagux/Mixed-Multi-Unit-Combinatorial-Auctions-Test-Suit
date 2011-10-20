@@ -33,13 +33,18 @@ public class MarketDesignerPane extends JPanel {
     public JTextField getMinNumOfGoodsPerLevelTextField() {
         return tfMinNumberOfGoodsPerLevel;
     }
+
     private void createUIComponents() {
-        // TODO: add custom component creation code here
+         generateMarketAction = new GenerateMarketAction(this);
     }
 
+    public JPanel getMarketGraphPane() {
+        return marketGraphPane;
+    }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Boris Mikhaylov
+        createUIComponents();
         marketConfigPane = new JPanel();
         lbNumberOfLevels = new JLabel();
         tfNumberOfLevels = new JTextField();
@@ -50,8 +55,7 @@ public class MarketDesignerPane extends JPanel {
         lbNumberOfTransformations = new JLabel();
         tfNumberOfTransformations = new JTextField();
         btnGenerateMarket = new JButton();
-        scrollPane1 = new JScrollPane();
-        generateMarketAction = new GenerateMarketAction(this);
+        marketGraphPane = new JPanel();
 
         //======== this ========
 
@@ -84,7 +88,7 @@ public class MarketDesignerPane extends JPanel {
                 new Insets(0, 0, 5, 5), 0, 0));
 
             //---- tfNumberOfLevels ----
-            tfNumberOfLevels.setText("5");
+            tfNumberOfLevels.setText("3");
             marketConfigPane.add(tfNumberOfLevels, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(0, 0, 5, 0), 0, 0));
@@ -96,7 +100,7 @@ public class MarketDesignerPane extends JPanel {
                 new Insets(0, 0, 5, 5), 0, 0));
 
             //---- tfNumberOfGoods ----
-            tfNumberOfGoods.setText("20");
+            tfNumberOfGoods.setText("6");
             marketConfigPane.add(tfNumberOfGoods, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(0, 0, 5, 0), 0, 0));
@@ -120,7 +124,7 @@ public class MarketDesignerPane extends JPanel {
                 new Insets(0, 0, 5, 5), 0, 0));
 
             //---- tfNumberOfTransformations ----
-            tfNumberOfTransformations.setText("20");
+            tfNumberOfTransformations.setText("2");
             marketConfigPane.add(tfNumberOfTransformations, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(0, 0, 5, 0), 0, 0));
@@ -137,11 +141,11 @@ public class MarketDesignerPane extends JPanel {
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 0, 5), 0, 0));
 
-        //======== scrollPane1 ========
+        //======== marketGraphPane ========
         {
-            scrollPane1.setViewportBorder(null);
+            marketGraphPane.setLayout(new BorderLayout());
         }
-        add(scrollPane1, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
+        add(marketGraphPane, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 0, 0), 0, 0));
 
@@ -163,7 +167,7 @@ public class MarketDesignerPane extends JPanel {
     private JLabel lbNumberOfTransformations;
     private JTextField tfNumberOfTransformations;
     private JButton btnGenerateMarket;
-    private JScrollPane scrollPane1;
+    private JPanel marketGraphPane;
     private GenerateMarketAction generateMarketAction;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

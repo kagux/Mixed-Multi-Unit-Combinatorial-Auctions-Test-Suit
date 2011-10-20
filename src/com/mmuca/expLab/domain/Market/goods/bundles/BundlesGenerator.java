@@ -23,7 +23,7 @@ public class BundlesGenerator {
     public GoodBundlesSet generate(Market market, int targetLevelIndex) {
         Require.that(targetLevelIndex >= 0 && targetLevelIndex < market.getAllLevels().size(), "Targeted Level index should correspond to existing Level in range (0," + (market.getAllLevels().size()-1) + "); was " + targetLevelIndex);
         numberOfBundlesDistribution.setValueRange(new ValueRange(1, market.getAllGoods().size()-1));
-        goodsLevelDistribution.setValueRange(new ValueRange(0,market.getAllLevels().size()-1));
+        goodsLevelDistribution.setValueRange(new ValueRange(0,market.getAllLevels().size()-2));
         goodsLevelDistribution.setTarget(targetLevelIndex);
         return createBundles(getShuffledGoodsPool(market));
     }

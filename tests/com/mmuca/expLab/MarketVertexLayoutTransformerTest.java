@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
 public class MarketVertexLayoutTransformerTest {
 
@@ -70,8 +72,9 @@ public class MarketVertexLayoutTransformerTest {
         Point2D secondGoodPosition = new Point2D.Double(goodsHorizontalGap*2, verticalGap*2);
         Point2D thirdGoodPosition = new Point2D.Double(goodsHorizontalGap*3, verticalGap*2);
 
-        assertEquals("position of first transformation", firstTransformationPosition, transformer.transform(transformation_1));
-        assertEquals("position of second transformation", secondTransformationPosition, transformer.transform(transformation_2));
+        assertTrue("transformation at first position", firstTransformationPosition.equals(transformer.transform(transformation_1)) || firstTransformationPosition.equals(transformer.transform(transformation_2)));
+        assertTrue("transformation at second position", secondTransformationPosition.equals(transformer.transform(transformation_1)) || secondTransformationPosition.equals(transformer.transform(transformation_2)));
+        assertFalse("transformations are at different positions", transformer.transform(transformation_1).equals(transformer.transform(transformation_2)));
 
         assertEquals("position of first good", firstGoodPosition, transformer.transform(new Good("good 0:0")));
         assertEquals("position of second good", secondGoodPosition, transformer.transform(new Good("good 0:1")));

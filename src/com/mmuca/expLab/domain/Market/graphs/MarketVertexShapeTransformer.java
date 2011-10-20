@@ -12,8 +12,8 @@ public class MarketVertexShapeTransformer implements Transformer<Object, Shape> 
     public Shape transform(Object o) {
         Require.that(o instanceof Good || o instanceof Transformation,"vertex needs to be either good or transformation");
         if (o instanceof Good)
-            return MarketVertexShape.CIRCLE.shape();
+            return MarketVertex.GOOD.shape();
         else
-            return MarketVertexShape.BOX.shape();
+            return MarketVertex.DEFAULT_TRANSFORMATION.shape();
     }
 }

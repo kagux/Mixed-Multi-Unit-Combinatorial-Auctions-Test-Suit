@@ -9,19 +9,19 @@ import edu.uci.ics.jung.graph.Graph;
 
 public class MarketGraphProvider {
     private Market market;
-    private Graph<Object, String> graph;
+    private Graph<Object, MarketEdge> graph;
 
     public MarketGraphProvider() {
 
     }
 
-    public Graph<Object, String> graphFor(Market market) {
+    public Graph<Object, MarketEdge> graphFor(Market market) {
         this.market = market;
         return createGraph();
     }
 
-    private Graph<Object, String> createGraph() {
-        graph = new DirectedSparseGraph<Object, String>();
+    private Graph<Object, MarketEdge> createGraph() {
+        graph = new DirectedSparseGraph<Object, MarketEdge>();
         createGoodsVertices();
         createTransformationsVertices();
         createEdges();
@@ -48,11 +48,11 @@ public class MarketGraphProvider {
 
     private void createInputEdges(Transformation transformation) {
         for (GoodBundle bundle: transformation.getInput())
-            graph.addEdge(bundle.getGood()+"->"+transformation,bundle.getGood(),transformation);
+            graph.addEdge(new MarketEdge(transformation, bundle.getGood()),bundle.getGood(),transformation);
     }
 
     private void createOutputEdges(Transformation transformation) {
         for (GoodBundle bundle: transformation.getOutput())
-            graph.addEdge(transformation+"->"+bundle.getGood(),transformation,bundle.getGood());
+            graph.addEdge(new MarketEdge(transformation, bundle.getGood()),transformation,bundle.getGood());
     }
 }

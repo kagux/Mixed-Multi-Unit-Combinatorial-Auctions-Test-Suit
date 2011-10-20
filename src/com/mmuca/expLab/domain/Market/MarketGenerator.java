@@ -4,6 +4,7 @@ import com.mmuca.expLab.domain.Market.goods.GoodsGenerator;
 import com.mmuca.expLab.domain.Market.transformations.IOTGenerator;
 import com.mmuca.expLab.domain.Market.transformations.ITGenerator;
 import com.mmuca.expLab.domain.Market.transformations.OTGenerator;
+import com.mmuca.expLab.domain.Require;
 
 public class MarketGenerator {
     private Parameters parameters;
@@ -45,6 +46,7 @@ public class MarketGenerator {
         private final int numberOfIOTransformations;
         public Parameters(int numberOfLevels, int numberOfGoodsToCreate, int minimumGoodsPerLevel, int numberOfIOTransformations) {
             this.numberOfLevels = numberOfLevels;
+            Require.that(numberOfLevels > 2, "there should be at least three levels in the market");
             this.numberOfGoodsToCreate = numberOfGoodsToCreate;
             this.minimumGoodsPerLevel = minimumGoodsPerLevel;
             this.numberOfIOTransformations = numberOfIOTransformations;

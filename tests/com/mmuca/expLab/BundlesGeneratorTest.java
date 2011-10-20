@@ -30,7 +30,7 @@ public class BundlesGeneratorTest {
         Market market = newMarket();
         GoodBundlesSet bundles = generator.generate(market, targetLevelIndex);
         
-        verify(goodsLevelDistribution).setValueRange(new ValueRange(0, NUM_LEVELS-1));
+        verify(goodsLevelDistribution).setValueRange(new ValueRange(0, NUM_LEVELS-2)); //last level has no goods, so it should be excluded
         verify(numberOfBundlesDistribution).setValueRange(new ValueRange(1, NUM_GOODS-1));
 
         InOrder inOrder  = inOrder(goodsLevelDistribution);

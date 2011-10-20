@@ -1,8 +1,8 @@
 package com.mmuca.expLab;
 
-import com.mmuca.expLab.domain.Market.graphs.MarketVertexShape;
-import com.mmuca.expLab.domain.Market.graphs.MarketVertexShapeTransformer;
 import com.mmuca.expLab.domain.Market.goods.Good;
+import com.mmuca.expLab.domain.Market.graphs.MarketVertex;
+import com.mmuca.expLab.domain.Market.graphs.MarketVertexShapeTransformer;
 import com.mmuca.expLab.domain.Market.transformations.Transformation;
 import org.junit.Test;
 
@@ -14,13 +14,13 @@ public class MarketVertexShapeTransformerTest {
     public void vertexForGood(){
         Good good = new Good("good");
         MarketVertexShapeTransformer transformer = new MarketVertexShapeTransformer();
-        assertEquals("good's shape", MarketVertexShape.CIRCLE.shape(), transformer.transform(good));
+        assertEquals("good's shape", MarketVertex.GOOD.shape(), transformer.transform(good));
     }
 
     @Test
     public void vertexForTransformation(){
         Transformation transformation = new Transformation();
         MarketVertexShapeTransformer transformer = new MarketVertexShapeTransformer();
-        assertEquals("transformation's vertex", MarketVertexShape.BOX.shape(), transformer.transform(transformation));
+        assertEquals("transformation's vertex", MarketVertex.DEFAULT_TRANSFORMATION.shape(), transformer.transform(transformation));
     }
 }

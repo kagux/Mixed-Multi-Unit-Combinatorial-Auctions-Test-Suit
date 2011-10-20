@@ -1,6 +1,7 @@
 package com.mmuca.expLab;
 
 import com.mmuca.expLab.domain.Market.Market;
+import com.mmuca.expLab.domain.Market.graphs.MarketEdge;
 import com.mmuca.expLab.domain.Market.graphs.MarketGraphProvider;
 import com.mmuca.expLab.domain.Market.MarketLevel;
 import com.mmuca.expLab.domain.Market.goods.Good;
@@ -24,7 +25,7 @@ public class MarketGraphTest {
         transformation.addInput(new GoodBundle(good, 1));
         market.getLevel(0).addTransformation(transformation);
 
-        Graph<Object, String> graph = newGraph(market);
+        Graph<Object, MarketEdge> graph = newGraph(market);
 
         assertEquals("# of vertices", 2,graph.getVertexCount());
         assertTrue("graph should contain good vertex", graph.containsVertex(good));
@@ -44,7 +45,7 @@ public class MarketGraphTest {
         transformation.addOutput(new GoodBundle(good, 1));
         market.getLevel(0).addTransformation(transformation);
 
-        Graph<Object, String> graph = newGraph(market);
+        Graph<Object, MarketEdge> graph = newGraph(market);
 
         assertEquals("# of vertices", 2,graph.getVertexCount());
         assertTrue("graph should contain good vertex", graph.containsVertex(good));
@@ -70,7 +71,7 @@ public class MarketGraphTest {
         transformation_2.addOutput(new GoodBundle(good_2,1));
         market.getLevel(0).addTransformation(transformation_2);
 
-        Graph<Object, String> graph = newGraph(market);
+        Graph<Object, MarketEdge> graph = newGraph(market);
 
         assertEquals("# of vertices", 4,graph.getVertexCount());
         assertTrue("graph should contain all goods vertices", graph.containsVertex(good_1));
@@ -90,7 +91,7 @@ public class MarketGraphTest {
 
 
 
-    private Graph<Object, String> newGraph(Market market) {
+    private Graph<Object, MarketEdge> newGraph(Market market) {
         return new MarketGraphProvider().graphFor(market);
     }
 

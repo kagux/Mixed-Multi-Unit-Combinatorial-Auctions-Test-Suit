@@ -100,7 +100,7 @@
           <string>javax.swing.JTextField</string> 
           <void method="setProperty"> 
            <string>text</string> 
-           <string>5</string> 
+           <string>3</string> 
           </void> 
           <void property="name"> 
            <string>tfNumberOfLevels</string> 
@@ -138,7 +138,7 @@
           <string>javax.swing.JTextField</string> 
           <void method="setProperty"> 
            <string>text</string> 
-           <string>20</string> 
+           <string>6</string> 
           </void> 
           <void property="name"> 
            <string>tfNumberOfGoods</string> 
@@ -222,7 +222,7 @@
           <string>javax.swing.JTextField</string> 
           <void method="setProperty"> 
            <string>text</string> 
-           <string>20</string> 
+           <string>2</string> 
           </void> 
           <void property="name"> 
            <string>tfNumberOfTransformations</string> 
@@ -280,16 +280,18 @@
       </void> 
       <void method="add"> 
        <object class="com.jformdesigner.model.FormContainer"> 
-        <string>javax.swing.JScrollPane</string> 
+        <string>javax.swing.JPanel</string> 
         <object class="com.jformdesigner.model.FormLayoutManager"> 
-         <class>javax.swing.JScrollPane</class> 
+         <class>java.awt.BorderLayout</class> 
         </object> 
-        <void method="setProperty"> 
-         <string>viewportBorder</string> 
-         <object class="com.jformdesigner.model.FormObject" field="NULL_VALUE"/> 
+        <void method="auxiliary"> 
+         <void method="setProperty"> 
+          <string>JavaCodeGenerator.variableGetter</string> 
+          <boolean>true</boolean> 
+         </void> 
         </void> 
         <void property="name"> 
-         <string>scrollPane1</string> 
+         <string>marketGraphPane</string> 
         </void> 
        </object> 
        <object class="com.jformdesigner.model.FormLayoutConstraints"> 
@@ -332,8 +334,8 @@
       </void> 
       <void method="auxiliary"> 
        <void method="setProperty"> 
-        <string>JavaCodeGenerator.customCreateCode</string> 
-        <string>new GenerateMarketAction(this);</string> 
+        <string>JavaCodeGenerator.customCreate</string> 
+        <boolean>true</boolean> 
        </void> 
       </void> 
       <void property="name"> 

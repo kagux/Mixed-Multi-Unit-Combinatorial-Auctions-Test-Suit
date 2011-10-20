@@ -8,12 +8,19 @@ import org.apache.commons.collections15.Transformer;
 import java.awt.*;
 
 public class MarketVertexColorTransformer implements Transformer<Object, Paint>{
+
     @Override
     public Paint transform(Object o) {
         Require.that(o instanceof Good || o instanceof Transformation, "vertex needs to be either good or transformation");
         if (o instanceof  Good)
-            return Color.YELLOW;
-        else
-            return Color.LIGHT_GRAY;
+            return MarketVertex.GOOD.color();
+        else  {
+            return notIOTransformation((Transformation)o) ? MarketVertex.DEFAULT_TRANSFORMATION.color() : MarketVertex.IOT_TRANSFORMATION.color();
+        }
+
+    }
+
+    private boolean notIOTransformation(Transformation transformation) {
+        return transformation.getOutput().isEmpty() || transformation.getInput().isEmpty();
     }
 }
