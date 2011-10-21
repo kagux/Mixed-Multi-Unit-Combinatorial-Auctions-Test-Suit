@@ -5,6 +5,8 @@ import com.mmuca.expLab.domain.Market.MarketGenerator;
 import com.mmuca.expLab.domain.Market.MarketGeneratorBuilder;
 import com.mmuca.expLab.domain.Market.graphs.*;
 import com.mmuca.expLab.domain.distributions.*;
+import com.mmuca.expLab.ui.BundlesNumDistributionAbstractFactory;
+import com.mmuca.expLab.ui.DistributionAbstractFactory;
 import com.mmuca.expLab.ui.panels.MarketDesignerPane;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
@@ -31,26 +33,26 @@ public class GenerateMarketAction extends AbstractAction{
     @Override
     public void actionPerformed(ActionEvent e) {
         MarketGenerator.Parameters marketParameters = new MarketGenerator.Parameters(
-                Integer.parseInt(panel.getNumOfLevelsTextField().getText()),
+                Integer.parseInt(panel.getNumOfLevelsTextField().getText())+1,
                 Integer.parseInt(panel.getNumOfGoodsTextField().getText()),
                 Integer.parseInt(panel.getMinNumOfGoodsPerLevelTextField().getText()),
                 Integer.parseInt(panel.getNumOfTransformationsTextField().getText())
         );
 
-        IDistribution goodLevelDistribution =  new CenteredDistribution(4,0.3);
+
         IDistribution iotLevelDistribution = new UniformDistribution();
         ITargetedDistribution inputBundlesGoodLevelDistribution = new ForwardMarkovDistribution(0.3,0.3);
         ITargetedDistribution outputBundlesGoodLevelDistribution = new BackwardMarkovDistribution(0.3,0.3);
-        IDistribution numberOfInputBundlesDistribution = new CenteredDistribution(1,0.1);
-        IDistribution numberOfOutputBundlesDistribution = new CenteredDistribution(1,0.1);
 
+        DistributionAbstractFactory standardAbstractFactory=new DistributionAbstractFactory ();
+        BundlesNumDistributionAbstractFactory bundlesNumAbstractFactory = new BundlesNumDistributionAbstractFactory();
         MarketGeneratorBuilder.Distributions distributions = new MarketGeneratorBuilder.Distributions(
-                goodLevelDistribution,
+                standardAbstractFactory.getFactory((String)panel.getGoodsLevelDistrComboBox().getSelectedItem(),panel.getGoodsLevelDistrPanel()).create(),
                 iotLevelDistribution,
                 inputBundlesGoodLevelDistribution,
                 outputBundlesGoodLevelDistribution,
-                numberOfInputBundlesDistribution,
-                numberOfOutputBundlesDistribution
+                bundlesNumAbstractFactory.getFactory((String)panel.getBundlesNumDistrComboBox().getSelectedItem(), panel.getBundlesNumDistrPanel()).create(),
+                bundlesNumAbstractFactory.getFactory((String)panel.getBundlesNumDistrComboBox().getSelectedItem(), panel.getBundlesNumDistrPanel()).create()
         );
 
         MarketGeneratorBuilder builder = new MarketGeneratorBuilder(marketParameters, distributions);
@@ -83,4 +85,5 @@ public class GenerateMarketAction extends AbstractAction{
         panel.getMarketGraphPane().add(graphPanel, BorderLayout.CENTER);
         panel.getMarketGraphPane().revalidate();
     }
+
 }

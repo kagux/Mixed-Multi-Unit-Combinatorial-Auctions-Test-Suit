@@ -19,6 +19,14 @@ public class CenteredDistribution implements IDistribution{
         this.randomGenerator = new Random();
     }
 
+    public int getCenter() {
+        return center;
+    }
+
+    public double getAlpha() {
+        return alpha;
+    }
+
     public int nextInt(){
         Require.that(range != null, "Value range has to be set before generating next value");
         double rnd = randomGenerator.nextDouble()*cumulativeFunction.getMax();
