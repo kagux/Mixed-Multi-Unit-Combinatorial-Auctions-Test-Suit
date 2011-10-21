@@ -37,12 +37,12 @@ public class GenerateMarketAction extends AbstractAction{
                 Integer.parseInt(panel.getNumOfTransformationsTextField().getText())
         );
 
-        IDistribution goodLevelDistribution = new UniformDistribution();
+        IDistribution goodLevelDistribution =  new CenteredDistribution(4,0.3);
         IDistribution iotLevelDistribution = new UniformDistribution();
-        ITargetedDistribution inputBundlesGoodLevelDistribution = new ForwardMarkovDistribution(0.1,0.1);
-        ITargetedDistribution outputBundlesGoodLevelDistribution = new BackwardMarkovDistribution(0.1,0.1);
-        IDistribution numberOfInputBundlesDistribution = new CenteredDistribution(1,0.7);
-        IDistribution numberOfOutputBundlesDistribution = new CenteredDistribution(1,0.9);
+        ITargetedDistribution inputBundlesGoodLevelDistribution = new ForwardMarkovDistribution(0.3,0.3);
+        ITargetedDistribution outputBundlesGoodLevelDistribution = new BackwardMarkovDistribution(0.3,0.3);
+        IDistribution numberOfInputBundlesDistribution = new CenteredDistribution(1,0.1);
+        IDistribution numberOfOutputBundlesDistribution = new CenteredDistribution(1,0.1);
 
         MarketGeneratorBuilder.Distributions distributions = new MarketGeneratorBuilder.Distributions(
                 goodLevelDistribution,
@@ -60,6 +60,7 @@ public class GenerateMarketAction extends AbstractAction{
 
         Transformer<Object, Point2D> initializer;
         Predicate<Context<Graph<Object, MarketEdge>, Object>> vertexIncludePredicate;
+
         if(panel.getOnlyIOTransformationsCheckBox().isSelected()){
             initializer = new MarketVertexOnlyIOTLayoutTransformer(market, panel.getMarketGraphPane().getSize());
             vertexIncludePredicate = new MarketVertexIncludeOnlyIOTPredicate() ;
@@ -78,7 +79,6 @@ public class GenerateMarketAction extends AbstractAction{
         graphPanel.getRenderContext().setEdgeDrawPaintTransformer(new MarketEdgeColorTransformer());
         graphPanel.getRenderContext().setArrowDrawPaintTransformer(new MarketEdgeColorTransformer());
         graphPanel.getRenderContext().setArrowFillPaintTransformer(new MarketEdgeColorTransformer());
-        ;
         graphPanel.getRenderContext().setVertexIncludePredicate(vertexIncludePredicate);
         panel.getMarketGraphPane().add(graphPanel, BorderLayout.CENTER);
         panel.getMarketGraphPane().revalidate();
