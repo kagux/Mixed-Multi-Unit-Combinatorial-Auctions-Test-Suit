@@ -6,37 +6,37 @@ import com.mmuca.expLab.ui.panels.DistributionPane;
 import com.mmuca.expLab.ui.panels.MarkovDistrPanel;
 
 public class DistributionFactory {
-    public static IDistribution create(String distributionName) {
-        if (isUniform(distributionName))  return new UniformDistribution();
-        throw new IllegalArgumentException("Unknown distribution" + distributionName);
+    public static IDistribution create(Distribution distribution) {
+        if (isUniform(distribution))  return new UniformDistribution();
+        throw new IllegalArgumentException("Unknown distribution" + distribution);
     }
 
-    public static IDistribution create(String distributionName, DistributionPane panel) {
-        return create(distributionName,panel,0);
+    public static IDistribution create(Distribution distribution, DistributionPane panel) {
+        return create(distribution,panel,0);
     }
 
-    public static IDistribution create(String distributionName, DistributionPane panel, int valueOffset) {
-        if (isCentered(distributionName))              return createCenteredDistribution(panel, valueOffset);
-        else if (isUniform(distributionName))          return new UniformDistribution();
-        else if (isMarkovForward(distributionName))    return createMarkovForwardDistribution(panel);
-        else if (isMarkovBackward(distributionName))   return createMarkovBackwardDistribution(panel);
-        throw new IllegalArgumentException("Unknown distribution" + distributionName);
+    public static IDistribution create(Distribution distribution, DistributionPane panel, int valueOffset) {
+        if (isCentered(distribution))              return createCenteredDistribution(panel, valueOffset);
+        else if (isUniform(distribution))          return new UniformDistribution();
+        else if (isMarkovForward(distribution))    return createMarkovForwardDistribution(panel);
+        else if (isMarkovBackward(distribution))   return createMarkovBackwardDistribution(panel);
+        throw new IllegalArgumentException("Unknown distribution" + distribution);
     }
 
-    private static boolean isUniform(String distributionName) {
-        return distributionName.toLowerCase().equals("uniform");
+    private static boolean isUniform(Distribution distribution) {
+        return distribution == Distribution.UNIFORM;
     }
 
-    private static boolean isCentered(String distributionName) {
-        return distributionName.toLowerCase().equals("centered");
+    private static boolean isCentered(Distribution distribution) {
+        return Distribution.CENTERED == distribution;
     }
 
-    private static boolean  isMarkovForward(String distributionName){
-        return distributionName.toLowerCase().equals("markov forward");
+    private static boolean  isMarkovForward(Distribution distribution){
+        return Distribution.MARKOV_FORWARD == distribution;
     }
 
-    private static boolean  isMarkovBackward(String distributionName){
-        return distributionName.toLowerCase().equals("markov backward");
+    private static boolean  isMarkovBackward(Distribution distribution){
+        return Distribution.MARKOV_BACKWARD == distribution;
     }
 
     private static IDistribution createMarkovBackwardDistribution(DistributionPane panel) {

@@ -1,9 +1,6 @@
 package com.mmuca.expLab;
 
-import com.mmuca.expLab.domain.distributions.MarkovBackwardDistribution;
-import com.mmuca.expLab.domain.distributions.CenteredDistribution;
-import com.mmuca.expLab.domain.distributions.MarkovForwardDistribution;
-import com.mmuca.expLab.domain.distributions.UniformDistribution;
+import com.mmuca.expLab.domain.distributions.*;
 import com.mmuca.expLab.ui.DistributionFactory;
 import com.mmuca.expLab.ui.panels.CenteredDistrPane;
 import com.mmuca.expLab.ui.panels.DistributionPane;
@@ -21,9 +18,9 @@ public class DistributionFactoryTest {
 
     @Test
     public void uniformDistribution(){
-        assertTrue("uniform centeredDistribution", DistributionFactory.create("uniform") instanceof UniformDistribution);
+        assertTrue("uniform centeredDistribution", DistributionFactory.create(Distribution.UNIFORM) instanceof UniformDistribution);
         DistributionPane noPanel = null;
-        assertTrue("uniform centeredDistribution", DistributionFactory.create("uniform", noPanel) instanceof UniformDistribution);
+        assertTrue("uniform centeredDistribution", DistributionFactory.create(Distribution.UNIFORM, noPanel) instanceof UniformDistribution);
     }
 
     @Test
@@ -83,12 +80,12 @@ public class DistributionFactoryTest {
     private MarkovForwardDistribution markovForwardDistribution(String pValueChange, String pDirectionChange) {
         MarkovDistrPanel markovDistrPanel = markovDistrPanel(pValueChange, pDirectionChange);
         DistributionPane distributionPanel = when(mock(DistributionPane.class).getMarkovForwardDistrPanel()).thenReturn(markovDistrPanel).getMock();
-        return (MarkovForwardDistribution) DistributionFactory.create("Markov Forward", distributionPanel);
+        return (MarkovForwardDistribution) DistributionFactory.create(Distribution.MARKOV_FORWARD, distributionPanel);
     }
     private MarkovBackwardDistribution markovBackwardDistribution(String pValueChange, String pDirectionChange) {
         MarkovDistrPanel markovDistrPanel = markovDistrPanel(pValueChange, pDirectionChange);
         DistributionPane distributionPanel = when(mock(DistributionPane.class).getMarkovBackwardDistrPanel()).thenReturn(markovDistrPanel).getMock();
-        return (MarkovBackwardDistribution) DistributionFactory.create("Markov Backward", distributionPanel);
+        return (MarkovBackwardDistribution) DistributionFactory.create(Distribution.MARKOV_BACKWARD, distributionPanel);
     }
 
     private MarkovDistrPanel markovDistrPanel(String pValueChange, String pDirectionChange) {
@@ -108,6 +105,6 @@ public class DistributionFactoryTest {
         when(centeredDistrPane.getCenterTextField()).thenReturn(center);
         when(centeredDistrPane.getAlphaTextField()).thenReturn(alpha);
         DistributionPane distributionPanel = when(mock(DistributionPane.class).getCenteredDistrPane()).thenReturn(centeredDistrPane).getMock();
-        return (CenteredDistribution) DistributionFactory.create("centered", distributionPanel, valueOffset);
+        return (CenteredDistribution) DistributionFactory.create(Distribution.CENTERED, distributionPanel, valueOffset);
     }
 }

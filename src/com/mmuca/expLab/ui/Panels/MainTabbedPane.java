@@ -5,7 +5,6 @@
 package com.mmuca.expLab.ui.panels;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * @author Boris Mikhaylov
@@ -17,7 +16,6 @@ public class MainTabbedPane extends JTabbedPane {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Boris Mikhaylov
         marketDesignerPane = new MarketDesignerPane();
 
         //======== this ========
@@ -27,7 +25,6 @@ public class MainTabbedPane extends JTabbedPane {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Boris Mikhaylov
     private MarketDesignerPane marketDesignerPane;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

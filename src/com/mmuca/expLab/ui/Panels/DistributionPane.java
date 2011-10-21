@@ -15,9 +15,6 @@ import java.awt.*;
  * @author Boris Mikhaylov
  */
 public class DistributionPane extends JPanel {
-    public final static String UNIFORM_DISTR = "Uniform";
-    public final static String CENTERED_DISTR = "Centered";
-
     public DistributionPane() {
         initComponents();
     }
@@ -34,9 +31,12 @@ public class DistributionPane extends JPanel {
         return markovBackwardDistrPanel;
     }
 
+    private void createUIComponents() {
+        // TODO: add custom component creation code here
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Boris Mikhaylov
         uniformDistrPane = new JPanel();
         lbInfo = new JLabel();
         centeredDistrPane = new CenteredDistrPane();
@@ -47,14 +47,6 @@ public class DistributionPane extends JPanel {
         setBorder(new CompoundBorder(
             new TitledBorder(" Distribution Options"),
             Borders.DLU2_BORDER));
-
-        // JFormDesigner evaluation mark
-        setBorder(new javax.swing.border.CompoundBorder(
-            new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
         setLayout(new CardLayout());
 
         //======== uniformDistrPane ========
@@ -79,7 +71,6 @@ public class DistributionPane extends JPanel {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Boris Mikhaylov
     private JPanel uniformDistrPane;
     private JLabel lbInfo;
     private CenteredDistrPane centeredDistrPane;

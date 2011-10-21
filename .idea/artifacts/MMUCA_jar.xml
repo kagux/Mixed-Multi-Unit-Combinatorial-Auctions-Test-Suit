@@ -9,9 +9,10 @@
       <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/jung-jai-2.0.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/collections-generic-4.01.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/jung-visualization-2.0.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/jung-algorithms-2.0.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/jgoodies-forms.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/jung-api-2.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/jung-algorithms-2.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/jung-graph-impl-2.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/jgoodies-forms.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
