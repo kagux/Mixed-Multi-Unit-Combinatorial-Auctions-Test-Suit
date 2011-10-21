@@ -74,6 +74,21 @@ public class MarketDesignerPane extends JPanel {
         layout.show(bundlesNumDistrPanel, (String)e.getItem());
     }
 
+    public DistributionPane getIOTLevelDistrPanel(){
+        return iotLevelDistrPanel;
+    }
+
+    public JComboBox getIOTLevelDistrComboBox(){
+        return cbIOTLevelDistr;
+    }
+
+    private void cbIOTLevelDistrItemStateChanged(ItemEvent e) {
+        CardLayout layout = (CardLayout) iotLevelDistrPanel.getLayout();
+        layout.show(iotLevelDistrPanel, (String)e.getItem());
+    }
+
+
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Boris Mikhaylov
@@ -96,21 +111,21 @@ public class MarketDesignerPane extends JPanel {
         lbBundlesNumDistr = new JLabel();
         cbBundlesNumDistr = new JComboBox();
         bundlesNumDistrPanel = new DistributionPane();
-        btnGenerateMarket = new JButton();
+        separator2 = new JSeparator();
+        lbIOTLevelDistr = new JLabel();
+        cbIOTLevelDistr = new JComboBox();
+        iotLevelDistrPanel = new DistributionPane();
         marketGraphPane = new JPanel();
+        btnGenerateMarket = new JButton();
 
         //======== this ========
 
         // JFormDesigner evaluation mark
         setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                        "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                        javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                        java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent e) {
-                if ("border".equals(e.getPropertyName())) throw new RuntimeException();
-            }
-        });
+            new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
         setLayout(new GridBagLayout());
         ((GridBagLayout)getLayout()).columnWidths = new int[] {0, 332, 0, 0, 0, 0};
@@ -127,9 +142,9 @@ public class MarketDesignerPane extends JPanel {
                 marketConfigPane.setBorder(new EtchedBorder());
                 marketConfigPane.setLayout(new GridBagLayout());
                 ((GridBagLayout)marketConfigPane.getLayout()).columnWidths = new int[] {76, 53, 0};
-                ((GridBagLayout)marketConfigPane.getLayout()).rowHeights = new int[] {27, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                ((GridBagLayout)marketConfigPane.getLayout()).rowHeights = new int[] {27, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
                 ((GridBagLayout)marketConfigPane.getLayout()).columnWeights = new double[] {0.0, 1.0, 1.0E-4};
-                ((GridBagLayout)marketConfigPane.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0E-4};
+                ((GridBagLayout)marketConfigPane.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0E-4};
 
                 //---- lbNumberOfLevels ----
                 lbNumberOfLevels.setText("# Levels");
@@ -238,14 +253,34 @@ public class MarketDesignerPane extends JPanel {
                 marketConfigPane.add(bundlesNumDistrPanel, new GridBagConstraints(0, 9, 2, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 0), 0, 0));
+                marketConfigPane.add(separator2, new GridBagConstraints(0, 10, 2, 1, 0.0, 0.0,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    new Insets(0, 0, 5, 0), 0, 0));
 
-                //---- btnGenerateMarket ----
-                btnGenerateMarket.setVerticalAlignment(SwingConstants.BOTTOM);
-                btnGenerateMarket.setAction(generateMarketAction);
-                btnGenerateMarket.setText("Generate New Market");
-                marketConfigPane.add(btnGenerateMarket, new GridBagConstraints(0, 10, 2, 1, 0.0, 0.0,
-                    GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL,
-                    new Insets(0, 0, 0, 0), 0, 0));
+                //---- lbIOTLevelDistr ----
+                lbIOTLevelDistr.setText("IOT Levels are");
+                lbIOTLevelDistr.setLabelFor(cbIOTLevelDistr);
+                marketConfigPane.add(lbIOTLevelDistr, new GridBagConstraints(0, 11, 1, 1, 0.0, 0.0,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    new Insets(0, 0, 5, 5), 0, 0));
+
+                //---- cbIOTLevelDistr ----
+                cbIOTLevelDistr.setModel(new DefaultComboBoxModel(new String[] {
+                    "Uniform",
+                    "Centered"
+                }));
+                cbIOTLevelDistr.addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent e) {
+                        cbIOTLevelDistrItemStateChanged(e);
+                    }
+                });
+                marketConfigPane.add(cbIOTLevelDistr, new GridBagConstraints(1, 11, 1, 1, 0.0, 0.0,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    new Insets(0, 0, 5, 0), 0, 0));
+                marketConfigPane.add(iotLevelDistrPanel, new GridBagConstraints(0, 12, 2, 1, 0.0, 0.0,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    new Insets(0, 0, 5, 0), 0, 0));
             }
             scrollPane2.setViewportView(marketConfigPane);
         }
@@ -256,6 +291,12 @@ public class MarketDesignerPane extends JPanel {
         //======== marketGraphPane ========
         {
             marketGraphPane.setLayout(new BorderLayout());
+
+            //---- btnGenerateMarket ----
+            btnGenerateMarket.setVerticalAlignment(SwingConstants.BOTTOM);
+            btnGenerateMarket.setAction(generateMarketAction);
+            btnGenerateMarket.setText("Generate New Market");
+            marketGraphPane.add(btnGenerateMarket, BorderLayout.SOUTH);
         }
         add(marketGraphPane, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -288,8 +329,12 @@ public class MarketDesignerPane extends JPanel {
     private JLabel lbBundlesNumDistr;
     private JComboBox cbBundlesNumDistr;
     private DistributionPane bundlesNumDistrPanel;
-    private JButton btnGenerateMarket;
+    private JSeparator separator2;
+    private JLabel lbIOTLevelDistr;
+    private JComboBox cbIOTLevelDistr;
+    private DistributionPane iotLevelDistrPanel;
     private JPanel marketGraphPane;
+    private JButton btnGenerateMarket;
     private GenerateMarketAction generateMarketAction;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
