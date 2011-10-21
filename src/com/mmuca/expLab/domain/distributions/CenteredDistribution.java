@@ -106,7 +106,7 @@ public class CenteredDistribution implements IDistribution{
         }
 
         private double centerBasedCoefficient(int valueIndex) {
-            return Math.pow(alpha, distanceFromCenter(valueIndex)+1);
+            return Math.pow(alpha, distanceFromCenter(valueIndex));
         }
 
         private double probabilityDivisor() {

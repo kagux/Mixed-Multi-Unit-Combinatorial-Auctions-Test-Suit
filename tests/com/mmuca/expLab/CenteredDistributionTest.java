@@ -32,7 +32,7 @@ public class CenteredDistributionTest {
     @Test
     @Ignore
     public void histogram(){
-        IDistribution distribution = centeredDistribution(1, 40, 2);
+        IDistribution distribution = centeredDistribution(1, 40, 20);
         HashMap<Integer, Integer> histogram = new HashMap<Integer, Integer>();
         int testRuns = 1000;
         for (int i=0; i<testRuns;i++){
@@ -43,7 +43,7 @@ public class CenteredDistributionTest {
     }
 
   private IDistribution centeredDistribution(int start, int end, int center) {
-      IDistribution distribution = new CenteredDistribution(center, 0.8);
+      IDistribution distribution = new CenteredDistribution(center, 0.7);
       distribution.setValueRange(new ValueRange(start, end));
       return distribution;
   }

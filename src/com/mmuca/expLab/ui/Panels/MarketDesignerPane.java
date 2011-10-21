@@ -34,6 +34,10 @@ public class MarketDesignerPane extends JPanel {
         return tfMinNumberOfGoodsPerLevel;
     }
 
+    public JCheckBox getOnlyIOTransformationsCheckBox(){
+        return chkOnlyIOTransformations;
+    }
+
     private void createUIComponents() {
          generateMarketAction = new GenerateMarketAction(this);
     }
@@ -54,6 +58,7 @@ public class MarketDesignerPane extends JPanel {
         tfMinNumberOfGoodsPerLevel = new JTextField();
         lbNumberOfTransformations = new JLabel();
         tfNumberOfTransformations = new JTextField();
+        chkOnlyIOTransformations = new JCheckBox();
         btnGenerateMarket = new JButton();
         marketGraphPane = new JPanel();
 
@@ -77,9 +82,9 @@ public class MarketDesignerPane extends JPanel {
             marketConfigPane.setBorder(new EtchedBorder());
             marketConfigPane.setLayout(new GridBagLayout());
             ((GridBagLayout)marketConfigPane.getLayout()).columnWidths = new int[] {76, 53, 0};
-            ((GridBagLayout)marketConfigPane.getLayout()).rowHeights = new int[] {27, 23, 0, 0, 0, 0};
+            ((GridBagLayout)marketConfigPane.getLayout()).rowHeights = new int[] {27, 23, 0, 0, 0, 0, 0};
             ((GridBagLayout)marketConfigPane.getLayout()).columnWeights = new double[] {0.0, 1.0, 1.0E-4};
-            ((GridBagLayout)marketConfigPane.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 1.0, 1.0E-4};
+            ((GridBagLayout)marketConfigPane.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0E-4};
 
             //---- lbNumberOfLevels ----
             lbNumberOfLevels.setText("# Levels");
@@ -129,11 +134,17 @@ public class MarketDesignerPane extends JPanel {
                 GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                 new Insets(0, 0, 5, 0), 0, 0));
 
+            //---- chkOnlyIOTransformations ----
+            chkOnlyIOTransformations.setText("Show only IO Transformations");
+            marketConfigPane.add(chkOnlyIOTransformations, new GridBagConstraints(0, 4, 2, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 0), 0, 0));
+
             //---- btnGenerateMarket ----
             btnGenerateMarket.setVerticalAlignment(SwingConstants.BOTTOM);
             btnGenerateMarket.setAction(generateMarketAction);
             btnGenerateMarket.setText("Generate New Market");
-            marketConfigPane.add(btnGenerateMarket, new GridBagConstraints(0, 4, 2, 1, 0.0, 0.0,
+            marketConfigPane.add(btnGenerateMarket, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0,
                 GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL,
                 new Insets(0, 0, 0, 0), 0, 0));
         }
@@ -166,6 +177,7 @@ public class MarketDesignerPane extends JPanel {
     private JTextField tfMinNumberOfGoodsPerLevel;
     private JLabel lbNumberOfTransformations;
     private JTextField tfNumberOfTransformations;
+    private JCheckBox chkOnlyIOTransformations;
     private JButton btnGenerateMarket;
     private JPanel marketGraphPane;
     private GenerateMarketAction generateMarketAction;

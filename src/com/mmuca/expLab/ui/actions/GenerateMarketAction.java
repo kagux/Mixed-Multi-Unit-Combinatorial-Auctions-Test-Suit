@@ -41,7 +41,7 @@ public class GenerateMarketAction extends AbstractAction{
         IDistribution iotLevelDistribution = new UniformDistribution();
         ITargetedDistribution inputBundlesGoodLevelDistribution = new ForwardMarkovDistribution(0.1,0.1);
         ITargetedDistribution outputBundlesGoodLevelDistribution = new BackwardMarkovDistribution(0.1,0.1);
-        IDistribution numberOfInputBundlesDistribution = new CenteredDistribution(1,0.9);
+        IDistribution numberOfInputBundlesDistribution = new CenteredDistribution(1,0.7);
         IDistribution numberOfOutputBundlesDistribution = new CenteredDistribution(1,0.9);
 
         MarketGeneratorBuilder.Distributions distributions = new MarketGeneratorBuilder.Distributions(
