@@ -40,7 +40,6 @@ public class GenerateMarketAction extends AbstractAction{
         );
 
 
-        IDistribution iotLevelDistribution = new UniformDistribution();
         ITargetedDistribution inputBundlesGoodLevelDistribution = new ForwardMarkovDistribution(0.3,0.3);
         ITargetedDistribution outputBundlesGoodLevelDistribution = new BackwardMarkovDistribution(0.3,0.3);
 
@@ -48,7 +47,7 @@ public class GenerateMarketAction extends AbstractAction{
         BundlesNumDistributionAbstractFactory bundlesNumAbstractFactory = new BundlesNumDistributionAbstractFactory();
         MarketGeneratorBuilder.Distributions distributions = new MarketGeneratorBuilder.Distributions(
                 standardAbstractFactory.getFactory((String)panel.getGoodsLevelDistrComboBox().getSelectedItem(),panel.getGoodsLevelDistrPanel()).create(),
-                iotLevelDistribution,
+                standardAbstractFactory.getFactory((String)panel.getIOTLevelDistrComboBox().getSelectedItem(),panel.getIOTLevelDistrPanel()).create(),
                 inputBundlesGoodLevelDistribution,
                 outputBundlesGoodLevelDistribution,
                 bundlesNumAbstractFactory.getFactory((String)panel.getBundlesNumDistrComboBox().getSelectedItem(), panel.getBundlesNumDistrPanel()).create(),
