@@ -4,8 +4,6 @@ import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.MarketGenerator;
 import com.mmuca.expLab.domain.Market.MarketGeneratorBuilder;
 import com.mmuca.expLab.domain.Market.graphs.*;
-import com.mmuca.expLab.domain.distributions.BackwardMarkovDistribution;
-import com.mmuca.expLab.domain.distributions.ForwardMarkovDistribution;
 import com.mmuca.expLab.domain.distributions.ITargetedDistribution;
 import com.mmuca.expLab.ui.DistributionFactory;
 import com.mmuca.expLab.ui.panels.MarketDesignerPane;
@@ -41,14 +39,11 @@ public class GenerateMarketAction extends AbstractAction{
         );
 
 
-        ITargetedDistribution inputBundlesGoodLevelDistribution = new ForwardMarkovDistribution(0.3,0.3);
-        ITargetedDistribution outputBundlesGoodLevelDistribution = new BackwardMarkovDistribution(0.3,0.3);
-
         MarketGeneratorBuilder.Distributions distributions = new MarketGeneratorBuilder.Distributions(
                 DistributionFactory.create((String) panel.getGoodsLevelDistrComboBox().getSelectedItem(), panel.getGoodsLevelDistrPanel(), -1),
                 DistributionFactory.create((String) panel.getIOTLevelDistrComboBox().getSelectedItem(), panel.getIOTLevelDistrPanel(), -1),
-                inputBundlesGoodLevelDistribution,
-                outputBundlesGoodLevelDistribution,
+                (ITargetedDistribution)DistributionFactory.create((String) panel.getInputBundlesGoodsLevelComboBox().getSelectedItem(),panel.getInputBundlesGoodsLevelDistrPanel()),
+                (ITargetedDistribution)DistributionFactory.create((String) panel.getOutputBundlesGoodsLevelComboBox().getSelectedItem(),panel.getOutputBundlesGoodsLevelDistrPanel()),
                 DistributionFactory.create((String)panel.getBundlesNumDistrComboBox().getSelectedItem(),panel.getBundlesNumDistrPanel()),
                 DistributionFactory.create((String) panel.getBundlesNumDistrComboBox().getSelectedItem(), panel.getBundlesNumDistrPanel())
         );

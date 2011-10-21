@@ -1,6 +1,6 @@
 package com.mmuca.expLab;
 
-import com.mmuca.expLab.domain.distributions.BackwardMarkovDistribution;
+import com.mmuca.expLab.domain.distributions.MarkovBackwardDistribution;
 import com.mmuca.expLab.domain.distributions.ITargetedDistribution;
 import com.mmuca.expLab.domain.distributions.ValueRange;
 import org.junit.Ignore;
@@ -46,7 +46,7 @@ public class BackwardMarkovDistributionTest {
     }
 
   private ITargetedDistribution backwardMarkovDistribution(int start, int end) {
-      ITargetedDistribution distribution = new BackwardMarkovDistribution(0.2, 0.1);
+      ITargetedDistribution distribution = new MarkovBackwardDistribution(0.2, 0.1);
       distribution.setValueRange(new ValueRange(start, end));
       return distribution;
   }

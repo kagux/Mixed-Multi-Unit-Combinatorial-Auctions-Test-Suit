@@ -1,8 +1,8 @@
 package com.mmuca.expLab.domain.distributions;
 
-public class ForwardMarkovDistribution extends MarkovDistribution{
+public class MarkovForwardDistribution extends MarkovDistribution{
 
-    public ForwardMarkovDistribution(double probabilityOfChangingValue, double probabilityOfSwitchingDirection) {
+    public MarkovForwardDistribution(double probabilityOfChangingValue, double probabilityOfSwitchingDirection) {
         super(probabilityOfChangingValue, probabilityOfSwitchingDirection);
     }
 

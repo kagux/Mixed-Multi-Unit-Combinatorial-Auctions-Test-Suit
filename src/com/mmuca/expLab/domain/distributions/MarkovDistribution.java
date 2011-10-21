@@ -8,13 +8,22 @@ abstract public class MarkovDistribution implements ITargetedDistribution {
     protected int initialValue;
     protected Random randomGenerator;
     private ValueRange range;
-    private double probabilityOfChangingValue;
-    private double probabilityOfSwitchingDirection;
 
-    public MarkovDistribution(double probabilityOfChangingValue, double probabilityOfSwitchingDirection) {
-        this.probabilityOfChangingValue = probabilityOfChangingValue;
-        this.probabilityOfSwitchingDirection = probabilityOfSwitchingDirection;
+    private double changeValueProbability;
+    private double changeDirectionProbability;
+
+    public MarkovDistribution(double changeValueProbability, double changeDirectionProbability) {
+        this.changeValueProbability = changeValueProbability;
+        this.changeDirectionProbability = changeDirectionProbability;
         this.randomGenerator = new Random();
+    }
+
+    public double getChangeValueProbability() {
+        return changeValueProbability;
+    }
+
+    public double getChangeDirectionProbability() {
+        return changeDirectionProbability;
     }
 
     public void setTarget(int initialValue) {
@@ -34,7 +43,7 @@ abstract public class MarkovDistribution implements ITargetedDistribution {
     }
 
     private boolean changeValue() {
-        return randomGenerator.nextDouble() < probabilityOfChangingValue;
+        return randomGenerator.nextDouble() < changeValueProbability;
     }
 
     protected int nextValueTo(int value) {
@@ -45,7 +54,7 @@ abstract public class MarkovDistribution implements ITargetedDistribution {
     }
 
     protected boolean switchDirection() {
-        return (randomGenerator.nextDouble() < probabilityOfSwitchingDirection);
+        return (randomGenerator.nextDouble() < changeDirectionProbability);
     }
 
     protected abstract int directStep(int value);

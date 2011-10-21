@@ -26,12 +26,22 @@ public class DistributionPane extends JPanel {
         return centeredDistrPane;
     }
 
+    public MarkovDistrPanel getMarkovForwardDistrPanel() {
+        return markovForwardDistrPanel;
+    }
+
+    public MarkovDistrPanel getMarkovBackwardDistrPanel() {
+        return markovBackwardDistrPanel;
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Boris Mikhaylov
         uniformDistrPane = new JPanel();
         lbInfo = new JLabel();
         centeredDistrPane = new CenteredDistrPane();
+        markovForwardDistrPanel = new MarkovDistrPanel();
+        markovBackwardDistrPanel = new MarkovDistrPanel();
 
         //======== this ========
         setBorder(new CompoundBorder(
@@ -63,6 +73,8 @@ public class DistributionPane extends JPanel {
         }
         add(uniformDistrPane, "Uniform");
         add(centeredDistrPane, "Centered");
+        add(markovForwardDistrPanel, "Markov Forward");
+        add(markovBackwardDistrPanel, "Markov Backward");
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
@@ -71,5 +83,7 @@ public class DistributionPane extends JPanel {
     private JPanel uniformDistrPane;
     private JLabel lbInfo;
     private CenteredDistrPane centeredDistrPane;
+    private MarkovDistrPanel markovForwardDistrPanel;
+    private MarkovDistrPanel markovBackwardDistrPanel;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

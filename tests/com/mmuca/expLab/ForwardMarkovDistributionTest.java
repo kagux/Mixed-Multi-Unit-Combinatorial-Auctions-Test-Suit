@@ -1,6 +1,6 @@
 package com.mmuca.expLab;
 
-import com.mmuca.expLab.domain.distributions.ForwardMarkovDistribution;
+import com.mmuca.expLab.domain.distributions.MarkovForwardDistribution;
 import com.mmuca.expLab.domain.distributions.ITargetedDistribution;
 import com.mmuca.expLab.domain.distributions.ValueRange;
 import org.junit.Ignore;
@@ -47,7 +47,7 @@ public class ForwardMarkovDistributionTest {
 
 
   private ITargetedDistribution forwardMarkovDistribution(int start, int end) {
-      ITargetedDistribution distribution =  new ForwardMarkovDistribution(0.2, 0.1);
+      ITargetedDistribution distribution =  new MarkovForwardDistribution(0.2, 0.1);
       distribution.setValueRange(new ValueRange(start, end));
       return distribution;
   }
