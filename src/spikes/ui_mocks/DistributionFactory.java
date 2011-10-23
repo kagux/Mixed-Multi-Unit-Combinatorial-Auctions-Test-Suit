@@ -1,9 +1,9 @@
-package com.mmuca.expLab.ui;
+package spikes.ui_mocks;
 
 import com.mmuca.expLab.domain.distributions.*;
-import com.mmuca.expLab.ui.panels.CenteredDistrPane;
-import com.mmuca.expLab.ui.panels.DistributionPane;
-import com.mmuca.expLab.ui.panels.MarkovDistrPanel;
+import spikes.ui_mocks.panels.CenteredDistrPane;
+import spikes.ui_mocks.panels.DistributionPane;
+import spikes.ui_mocks.panels.MarkovDistrPanel;
 
 public class DistributionFactory {
     public static IDistribution create(Distribution distribution) {

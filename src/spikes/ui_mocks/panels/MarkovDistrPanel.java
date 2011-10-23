@@ -2,7 +2,7 @@
  * Created by JFormDesigner on Fri Oct 21 20:37:53 CEST 2011
  */
 
-package com.mmuca.expLab.ui.panels;
+package spikes.ui_mocks.panels;
 
 import javax.swing.*;
 import java.awt.*;

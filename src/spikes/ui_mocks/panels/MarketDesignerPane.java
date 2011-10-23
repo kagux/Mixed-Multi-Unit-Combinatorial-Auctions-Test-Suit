@@ -2,10 +2,10 @@
  * Created by JFormDesigner on Mon Oct 17 17:19:31 CEST 2011
  */
 
-package com.mmuca.expLab.ui.panels;
+package spikes.ui_mocks.panels;
 
 import com.mmuca.expLab.domain.distributions.Distribution;
-import com.mmuca.expLab.ui.actions.GenerateMarketAction;
+import spikes.ui_mocks.actions.GenerateMarketAction;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;

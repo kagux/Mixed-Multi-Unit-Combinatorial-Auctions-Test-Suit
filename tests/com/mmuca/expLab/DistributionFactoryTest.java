@@ -1,10 +1,10 @@
 package com.mmuca.expLab;
 
 import com.mmuca.expLab.domain.distributions.*;
-import com.mmuca.expLab.ui.DistributionFactory;
-import com.mmuca.expLab.ui.panels.CenteredDistrPane;
-import com.mmuca.expLab.ui.panels.DistributionPane;
-import com.mmuca.expLab.ui.panels.MarkovDistrPanel;
+import spikes.ui_mocks.DistributionFactory;
+import spikes.ui_mocks.panels.CenteredDistrPane;
+import spikes.ui_mocks.panels.DistributionPane;
+import spikes.ui_mocks.panels.MarkovDistrPanel;
 import org.junit.Test;
 
 import javax.swing.*;

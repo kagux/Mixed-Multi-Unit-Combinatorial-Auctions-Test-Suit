@@ -2,9 +2,9 @@
  * Created by JFormDesigner on Mon Oct 17 16:56:58 CEST 2011
  */
 
-package com.mmuca.expLab.ui.frames;
+package spikes.ui_mocks.frames;
 
-import com.mmuca.expLab.ui.panels.MainTabbedPane;
+import spikes.ui_mocks.panels.MainTabbedPane;
 
 import javax.swing.*;
 import java.awt.*;

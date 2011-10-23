@@ -2,7 +2,7 @@
  * Created by JFormDesigner on Fri Oct 21 12:27:28 CEST 2011
  */
 
-package com.mmuca.expLab.ui.panels;
+package spikes.ui_mocks.panels;
 
 import com.jgoodies.forms.factories.Borders;
 

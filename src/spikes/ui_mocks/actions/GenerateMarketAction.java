@@ -1,4 +1,4 @@
-package com.mmuca.expLab.ui.actions;
+package spikes.ui_mocks.actions;
 
 import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.MarketGenerator;
@@ -6,8 +6,8 @@ import com.mmuca.expLab.domain.Market.MarketGeneratorBuilder;
 import com.mmuca.expLab.domain.Market.graphs.*;
 import com.mmuca.expLab.domain.distributions.Distribution;
 import com.mmuca.expLab.domain.distributions.ITargetedDistribution;
-import com.mmuca.expLab.ui.DistributionFactory;
-import com.mmuca.expLab.ui.panels.MarketDesignerPane;
+import spikes.ui_mocks.DistributionFactory;
+import spikes.ui_mocks.panels.MarketDesignerPane;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.graph.Graph;
