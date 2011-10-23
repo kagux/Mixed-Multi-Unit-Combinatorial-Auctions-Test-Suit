@@ -4,6 +4,7 @@
 
 package com.mmuca.expLab.ui.panels;
 
+import com.mmuca.expLab.domain.distributions.Distribution;
 import com.mmuca.expLab.ui.actions.GenerateMarketAction;
 
 import javax.swing.*;
@@ -54,7 +55,7 @@ public class MarketDesignerPane extends JPanel {
 
     private void cbGoodsLevelDistrItemStateChanged(ItemEvent e) {
         CardLayout layout = (CardLayout) goodsLevelDistrPane.getLayout();
-        layout.show(goodsLevelDistrPane, (String)e.getItem());
+        layout.show(goodsLevelDistrPane, e.getItem().toString());
     }
 
     public DistributionPane getGoodsLevelDistrPanel() {
@@ -71,7 +72,7 @@ public class MarketDesignerPane extends JPanel {
 
     private void cbBundlesNumDistrItemStateChanged(ItemEvent e) {
         CardLayout layout = (CardLayout) bundlesNumDistrPanel.getLayout();
-        layout.show(bundlesNumDistrPanel, (String)e.getItem());
+        layout.show(bundlesNumDistrPanel, e.getItem().toString());
     }
 
     public DistributionPane getIOTLevelDistrPanel(){
@@ -84,7 +85,7 @@ public class MarketDesignerPane extends JPanel {
 
     private void cbIOTLevelDistrItemStateChanged(ItemEvent e) {
         CardLayout layout = (CardLayout) iotLevelDistrPanel.getLayout();
-        layout.show(iotLevelDistrPanel, (String)e.getItem());
+        layout.show(iotLevelDistrPanel, e.getItem().toString());
     }
 
 
@@ -99,7 +100,7 @@ public class MarketDesignerPane extends JPanel {
 
     private void cbInputBundlesGoodsLevelDistrItemStateChanged(ItemEvent e) {
         CardLayout layout = (CardLayout) inputBundlesGoodsLevelDistrPanel.getLayout();
-        layout.show(inputBundlesGoodsLevelDistrPanel, (String)e.getItem());
+        layout.show(inputBundlesGoodsLevelDistrPanel, e.getItem().toString());
     }
 
     public JComboBox getOutputBundlesGoodsLevelComboBox(){
@@ -108,7 +109,7 @@ public class MarketDesignerPane extends JPanel {
 
     private void cbOutputBundlesGoodsLevelDistrItemStateChanged(ItemEvent e) {
         CardLayout layout = (CardLayout) outputBundlesGoodsLevelDistrPanel.getLayout();
-        layout.show(outputBundlesGoodsLevelDistrPanel, (String)e.getItem());
+        layout.show(outputBundlesGoodsLevelDistrPanel, e.getItem().toString());
     }
 
     public DistributionPane getOutputBundlesGoodsLevelDistrPanel() {
@@ -118,9 +119,8 @@ public class MarketDesignerPane extends JPanel {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Boris Mikhaylov
         createUIComponents();
-        scrollPane2 = new JScrollPane();
+        marketConfigScrollPane = new JScrollPane();
         marketConfigPane = new JPanel();
         lbNumberOfLevels = new JLabel();
         tfNumberOfLevels = new JTextField();
@@ -154,236 +154,219 @@ public class MarketDesignerPane extends JPanel {
         btnGenerateMarket = new JButton();
 
         //======== this ========
-
-        // JFormDesigner evaluation mark
-        setBorder(new javax.swing.border.CompoundBorder(
-            new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
         setLayout(new GridBagLayout());
-        ((GridBagLayout)getLayout()).columnWidths = new int[] {0, 332, 0, 0, 0, 0};
-        ((GridBagLayout)getLayout()).rowHeights = new int[] {0, 503, 0, 0, 0};
-        ((GridBagLayout)getLayout()).columnWeights = new double[] {0.0, 0.0, 0.0, 1.0, 0.0, 1.0E-4};
+        ((GridBagLayout)getLayout()).columnWidths = new int[] {0, 376, 0, 0, 0};
+        ((GridBagLayout)getLayout()).rowHeights = new int[] {0, 503, 15, 0, 0};
+        ((GridBagLayout)getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0, 0.0, 1.0E-4};
         ((GridBagLayout)getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
-        //======== scrollPane2 ========
+        //======== marketConfigScrollPane ========
         {
-            scrollPane2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            marketConfigScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
             //======== marketConfigPane ========
             {
                 marketConfigPane.setBorder(new EtchedBorder());
                 marketConfigPane.setLayout(new GridBagLayout());
-                ((GridBagLayout)marketConfigPane.getLayout()).columnWidths = new int[] {172, 53, 0};
-                ((GridBagLayout)marketConfigPane.getLayout()).rowHeights = new int[] {27, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-                ((GridBagLayout)marketConfigPane.getLayout()).columnWeights = new double[] {0.0, 1.0, 1.0E-4};
-                ((GridBagLayout)marketConfigPane.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0E-4};
+                ((GridBagLayout)marketConfigPane.getLayout()).columnWidths = new int[] {15, 172, 58, 10, 0};
+                ((GridBagLayout)marketConfigPane.getLayout()).rowHeights = new int[] {15, 27, 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                ((GridBagLayout)marketConfigPane.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0, 0.0, 1.0E-4};
+                ((GridBagLayout)marketConfigPane.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
                 //---- lbNumberOfLevels ----
                 lbNumberOfLevels.setText("# Levels");
-                marketConfigPane.add(lbNumberOfLevels, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(lbNumberOfLevels, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                     new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- tfNumberOfLevels ----
                 tfNumberOfLevels.setText("6");
-                marketConfigPane.add(tfNumberOfLevels, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(tfNumberOfLevels, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                    new Insets(0, 0, 5, 0), 0, 0));
+                    new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- lbNumberOfGoods ----
                 lbNumberOfGoods.setText("# Goods");
-                marketConfigPane.add(lbNumberOfGoods, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(lbNumberOfGoods, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                     new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- tfNumberOfGoods ----
                 tfNumberOfGoods.setText("20");
-                marketConfigPane.add(tfNumberOfGoods, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(tfNumberOfGoods, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                    new Insets(0, 0, 5, 0), 0, 0));
+                    new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- lbMinNumberOfGoodsPerLevel ----
                 lbMinNumberOfGoodsPerLevel.setText("Min # Goods Per Level");
-                marketConfigPane.add(lbMinNumberOfGoodsPerLevel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(lbMinNumberOfGoodsPerLevel, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- tfMinNumberOfGoodsPerLevel ----
                 tfMinNumberOfGoodsPerLevel.setText("1");
-                marketConfigPane.add(tfMinNumberOfGoodsPerLevel, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(tfMinNumberOfGoodsPerLevel, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+                    new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- lbNumberOfTransformations ----
                 lbNumberOfTransformations.setText("# Transformations");
-                marketConfigPane.add(lbNumberOfTransformations, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(lbNumberOfTransformations, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                     new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- tfNumberOfTransformations ----
                 tfNumberOfTransformations.setText("15");
-                marketConfigPane.add(tfNumberOfTransformations, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(tfNumberOfTransformations, new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                    new Insets(0, 0, 5, 0), 0, 0));
+                    new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- chkOnlyIOTransformations ----
                 chkOnlyIOTransformations.setText("Show only IO Transformations");
                 chkOnlyIOTransformations.setSelected(true);
-                marketConfigPane.add(chkOnlyIOTransformations, new GridBagConstraints(0, 4, 2, 1, 0.0, 0.0,
+                marketConfigPane.add(chkOnlyIOTransformations, new GridBagConstraints(1, 5, 2, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
-                marketConfigPane.add(separator1, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0,
+                    new Insets(0, 0, 5, 5), 0, 0));
+                marketConfigPane.add(separator1, new GridBagConstraints(1, 6, 2, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+                    new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- lbGoodLevelDistr ----
                 lbGoodLevelDistr.setText("Goods between levels are");
                 lbGoodLevelDistr.setLabelFor(goodsLevelDistrPane);
-                marketConfigPane.add(lbGoodLevelDistr, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(lbGoodLevelDistr, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- cbGoodsLevelDistr ----
-                cbGoodsLevelDistr.setModel(new DefaultComboBoxModel(new String[] {
-                    "Uniform",
-                    "Centered"
-                }));
+                cbGoodsLevelDistr.addItem(Distribution.UNIFORM);
+                cbGoodsLevelDistr.addItem(Distribution.CENTERED);
                 cbGoodsLevelDistr.addItemListener(new ItemListener() {
                     @Override
                     public void itemStateChanged(ItemEvent e) {
                         cbGoodsLevelDistrItemStateChanged(e);
                     }
                 });
-                marketConfigPane.add(cbGoodsLevelDistr, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(cbGoodsLevelDistr, new GridBagConstraints(2, 7, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
-                marketConfigPane.add(goodsLevelDistrPane, new GridBagConstraints(0, 7, 2, 1, 0.0, 0.0,
+                    new Insets(0, 0, 5, 5), 0, 0));
+                marketConfigPane.add(goodsLevelDistrPane, new GridBagConstraints(1, 8, 2, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+                    new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- lbBundlesNumDistr ----
                 lbBundlesNumDistr.setText("# of bundles in IOT is");
                 lbBundlesNumDistr.setLabelFor(cbBundlesNumDistr);
-                marketConfigPane.add(lbBundlesNumDistr, new GridBagConstraints(0, 8, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(lbBundlesNumDistr, new GridBagConstraints(1, 9, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- cbBundlesNumDistr ----
-                cbBundlesNumDistr.setModel(new DefaultComboBoxModel(new String[] {
-                    "Centered",
-                    "Uniform"
-                }));
+                cbBundlesNumDistr.addItem(Distribution.CENTERED);
+                cbBundlesNumDistr.addItem(Distribution.UNIFORM);
                 cbBundlesNumDistr.addItemListener(new ItemListener() {
                     @Override
                     public void itemStateChanged(ItemEvent e) {
                         cbBundlesNumDistrItemStateChanged(e);
                     }
                 });
-                marketConfigPane.add(cbBundlesNumDistr, new GridBagConstraints(1, 8, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(cbBundlesNumDistr, new GridBagConstraints(2, 9, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+                    new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- bundlesNumDistrPanel ----
-                ((CardLayout)bundlesNumDistrPanel.getLayout()).show(bundlesNumDistrPanel, (String)cbBundlesNumDistr.getSelectedItem());
-                marketConfigPane.add(bundlesNumDistrPanel, new GridBagConstraints(0, 9, 2, 1, 0.0, 0.0,
+                ((CardLayout)bundlesNumDistrPanel.getLayout()).show(bundlesNumDistrPanel, cbBundlesNumDistr.getSelectedItem().toString());
+                marketConfigPane.add(bundlesNumDistrPanel, new GridBagConstraints(1, 10, 2, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
-                marketConfigPane.add(separator2, new GridBagConstraints(0, 10, 2, 1, 0.0, 0.0,
+                    new Insets(0, 0, 5, 5), 0, 0));
+                marketConfigPane.add(separator2, new GridBagConstraints(1, 11, 2, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+                    new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- lbIOTLevelDistr ----
                 lbIOTLevelDistr.setText("IOT Levels are");
                 lbIOTLevelDistr.setLabelFor(cbIOTLevelDistr);
-                marketConfigPane.add(lbIOTLevelDistr, new GridBagConstraints(0, 11, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(lbIOTLevelDistr, new GridBagConstraints(1, 12, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- cbIOTLevelDistr ----
-                cbIOTLevelDistr.setModel(new DefaultComboBoxModel(new String[] {
-                    "Uniform",
-                    "Centered"
-                }));
+                cbIOTLevelDistr.addItem(Distribution.UNIFORM);
+                cbIOTLevelDistr.addItem(Distribution.CENTERED);
+
                 cbIOTLevelDistr.addItemListener(new ItemListener() {
                     @Override
                     public void itemStateChanged(ItemEvent e) {
                         cbIOTLevelDistrItemStateChanged(e);
                     }
                 });
-                marketConfigPane.add(cbIOTLevelDistr, new GridBagConstraints(1, 11, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(cbIOTLevelDistr, new GridBagConstraints(2, 12, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
-                marketConfigPane.add(iotLevelDistrPanel, new GridBagConstraints(0, 12, 2, 1, 0.0, 0.0,
+                    new Insets(0, 0, 5, 5), 0, 0));
+                marketConfigPane.add(iotLevelDistrPanel, new GridBagConstraints(1, 13, 2, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
-                marketConfigPane.add(separator3, new GridBagConstraints(0, 13, 2, 1, 0.0, 0.0,
+                    new Insets(0, 0, 5, 5), 0, 0));
+                marketConfigPane.add(separator3, new GridBagConstraints(1, 14, 2, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+                    new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- lbInputBundlesGoodsLevelDistr ----
                 lbInputBundlesGoodsLevelDistr.setText("Goods' levels for IOT input are");
                 lbInputBundlesGoodsLevelDistr.setLabelFor(cbInputBundlesGoodsLevelDistr);
-                marketConfigPane.add(lbInputBundlesGoodsLevelDistr, new GridBagConstraints(0, 14, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(lbInputBundlesGoodsLevelDistr, new GridBagConstraints(1, 15, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- cbInputBundlesGoodsLevelDistr ----
-                cbInputBundlesGoodsLevelDistr.setModel(new DefaultComboBoxModel(new String[] {
-                    "Markov Forward",
-                    "Markov Backward"
-                }));
+                cbInputBundlesGoodsLevelDistr.addItem(Distribution.MARKOV_FORWARD);
+                cbInputBundlesGoodsLevelDistr.addItem(Distribution.MARKOV_BACKWARD);
                 cbInputBundlesGoodsLevelDistr.addItemListener(new ItemListener() {
                     @Override
                     public void itemStateChanged(ItemEvent e) {
                         cbInputBundlesGoodsLevelDistrItemStateChanged(e);
                     }
                 });
-                marketConfigPane.add(cbInputBundlesGoodsLevelDistr, new GridBagConstraints(1, 14, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(cbInputBundlesGoodsLevelDistr, new GridBagConstraints(2, 15, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+                    new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- inputBundlesGoodsLevelDistrPanel ----
-                ( (CardLayout) inputBundlesGoodsLevelDistrPanel.getLayout()).show(inputBundlesGoodsLevelDistrPanel, (String)cbInputBundlesGoodsLevelDistr.getSelectedItem());
-                marketConfigPane.add(inputBundlesGoodsLevelDistrPanel, new GridBagConstraints(0, 15, 2, 1, 0.0, 0.0,
+                ( (CardLayout) inputBundlesGoodsLevelDistrPanel.getLayout()).show(inputBundlesGoodsLevelDistrPanel, cbInputBundlesGoodsLevelDistr.getSelectedItem().toString());
+                marketConfigPane.add(inputBundlesGoodsLevelDistrPanel, new GridBagConstraints(1, 16, 2, 1, 0.0, 0.0,
                     GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL,
-                    new Insets(0, 0, 5, 0), 0, 0));
-                marketConfigPane.add(separator4, new GridBagConstraints(0, 16, 2, 1, 0.0, 0.0,
+                    new Insets(0, 0, 5, 5), 0, 0));
+                marketConfigPane.add(separator4, new GridBagConstraints(1, 17, 2, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+                    new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- lbOutputBundlesGoodsLevelDistr ----
                 lbOutputBundlesGoodsLevelDistr.setText("Goods' levels for IOT output ");
-                marketConfigPane.add(lbOutputBundlesGoodsLevelDistr, new GridBagConstraints(0, 17, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(lbOutputBundlesGoodsLevelDistr, new GridBagConstraints(1, 18, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- cbOutputBundlesGoodsLevelDistr ----
-                cbOutputBundlesGoodsLevelDistr.setModel(new DefaultComboBoxModel(new String[] {
-                    "Markov Backward",
-                    "Markov Forward"
-                }));
+                cbOutputBundlesGoodsLevelDistr.addItem(Distribution.MARKOV_BACKWARD);
+                cbOutputBundlesGoodsLevelDistr.addItem(Distribution.MARKOV_FORWARD);
                 cbOutputBundlesGoodsLevelDistr.addItemListener(new ItemListener() {
                     @Override
                     public void itemStateChanged(ItemEvent e) {
                         cbOutputBundlesGoodsLevelDistrItemStateChanged(e);
                     }
                 });
-                marketConfigPane.add(cbOutputBundlesGoodsLevelDistr, new GridBagConstraints(1, 17, 1, 1, 0.0, 0.0,
+                marketConfigPane.add(cbOutputBundlesGoodsLevelDistr, new GridBagConstraints(2, 18, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 5, 0), 0, 0));
+                    new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- outputBundlesGoodsLevelDistrPanel ----
-                ((CardLayout)outputBundlesGoodsLevelDistrPanel.getLayout()).show(outputBundlesGoodsLevelDistrPanel, (String)cbOutputBundlesGoodsLevelDistr.getSelectedItem());
-                marketConfigPane.add(outputBundlesGoodsLevelDistrPanel, new GridBagConstraints(0, 18, 2, 1, 0.0, 0.0,
+                ((CardLayout)outputBundlesGoodsLevelDistrPanel.getLayout()).show(outputBundlesGoodsLevelDistrPanel, (String)cbOutputBundlesGoodsLevelDistr.getSelectedItem().toString());
+                marketConfigPane.add(outputBundlesGoodsLevelDistrPanel, new GridBagConstraints(1, 19, 2, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 0), 0, 0));
+                    new Insets(0, 0, 5, 5), 0, 0));
             }
-            scrollPane2.setViewportView(marketConfigPane);
+            marketConfigScrollPane.setViewportView(marketConfigPane);
         }
-        add(scrollPane2, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
+        add(marketConfigScrollPane, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 5, 5), 0, 0));
 
@@ -397,7 +380,7 @@ public class MarketDesignerPane extends JPanel {
             btnGenerateMarket.setText("Generate New Market");
             marketGraphPane.add(btnGenerateMarket, BorderLayout.SOUTH);
         }
-        add(marketGraphPane, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0,
+        add(marketGraphPane, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 5, 5), 0, 0));
 
@@ -409,8 +392,7 @@ public class MarketDesignerPane extends JPanel {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Boris Mikhaylov
-    private JScrollPane scrollPane2;
+    private JScrollPane marketConfigScrollPane;
     private JPanel marketConfigPane;
     private JLabel lbNumberOfLevels;
     private JTextField tfNumberOfLevels;
