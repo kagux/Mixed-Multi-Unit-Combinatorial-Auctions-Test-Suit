@@ -50,7 +50,18 @@
           <root url="jar://$APPLICATION_HOME_DIR$/lib/jung-visualization-2.0.1.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://F:/Downloads/jung sources/jung-visualization-2.0.1-sources" />
+          <root url="file://F:/Downloads/jung sources/jung-api-2.0.1-sources" />
+          <root url="file://F:/Downloads/jung sources/jung-3d-2.0.1-sources" />
+          <root url="file://F:/Downloads/jung sources/jung-jai-2.0.1-sources" />
+          <root url="file://F:/Downloads/jung sources/jung-jai-samples-2.0.1-sources" />
+          <root url="file://F:/Downloads/jung sources/jung-3d-demos-2.0.1-sources" />
+          <root url="file://F:/Downloads/jung sources/jung-graph-impl-2.0.1-sources" />
+          <root url="file://F:/Downloads/jung sources/jung-samples-2.0.1-sources" />
+          <root url="file://F:/Downloads/jung sources/jung-io-2.0.1-sources" />
+          <root url="file://F:/Downloads/jung sources/jung-algorithms-2.0.1-sources" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">

@@ -1,5 +1,9 @@
 package com.mmuca.expLab.domain.ui;
 
+import com.mmuca.expLab.domain.Market.graphs.MarketGraphProvider;
+import com.mmuca.expLab.domain.ui.market.design.controllers.GraphController;
+import com.mmuca.expLab.domain.ui.market.design.controllers.SettingsController;
+import com.mmuca.expLab.domain.ui.market.design.models.MarketModel;
 import com.mmuca.expLab.domain.ui.market.design.views.GraphPanel;
 import com.mmuca.expLab.domain.ui.market.design.views.MarketDesignPanel;
 import com.mmuca.expLab.domain.ui.market.design.views.SettingsPanel;
@@ -33,7 +37,11 @@ public class ApplicationFrame extends JFrame{
     }
 
     private MarketDesignPanel createMarketDesignGUI() {
-        MarketDesignPanel marketDesignPanel = new MarketDesignPanel(new SettingsPanel(), new GraphPanel());
-        return marketDesignPanel;
+        SettingsPanel settingsPanel = new SettingsPanel();
+        MarketModel marketModel = new MarketModel();
+        new SettingsController(marketModel,settingsPanel);
+        GraphPanel graphPanel = new GraphPanel(marketModel, new MarketGraphProvider());
+        new GraphController(graphPanel);
+        return new MarketDesignPanel(settingsPanel, graphPanel);
     }
 }

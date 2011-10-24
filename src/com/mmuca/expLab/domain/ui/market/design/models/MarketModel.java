@@ -1,19 +1,17 @@
 package com.mmuca.expLab.domain.ui.market.design.models;
 
+import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.MarketGenerator;
 import com.mmuca.expLab.domain.Market.MarketGeneratorBuilder;
-import com.mmuca.expLab.domain.Market.graphs.MarketEdge;
-import com.mmuca.expLab.domain.Market.graphs.MarketGraphProvider;
 import com.mmuca.expLab.domain.distributions.MarkovBackwardDistribution;
 import com.mmuca.expLab.domain.distributions.MarkovForwardDistribution;
 import com.mmuca.expLab.domain.distributions.UniformDistribution;
 import com.mmuca.expLab.domain.ui.market.design.views.ObserverView;
-import edu.uci.ics.jung.graph.Graph;
 
 import java.util.ArrayList;
 import java.util.Observable;
 
-public class MarketGraphModel extends Observable{
+public class MarketModel extends Observable{
     public static final int DEFAULT_NUM_LEVELS = 6;
     public static final int DEFAULT_NUM_GOODS = 10;
     public static final int DEFAULT_MIN_GOODS_PER_LEVEL = 2;
@@ -21,10 +19,11 @@ public class MarketGraphModel extends Observable{
     private MarketGenerator.Parameters generatorParameters;
     private MarketGenerator.Distributions generatorDistributions;
     private ArrayList<ObserverView> views;
-    private MarketGraphProvider graphProvider;
+    private boolean marketUpToDate;
+    private Market market;
 
-    public MarketGraphModel(MarketGraphProvider graphProvider){
-        this.graphProvider = graphProvider;
+    public MarketModel(){
+        views = new ArrayList<ObserverView>();
         generatorDistributions = new MarketGenerator.Distributions(
                 new UniformDistribution(),
                 new UniformDistribution(),
@@ -34,6 +33,7 @@ public class MarketGraphModel extends Observable{
                 new UniformDistribution()
         );
         generatorParameters = new MarketGenerator.Parameters(DEFAULT_NUM_LEVELS, DEFAULT_NUM_GOODS, DEFAULT_MIN_GOODS_PER_LEVEL, DEFAULT_NUM_IOT);
+        marketUpToDate=false;
     }
 
     public void addView(ObserverView view){
@@ -41,6 +41,7 @@ public class MarketGraphModel extends Observable{
     }
 
     public  void refreshViews(){
+        marketUpToDate=false;
         for(ObserverView view: views)
             view.refresh();
     }
@@ -49,8 +50,8 @@ public class MarketGraphModel extends Observable{
        return String.valueOf(generatorParameters.getNumGoods());
     }
 
-    public void setNumGoods(String numGoods){
-        generatorParameters.setNumGoods(Integer.parseInt(numGoods));
+    public void setNumGoods(int numGoods){
+        generatorParameters.setNumGoods(numGoods);
         refreshViews();
     }
 
@@ -58,8 +59,8 @@ public class MarketGraphModel extends Observable{
         return String.valueOf(generatorParameters.getMinGoodsPerLevel());
     }
 
-    public void setMinGoodsPerLevel(String minNumGoodsPerLevel){
-        generatorParameters.setMinGoodsPerLevel(Integer.parseInt(minNumGoodsPerLevel));
+    public void setMinGoodsPerLevel(int minNumGoodsPerLevel){
+        generatorParameters.setMinGoodsPerLevel(minNumGoodsPerLevel);
         refreshViews();
     }
 
@@ -67,8 +68,8 @@ public class MarketGraphModel extends Observable{
         return String.valueOf(generatorParameters.getNumLevels());
     }
 
-    public void setNumLevels(String numLevels){
-        generatorParameters.setNumLevels(Integer.parseInt(numLevels));
+    public void setNumLevels(int numLevels){
+        generatorParameters.setNumLevels(numLevels);
         refreshViews();
     }
 
@@ -76,16 +77,17 @@ public class MarketGraphModel extends Observable{
         return String.valueOf(generatorParameters.getNumIOT());
     }
 
-    public void setNumIOT(String numIOT){
-        generatorParameters.setNumIOT(Integer.parseInt(numIOT));
+    public void setNumIOT(int numIOT){
+        generatorParameters.setNumIOT(numIOT);
         refreshViews();
     }
 
-    public Graph<Object, MarketEdge> marketGraph(){
-        return graphProvider.graphFor(new MarketGeneratorBuilder(generatorParameters, generatorDistributions).build().nextMarket());
+    public Market market(){
+        if (marketUpToDate) return market;
+        market = new MarketGeneratorBuilder(generatorParameters, generatorDistributions).build().nextMarket();
+        marketUpToDate=true;
+        return market;
     }
-
-
 
 
 }

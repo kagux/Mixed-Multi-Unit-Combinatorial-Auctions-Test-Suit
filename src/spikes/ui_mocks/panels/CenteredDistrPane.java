@@ -4,7 +4,11 @@
 
 package spikes.ui_mocks.panels;
 
+import com.jgoodies.forms.factories.Borders;
+
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 /**
@@ -31,6 +35,9 @@ public class CenteredDistrPane extends JPanel {
         tfAlpha = new JTextField();
 
         //======== this ========
+        setBorder(new CompoundBorder(
+            new TitledBorder("test"),
+            Borders.DLU2_BORDER));
         setLayout(new GridBagLayout());
         ((GridBagLayout)getLayout()).columnWidths = new int[] {150, 0, 0};
         ((GridBagLayout)getLayout()).rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};
