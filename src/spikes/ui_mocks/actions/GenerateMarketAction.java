@@ -40,7 +40,7 @@ public class GenerateMarketAction extends AbstractAction{
         );
 
 
-        MarketGeneratorBuilder.Distributions distributions = new MarketGeneratorBuilder.Distributions(
+        MarketGenerator.Distributions distributions = new MarketGenerator.Distributions(
                 DistributionFactory.create((Distribution)panel.getGoodsLevelDistrComboBox().getSelectedItem(), panel.getGoodsLevelDistrPanel(), -1),
                 DistributionFactory.create((Distribution) panel.getIOTLevelDistrComboBox().getSelectedItem(), panel.getIOTLevelDistrPanel(), -1),
                 (ITargetedDistribution)DistributionFactory.create((Distribution) panel.getInputBundlesGoodsLevelComboBox().getSelectedItem(),panel.getInputBundlesGoodsLevelDistrPanel()),

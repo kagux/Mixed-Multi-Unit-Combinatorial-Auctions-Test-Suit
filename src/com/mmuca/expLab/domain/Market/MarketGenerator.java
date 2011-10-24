@@ -5,6 +5,8 @@ import com.mmuca.expLab.domain.Market.transformations.IOTGenerator;
 import com.mmuca.expLab.domain.Market.transformations.ITGenerator;
 import com.mmuca.expLab.domain.Market.transformations.OTGenerator;
 import com.mmuca.expLab.domain.Require;
+import com.mmuca.expLab.domain.distributions.IDistribution;
+import com.mmuca.expLab.domain.distributions.ITargetedDistribution;
 
 public class MarketGenerator {
     private Parameters parameters;
@@ -72,6 +74,79 @@ public class MarketGenerator {
         }
         public void setNumIOT(int numIOT) {
             this.numIOT = numIOT;
+        }
+    }
+
+    public static class Distributions {
+        private IDistribution goodLevelDistribution;
+        private IDistribution iotLevelDistribution;
+        private ITargetedDistribution inputBundlesGoodLevelDistribution;
+        private ITargetedDistribution outputBundlesGoodLevelDistribution;
+        private IDistribution inputBundlesNumDistribution;
+        private IDistribution outputBundlesNumDistribution;
+
+        public Distributions(
+                IDistribution goodLevelDistribution,
+                IDistribution iotLevelDistribution,
+                ITargetedDistribution inputBundlesGoodLevelDistribution,
+                ITargetedDistribution outputBundlesGoodLevelDistribution,
+                IDistribution inputBundlesNumDistribution,
+                IDistribution outputBundlesNumDistribution
+        ) {
+            this.goodLevelDistribution = goodLevelDistribution;
+            this.iotLevelDistribution = iotLevelDistribution;
+            this.inputBundlesGoodLevelDistribution = inputBundlesGoodLevelDistribution;
+            this.outputBundlesGoodLevelDistribution = outputBundlesGoodLevelDistribution;
+            this.inputBundlesNumDistribution = inputBundlesNumDistribution;
+            this.outputBundlesNumDistribution = outputBundlesNumDistribution;
+        }
+
+        public IDistribution getGoodLevelDistribution() {
+            return goodLevelDistribution;
+        }
+
+        public void setGoodLevelDistribution(IDistribution goodLevelDistribution) {
+            this.goodLevelDistribution = goodLevelDistribution;
+        }
+
+        public IDistribution getIOTLevelDistribution() {
+            return iotLevelDistribution;
+        }
+
+        public void setIotLevelDistribution(IDistribution iotLevelDistribution) {
+            this.iotLevelDistribution = iotLevelDistribution;
+        }
+
+        public ITargetedDistribution getInputBundlesGoodLevelDistribution() {
+            return inputBundlesGoodLevelDistribution;
+        }
+
+        public void setInputBundlesGoodLevelDistribution(ITargetedDistribution inputBundlesGoodLevelDistribution) {
+            this.inputBundlesGoodLevelDistribution = inputBundlesGoodLevelDistribution;
+        }
+
+        public ITargetedDistribution getOutputBundlesGoodLevelDistribution() {
+            return outputBundlesGoodLevelDistribution;
+        }
+
+        public void setOutputBundlesGoodLevelDistribution(ITargetedDistribution outputBundlesGoodLevelDistribution) {
+            this.outputBundlesGoodLevelDistribution = outputBundlesGoodLevelDistribution;
+        }
+
+        public IDistribution getInputBundlesNumDistribution() {
+            return inputBundlesNumDistribution;
+        }
+
+        public void setInputBundlesNumDistribution(IDistribution inputBundlesNumDistribution) {
+            this.inputBundlesNumDistribution = inputBundlesNumDistribution;
+        }
+
+        public IDistribution getOutputBundlesNumDistribution() {
+            return outputBundlesNumDistribution;
+        }
+
+        public void setOutputBundlesNumDistribution(IDistribution outputBundlesNumDistribution) {
+            this.outputBundlesNumDistribution = outputBundlesNumDistribution;
         }
     }
 }

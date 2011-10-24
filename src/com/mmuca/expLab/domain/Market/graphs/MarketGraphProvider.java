@@ -11,10 +11,6 @@ public class MarketGraphProvider {
     private Market market;
     private Graph<Object, MarketEdge> graph;
 
-    public MarketGraphProvider() {
-
-    }
-
     public Graph<Object, MarketEdge> graphFor(Market market) {
         this.market = market;
         return createGraph();

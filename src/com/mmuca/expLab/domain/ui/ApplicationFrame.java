@@ -1,8 +1,8 @@
 package com.mmuca.expLab.domain.ui;
 
-import com.mmuca.expLab.domain.ui.market.design.GraphPanel;
-import com.mmuca.expLab.domain.ui.market.design.MarketDesignPanel;
-import com.mmuca.expLab.domain.ui.market.design.SettingsPanel;
+import com.mmuca.expLab.domain.ui.market.design.views.GraphPanel;
+import com.mmuca.expLab.domain.ui.market.design.views.MarketDesignPanel;
+import com.mmuca.expLab.domain.ui.market.design.views.SettingsPanel;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -14,11 +14,15 @@ public class ApplicationFrame extends JFrame{
 
     public ApplicationFrame(){
         super(WINDOW_TITLE);
+        initComponents();
         createGUI();
     }
 
-    private void createGUI() {
+    private void initComponents() {
         tabbedPanel = new JTabbedPane();
+    }
+
+    private void createGUI() {
         setLayout(new MigLayout(
                 "",       //Layout Constraints
                 "5[]5", //Column Constraints

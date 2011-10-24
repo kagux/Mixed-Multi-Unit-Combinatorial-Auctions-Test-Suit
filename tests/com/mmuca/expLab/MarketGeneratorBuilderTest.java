@@ -30,7 +30,7 @@ public class MarketGeneratorBuilderTest {
         IDistribution numberOfInputBundlesDistribution = new UniformDistribution();
         IDistribution numberOfOutputBundlesDistribution = new UniformDistribution();
 
-        MarketGeneratorBuilder.Distributions distributions = new MarketGeneratorBuilder.Distributions(
+        MarketGenerator.Distributions distributions = new MarketGenerator.Distributions(
                 goodLevelDistribution,
                 iotLevelDistribution,
                 inputBundlesGoodLevelDistribution,

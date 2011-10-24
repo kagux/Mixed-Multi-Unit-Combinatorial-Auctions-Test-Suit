@@ -1,4 +1,4 @@
-package com.mmuca.expLab.domain.ui.market.design;
+package com.mmuca.expLab.domain.ui.market.design.views;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -14,14 +14,14 @@ public class MarketDesignPanel extends JPanel{
     public MarketDesignPanel(SettingsPanel settingsPanel, GraphPanel graphPanel){
         this.settingsPanel = settingsPanel;
         this.graphPanel = graphPanel;
-        createGUI();
+        layoutComponents();
     }
 
     public JButton getGenerateGraphButton() {
         return generateGraphButton;
     }
 
-    private void createGUI() {
+    private void layoutComponents() {
         setLayout(new MigLayout());
         settingsPanel.setBorder(new EtchedBorder());
         graphPanel.setBorder(new EtchedBorder());

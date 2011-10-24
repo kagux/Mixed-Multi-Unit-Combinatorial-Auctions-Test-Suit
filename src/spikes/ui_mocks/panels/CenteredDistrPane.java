@@ -33,9 +33,9 @@ public class CenteredDistrPane extends JPanel {
         //======== this ========
         setLayout(new GridBagLayout());
         ((GridBagLayout)getLayout()).columnWidths = new int[] {150, 0, 0};
-        ((GridBagLayout)getLayout()).rowHeights = new int[] {0, 0, 0, 0};
+        ((GridBagLayout)getLayout()).rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};
         ((GridBagLayout)getLayout()).columnWeights = new double[] {0.0, 1.0, 1.0E-4};
-        ((GridBagLayout)getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
+        ((GridBagLayout)getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
         //---- lbCenter ----
         lbCenter.setText("Center");
