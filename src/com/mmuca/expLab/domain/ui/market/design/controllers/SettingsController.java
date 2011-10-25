@@ -19,6 +19,9 @@ public class SettingsController {
 
     private void addListeners() {
         view.getNumGoodsSpinner().addChangeListener(new SpinnerChangeListener(new UpdateNumGoodsCommand()));
+        view.getMinGoodsPerLevelSpinner().addChangeListener(new SpinnerChangeListener(new UpdateMinGoodsPerLevel()));
+        view.getNumLevelsSpinner().addChangeListener(new SpinnerChangeListener(new UpdateNumLevels()));
+        view.getNumIOTSpinner().addChangeListener(new SpinnerChangeListener(new UpdateNumIOT()));
     }
 
     private class SpinnerChangeListener implements ChangeListener {

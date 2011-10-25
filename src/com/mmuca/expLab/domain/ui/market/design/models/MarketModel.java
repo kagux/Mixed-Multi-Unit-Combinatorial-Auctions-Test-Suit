@@ -16,6 +16,10 @@ public class MarketModel extends Observable{
     public static final int DEFAULT_NUM_GOODS = 10;
     public static final int DEFAULT_MIN_GOODS_PER_LEVEL = 2;
     public static final int DEFAULT_NUM_IOT = 5;
+    public static final int MINIMUM_NUM_GOODS = 1;
+    public static final int MINIMUM_MIN_NUM_GOODS_PER_LEVEL = 1;
+    public static final int MINIMUM_NUM_LEVELS = 3;
+    public static final int MINIMUM_NUM_IOT = 0;
     private MarketGenerator.Parameters generatorParameters;
     private MarketGenerator.Distributions generatorDistributions;
     private ArrayList<ObserverView> views;
@@ -46,8 +50,8 @@ public class MarketModel extends Observable{
             view.refresh();
     }
 
-    public String getNumGoods(){
-       return String.valueOf(generatorParameters.getNumGoods());
+    public int getNumGoods(){
+       return generatorParameters.getNumGoods();
     }
 
     public void setNumGoods(int numGoods){
@@ -55,8 +59,8 @@ public class MarketModel extends Observable{
         refreshViews();
     }
 
-    public String getMinGoodsPerLevel(){
-        return String.valueOf(generatorParameters.getMinGoodsPerLevel());
+    public int getMinGoodsPerLevel(){
+        return generatorParameters.getMinGoodsPerLevel();
     }
 
     public void setMinGoodsPerLevel(int minNumGoodsPerLevel){
@@ -64,8 +68,8 @@ public class MarketModel extends Observable{
         refreshViews();
     }
 
-    public String getNumLevels(){
-        return String.valueOf(generatorParameters.getNumLevels());
+    public int getNumLevels(){
+        return generatorParameters.getNumLevels();
     }
 
     public void setNumLevels(int numLevels){
@@ -73,8 +77,8 @@ public class MarketModel extends Observable{
         refreshViews();
     }
 
-    public String getNumIOT(){
-        return String.valueOf(generatorParameters.getNumIOT());
+    public int getNumIOT(){
+        return generatorParameters.getNumIOT();
     }
 
     public void setNumIOT(int numIOT){

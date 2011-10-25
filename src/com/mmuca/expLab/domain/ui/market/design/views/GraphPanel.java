@@ -41,10 +41,10 @@ public class GraphPanel extends JPanel implements ObserverView{
 
     @Override
     public void refresh() {
-        threadsQueue.submit(new GraphUpdateTask());
+        threadsQueue.submit(new GraphUpdate());
     }
 
-    private class GraphUpdateTask extends SwingWorker<Void, Void>{
+    private class GraphUpdate extends SwingWorker<Void, Void>{
         private BasicVisualizationServer<Object,MarketEdge> graphPanel;
 
         @Override

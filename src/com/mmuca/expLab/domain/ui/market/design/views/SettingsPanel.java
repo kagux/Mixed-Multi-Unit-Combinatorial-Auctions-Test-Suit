@@ -1,5 +1,6 @@
 package com.mmuca.expLab.domain.ui.market.design.views;
 
+import com.mmuca.expLab.domain.ui.market.design.models.MarketModel;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -23,9 +24,11 @@ public class SettingsPanel extends JPanel{
     private JSpinner numIOTSpinner;
 
     private JCheckBox showOnlyIOTCheckBox;
+    private MarketModel model;
 
 
-    public SettingsPanel() {
+    public SettingsPanel(MarketModel model) {
+        this.model = model;
         initComponents();
         layoutComponents();
     }
@@ -51,20 +54,45 @@ public class SettingsPanel extends JPanel{
         minNumGoodsPerLevelLabel = new JLabel(MIN_GOODS_PER_LEVEL_LABEL);
         numLevelsLabel = new JLabel(NUM_LEVELS_LABEL);
         numIOTLabel = new JLabel(NUM_IOT_LABEL);
-        numGoodsSpinner = new JSpinner();
-        numGoodsSpinner.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
-        disallowInvalidInput(numGoodsSpinner);
-        minGoodsPerLevelSpinner = new JSpinner();
-        minGoodsPerLevelSpinner.setModel(new SpinnerNumberModel(1,1,Integer.MAX_VALUE,1));
-        disallowInvalidInput(minGoodsPerLevelSpinner);
-        numLevelsSpinner = new JSpinner();
-        numLevelsSpinner.setModel(new SpinnerNumberModel(3,3,Integer.MAX_VALUE,1));
-        disallowInvalidInput(numGoodsSpinner);
-        numIOTSpinner = new JSpinner();
-        numIOTSpinner.setModel(new SpinnerNumberModel(0,0,Integer.MAX_VALUE,1));
-        disallowInvalidInput(numIOTSpinner);
+        initNumGoodsSpinner();
+        initGoodsPerLevelSpinner();
+        initNumLevelsSpinner();
+        initNumIOTSpinner();
         showOnlyIOTCheckBox=new JCheckBox(SHOW_ONLY_IOT_CHECK_BOX);
     }
+
+    private void initNumIOTSpinner() {
+        numIOTSpinner = new JSpinner();
+        numIOTSpinner.setModel(new SpinnerNumberModel(model.getNumIOT(),model.MINIMUM_NUM_IOT,Integer.MAX_VALUE,1));
+        configureInputPolicy(numIOTSpinner);
+    }
+
+    private void initNumLevelsSpinner() {
+        numLevelsSpinner = new JSpinner();
+        numLevelsSpinner.setModel(new SpinnerNumberModel(model.getNumLevels(),model.MINIMUM_NUM_LEVELS,Integer.MAX_VALUE,1));
+        configureInputPolicy(numGoodsSpinner);
+    }
+
+    private void initGoodsPerLevelSpinner() {
+        minGoodsPerLevelSpinner = new JSpinner();
+        minGoodsPerLevelSpinner.setModel(new SpinnerNumberModel(model.getMinGoodsPerLevel(),model.MINIMUM_MIN_NUM_GOODS_PER_LEVEL,Integer.MAX_VALUE,1));
+        configureInputPolicy(minGoodsPerLevelSpinner);
+    }
+
+    private void initNumGoodsSpinner() {
+        numGoodsSpinner = new JSpinner();
+        numGoodsSpinner.setModel(new SpinnerNumberModel(model.getNumGoods(), model.MINIMUM_NUM_GOODS, Integer.MAX_VALUE, 1));
+        configureInputPolicy(numGoodsSpinner);
+    }
+
+    private void configureInputPolicy(JSpinner spinner) {
+        spinner.setEditor(new JSpinner.NumberEditor(spinner));
+        JFormattedTextField spinnerTextField = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
+        NumberFormatter formatter = (NumberFormatter) spinnerTextField.getFormatter();
+        formatter.setAllowsInvalid(false);
+        formatter.setCommitsOnValidEdit(true);
+    }
+
 
     private void layoutComponents() {
         setLayout(new MigLayout(
@@ -81,13 +109,6 @@ public class SettingsPanel extends JPanel{
         add(numIOTLabel);
         add(numIOTSpinner,"wrap, w 40!");
         add(showOnlyIOTCheckBox, "span, wrap");
-    }
-
-
-    private void disallowInvalidInput(JSpinner spinner) {
-        spinner.setEditor(new JSpinner.NumberEditor(spinner));
-        JFormattedTextField spinnerTextField = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
-        ((NumberFormatter)spinnerTextField.getFormatter()).setAllowsInvalid(false);
     }
 
 }

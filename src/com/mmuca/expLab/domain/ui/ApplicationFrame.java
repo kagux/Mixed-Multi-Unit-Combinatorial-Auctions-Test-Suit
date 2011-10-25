@@ -37,8 +37,9 @@ public class ApplicationFrame extends JFrame{
     }
 
     private MarketDesignPanel createMarketDesignGUI() {
-        SettingsPanel settingsPanel = new SettingsPanel();
+
         MarketModel marketModel = new MarketModel();
+        SettingsPanel settingsPanel = new SettingsPanel(marketModel);
         new SettingsController(marketModel,settingsPanel);
         GraphPanel graphPanel = new GraphPanel(marketModel, new MarketGraphProvider());
         new GraphController(graphPanel);
