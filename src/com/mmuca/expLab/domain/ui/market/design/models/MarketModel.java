@@ -20,9 +20,12 @@ public class MarketModel extends Observable{
     public static final int MINIMUM_MIN_NUM_GOODS_PER_LEVEL = 1;
     public static final int MINIMUM_NUM_LEVELS = 3;
     public static final int MINIMUM_NUM_IOT = 0;
+    public static final boolean DEFAULT_SHOW_ONLY_IOT = true;
+
     private MarketGenerator.Parameters generatorParameters;
     private MarketGenerator.Distributions generatorDistributions;
     private ArrayList<ObserverView> views;
+    private boolean showOnlyIOT;
     private boolean marketUpToDate;
     private Market market;
 
@@ -38,6 +41,7 @@ public class MarketModel extends Observable{
         );
         generatorParameters = new MarketGenerator.Parameters(DEFAULT_NUM_LEVELS, DEFAULT_NUM_GOODS, DEFAULT_MIN_GOODS_PER_LEVEL, DEFAULT_NUM_IOT);
         marketUpToDate=false;
+        showOnlyIOT= DEFAULT_SHOW_ONLY_IOT;
     }
 
     public void addView(ObserverView view){
@@ -48,6 +52,14 @@ public class MarketModel extends Observable{
         marketUpToDate=false;
         for(ObserverView view: views)
             view.refresh();
+    }
+
+    public boolean isShowOnlyIOT() {
+        return showOnlyIOT;
+    }
+
+    public void setShowOnlyIOT(boolean showOnlyIOT) {
+        this.showOnlyIOT = showOnlyIOT;
     }
 
     public int getNumGoods(){

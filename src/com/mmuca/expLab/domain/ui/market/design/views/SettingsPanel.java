@@ -58,7 +58,7 @@ public class SettingsPanel extends JPanel{
         initGoodsPerLevelSpinner();
         initNumLevelsSpinner();
         initNumIOTSpinner();
-        showOnlyIOTCheckBox=new JCheckBox(SHOW_ONLY_IOT_CHECK_BOX);
+        showOnlyIOTCheckBox=new JCheckBox(SHOW_ONLY_IOT_CHECK_BOX,model.isShowOnlyIOT());
     }
 
     private void initNumIOTSpinner() {
