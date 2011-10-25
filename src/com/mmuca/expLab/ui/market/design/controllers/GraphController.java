@@ -1,6 +1,6 @@
-package com.mmuca.expLab.domain.ui.market.design.controllers;
+package com.mmuca.expLab.ui.market.design.controllers;
 
-import com.mmuca.expLab.domain.ui.market.design.views.GraphPanel;
+import com.mmuca.expLab.ui.market.design.views.GraphPanel;
 
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;

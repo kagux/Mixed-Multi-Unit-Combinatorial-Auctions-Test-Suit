@@ -1,6 +1,6 @@
-package com.mmuca.expLab.domain.ui.market.design.views;
+package com.mmuca.expLab.ui.market.design.views;
 
-import com.mmuca.expLab.domain.ui.market.design.models.MarketModel;
+import com.mmuca.expLab.ui.market.design.models.MarketModel;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -25,12 +25,18 @@ public class SettingsPanel extends JPanel{
 
     private JCheckBox showOnlyIOTCheckBox;
     private MarketModel model;
+    private DistributionSelectionPanel goodNumDistrPanel;
 
 
-    public SettingsPanel(MarketModel model) {
+    public SettingsPanel(MarketModel model, DistributionSelectionPanel goodNumDistrPanel) {
         this.model = model;
+        this.goodNumDistrPanel = goodNumDistrPanel;
         initComponents();
         layoutComponents();
+    }
+
+    public JCheckBox getShowOnlyIOTCheckBox() {
+        return showOnlyIOTCheckBox;
     }
 
     public JSpinner getNumGoodsSpinner() {
@@ -70,7 +76,7 @@ public class SettingsPanel extends JPanel{
     private void initNumLevelsSpinner() {
         numLevelsSpinner = new JSpinner();
         numLevelsSpinner.setModel(new SpinnerNumberModel(model.getNumLevels(),model.MINIMUM_NUM_LEVELS,Integer.MAX_VALUE,1));
-        configureInputPolicy(numGoodsSpinner);
+        configureInputPolicy(numLevelsSpinner);
     }
 
     private void initGoodsPerLevelSpinner() {
@@ -109,6 +115,7 @@ public class SettingsPanel extends JPanel{
         add(numIOTLabel);
         add(numIOTSpinner,"wrap, w 40!");
         add(showOnlyIOTCheckBox, "span, wrap");
+        add(goodNumDistrPanel, "span");
     }
 
 }

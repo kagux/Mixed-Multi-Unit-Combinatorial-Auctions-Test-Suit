@@ -1,4 +1,4 @@
-package com.mmuca.expLab.domain.ui.market.design.views;
+package com.mmuca.expLab.ui.market.design.views;
 
 import com.jgoodies.forms.factories.Borders;
 import net.miginfocom.swing.MigLayout;

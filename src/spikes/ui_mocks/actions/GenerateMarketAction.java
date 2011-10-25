@@ -59,7 +59,7 @@ public class GenerateMarketAction extends AbstractAction{
 
         if(panel.getOnlyIOTransformationsCheckBox().isSelected()){
             initializer = new MarketVertexOnlyIOTLayoutTransformer(market, panel.getMarketGraphPane().getSize());
-            vertexIncludePredicate = new MarketVertexIncludeOnlyIOTPredicate() ;
+            vertexIncludePredicate = new MarketVertexIncludeOnlyIOTPredicate();
         }
         else {
             initializer = new MarketVertexAllTransLayoutTransformer(market, panel.getMarketGraphPane().getSize());

@@ -23,8 +23,16 @@ public class CenteredDistribution implements IDistribution{
         return center;
     }
 
+    public void setCenter(int center) {
+        this.center = center;
+    }
+
     public double getAlpha() {
         return alpha;
+    }
+
+    public void setAlpha(double alpha) {
+        this.alpha = alpha;
     }
 
     public int nextInt(){

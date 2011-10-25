@@ -1,6 +1,6 @@
 package com.mmuca.expLab;
 
-import com.mmuca.expLab.domain.ui.ApplicationFrame;
+import com.mmuca.expLab.ui.ApplicationFrame;
 
 import javax.swing.*;
 

@@ -1,4 +1,4 @@
-package com.mmuca.expLab.domain.ui.market.design.views;
+package com.mmuca.expLab.ui.market.design.views;
 
 import javax.swing.*;
 
