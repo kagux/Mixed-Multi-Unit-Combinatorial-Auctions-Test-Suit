@@ -1,10 +1,10 @@
 package com.mmuca.expLab.ui.market.design.views;
 
+import com.mmuca.expLab.ui.components.NumberSpinner;
 import com.mmuca.expLab.ui.market.design.models.DistributionModel;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import javax.swing.text.NumberFormatter;
 
 public class CenteredDistributionPanel extends JPanel implements ObserverView{
     public static final String CENTER_LABEL = "Center";
@@ -54,27 +54,7 @@ public class CenteredDistributionPanel extends JPanel implements ObserverView{
     private void initComponents() {
         centerLabel = new JLabel(CENTER_LABEL);
         alphaLabel = new JLabel(ALPHA_LABEL);
-        initCenterSpinner();
-        initAlphaSpinner();
-    }
-
-    private void initAlphaSpinner() {
-        alphaSpinner = new JSpinner();
-        alphaSpinner.setModel(new SpinnerNumberModel(0.1,0.1,0.9,0.1));
-        configureInputPolicy(alphaSpinner);
-    }
-
-    private void initCenterSpinner() {
-        centerSpinner = new JSpinner();
-        centerSpinner.setModel(new SpinnerNumberModel(model.getRangeStart(),model.getRangeStart(),model.getRangeEnd(),1));
-        configureInputPolicy(centerSpinner);
-    }
-
-    private void configureInputPolicy(JSpinner spinner) {
-        spinner.setEditor(new JSpinner.NumberEditor(spinner));
-        JFormattedTextField spinnerTextField = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
-        NumberFormatter formatter = (NumberFormatter) spinnerTextField.getFormatter();
-        formatter.setAllowsInvalid(false);
-        formatter.setCommitsOnValidEdit(true);
+        centerSpinner = new NumberSpinner(model.getRangeStart(),model.getRangeStart(),model.getRangeEnd(),1);
+        alphaSpinner = new NumberSpinner(0.1,0.1,0.9,0.1);
     }
 }

@@ -155,12 +155,12 @@ public class MarketModel extends Observable{
 
     private MarketGenerator.Distributions generatorDistributions() {
         return new MarketGenerator.Distributions(
-                    (IDistribution)goodLevelDistrModel.getDistribution(),
-                    (IDistribution)iotLevelDistrModel.getDistribution(),
-                    (ITargetedDistribution)inputBundleGoodLevelDistrModel.getDistribution(),
-                    (ITargetedDistribution)outputBundleGoodLevelDistrModel.getDistribution(),
-                    (IDistribution)inputBundlesNumDistrModel.getDistribution(),
-                    (IDistribution)outputBundlesNumDistrModel.getDistribution()
+                goodLevelDistrModel.getDistribution(),
+                iotLevelDistrModel.getDistribution(),
+                inputBundleGoodLevelDistrModel.getDistribution(),
+                outputBundleGoodLevelDistrModel.getDistribution(),
+                inputBundlesNumDistrModel.getDistribution(),
+                outputBundlesNumDistrModel.getDistribution()
             );
     }
 

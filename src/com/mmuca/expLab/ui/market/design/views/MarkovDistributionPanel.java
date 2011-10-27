@@ -1,9 +1,9 @@
 package com.mmuca.expLab.ui.market.design.views;
 
+import com.mmuca.expLab.ui.components.NumberSpinner;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import javax.swing.text.NumberFormatter;
 
 public class MarkovDistributionPanel extends JPanel{
     public static final String CHANGE_VALUE_LABEL = "Probability to change value";
@@ -30,8 +30,8 @@ public class MarkovDistributionPanel extends JPanel{
     private void initComponents() {
         pChangeValueLabel = new JLabel(CHANGE_VALUE_LABEL);
         pChangeDirectionLabel = new JLabel(CHANGE_DIRECTION_LABEL);
-        initPChangeValueSpinner();
-        iniPChangeDirectionSpinner();
+        pChangeValueSpinner = new NumberSpinner(0.1,0,0.9,0.1);
+        pChangeDirectionSpinner = new NumberSpinner(0.1,0,0.9,0.1);
     }
 
     private void layoutComponents() {
@@ -45,25 +45,5 @@ public class MarkovDistributionPanel extends JPanel{
         add(pChangeValueLabel);
         add(pChangeValueSpinner,"pushx, grow, w 40!");
 
-    }
-
-    private void iniPChangeDirectionSpinner() {
-        pChangeDirectionSpinner = new JSpinner();
-        pChangeDirectionSpinner.setModel(new SpinnerNumberModel(0.1,0,0.9,0.1));
-        configureInputPolicy(pChangeDirectionSpinner);
-    }
-
-    private void initPChangeValueSpinner() {
-        pChangeValueSpinner = new JSpinner();
-        pChangeValueSpinner.setModel(new SpinnerNumberModel(0.1,0,0.9,0.1));
-        configureInputPolicy(pChangeValueSpinner);
-    }
-
-    private void configureInputPolicy(JSpinner spinner) {
-        spinner.setEditor(new JSpinner.NumberEditor(spinner));
-        JFormattedTextField spinnerTextField = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
-        NumberFormatter formatter = (NumberFormatter) spinnerTextField.getFormatter();
-        formatter.setAllowsInvalid(false);
-        formatter.setCommitsOnValidEdit(true);
     }
 }

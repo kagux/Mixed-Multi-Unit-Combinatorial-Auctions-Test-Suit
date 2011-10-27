@@ -54,6 +54,9 @@ public class CenteredDistribution implements IDistribution{
         initCumulativeFunction();
     }
 
+    @Override
+    public void setTarget(int index) { }
+
     private class CumulativeFunction{
         private double max=0;
         private DensityFunction densityFunction;

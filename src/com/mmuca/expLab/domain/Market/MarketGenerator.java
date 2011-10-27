@@ -6,7 +6,6 @@ import com.mmuca.expLab.domain.Market.transformations.ITGenerator;
 import com.mmuca.expLab.domain.Market.transformations.OTGenerator;
 import com.mmuca.expLab.domain.Require;
 import com.mmuca.expLab.domain.distributions.IDistribution;
-import com.mmuca.expLab.domain.distributions.ITargetedDistribution;
 
 public class MarketGenerator {
     private Parameters parameters;
@@ -80,16 +79,16 @@ public class MarketGenerator {
     public static class Distributions {
         private IDistribution goodLevel;
         private IDistribution iotLevel;
-        private ITargetedDistribution inputBundleGoodLevel;
-        private ITargetedDistribution outputBundleGoodLevel;
+        private IDistribution inputBundleGoodLevel;
+        private IDistribution outputBundleGoodLevel;
         private IDistribution inputBundlesNum;
         private IDistribution outputBundlesNum;
 
         public Distributions(
                 IDistribution goodLevel,
                 IDistribution iotLevel,
-                ITargetedDistribution inputBundleGoodLevel,
-                ITargetedDistribution outputBundleGoodLevel,
+                IDistribution inputBundleGoodLevel,
+                IDistribution outputBundleGoodLevel,
                 IDistribution inputBundlesNum,
                 IDistribution outputBundlesNum
         ) {
@@ -117,19 +116,19 @@ public class MarketGenerator {
             this.iotLevel = iotLevel;
         }
 
-        public ITargetedDistribution getInputBundleGoodLevel() {
+        public IDistribution getInputBundleGoodLevel() {
             return inputBundleGoodLevel;
         }
 
-        public void setInputBundleGoodLevel(ITargetedDistribution inputBundleGoodLevel) {
+        public void setInputBundleGoodLevel(IDistribution inputBundleGoodLevel) {
             this.inputBundleGoodLevel = inputBundleGoodLevel;
         }
 
-        public ITargetedDistribution getOutputBundleGoodLevel() {
+        public IDistribution getOutputBundleGoodLevel() {
             return outputBundleGoodLevel;
         }
 
-        public void setOutputBundleGoodLevel(ITargetedDistribution outputBundleGoodLevel) {
+        public void setOutputBundleGoodLevel(IDistribution outputBundleGoodLevel) {
             this.outputBundleGoodLevel = outputBundleGoodLevel;
         }
 

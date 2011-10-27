@@ -1,7 +1,7 @@
 package com.mmuca.expLab;
 
+import com.mmuca.expLab.domain.distributions.IDistribution;
 import com.mmuca.expLab.domain.distributions.MarkovBackwardDistribution;
-import com.mmuca.expLab.domain.distributions.ITargetedDistribution;
 import com.mmuca.expLab.domain.distributions.ValueRange;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -14,7 +14,7 @@ public class BackwardMarkovDistributionTest {
 
     @Test
     public void valuesAreInRange(){
-      ITargetedDistribution distribution = backwardMarkovDistribution(0, 3);
+      IDistribution distribution = backwardMarkovDistribution(0, 3);
       int testRuns = 20;
       distribution.setTarget(1);
       for (int i=0; i<testRuns;i++){
@@ -34,7 +34,7 @@ public class BackwardMarkovDistributionTest {
     @Test
     @Ignore
     public void histogram(){
-        ITargetedDistribution distribution = backwardMarkovDistribution(1, 40);
+        IDistribution distribution = backwardMarkovDistribution(1, 40);
         distribution.setTarget(20);
         HashMap<Integer, Integer> histogram = new HashMap<Integer, Integer>();
         int testRuns = 1000;
@@ -45,8 +45,8 @@ public class BackwardMarkovDistributionTest {
         histogram.size();
     }
 
-  private ITargetedDistribution backwardMarkovDistribution(int start, int end) {
-      ITargetedDistribution distribution = new MarkovBackwardDistribution(0.2, 0.1);
+  private IDistribution backwardMarkovDistribution(int start, int end) {
+      IDistribution distribution = new MarkovBackwardDistribution(0.2, 0.1);
       distribution.setValueRange(new ValueRange(start, end));
       return distribution;
   }

@@ -5,9 +5,7 @@ import com.mmuca.expLab.domain.Market.MarketGenerator;
 import com.mmuca.expLab.domain.Market.MarketGeneratorBuilder;
 import com.mmuca.expLab.domain.Market.graphs.*;
 import com.mmuca.expLab.domain.distributions.Distribution;
-import com.mmuca.expLab.domain.distributions.ITargetedDistribution;
-import spikes.ui_mocks.DistributionFactory;
-import spikes.ui_mocks.panels.MarketDesignerPane;
+import com.mmuca.expLab.domain.distributions.IDistribution;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.graph.Graph;
@@ -16,6 +14,8 @@ import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.collections15.functors.TruePredicate;
+import spikes.ui_mocks.DistributionFactory;
+import spikes.ui_mocks.panels.MarketDesignerPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,8 +43,8 @@ public class GenerateMarketAction extends AbstractAction{
         MarketGenerator.Distributions distributions = new MarketGenerator.Distributions(
                 DistributionFactory.create((Distribution)panel.getGoodsLevelDistrComboBox().getSelectedItem(), panel.getGoodsLevelDistrPanel(), -1),
                 DistributionFactory.create((Distribution) panel.getIOTLevelDistrComboBox().getSelectedItem(), panel.getIOTLevelDistrPanel(), -1),
-                (ITargetedDistribution)DistributionFactory.create((Distribution) panel.getInputBundlesGoodsLevelComboBox().getSelectedItem(),panel.getInputBundlesGoodsLevelDistrPanel()),
-                (ITargetedDistribution)DistributionFactory.create((Distribution) panel.getOutputBundlesGoodsLevelComboBox().getSelectedItem(),panel.getOutputBundlesGoodsLevelDistrPanel()),
+                (IDistribution)DistributionFactory.create((Distribution) panel.getInputBundlesGoodsLevelComboBox().getSelectedItem(),panel.getInputBundlesGoodsLevelDistrPanel()),
+                (IDistribution)DistributionFactory.create((Distribution) panel.getOutputBundlesGoodsLevelComboBox().getSelectedItem(),panel.getOutputBundlesGoodsLevelDistrPanel()),
                 DistributionFactory.create((Distribution)panel.getBundlesNumDistrComboBox().getSelectedItem(),panel.getBundlesNumDistrPanel()),
                 DistributionFactory.create((Distribution) panel.getBundlesNumDistrComboBox().getSelectedItem(), panel.getBundlesNumDistrPanel())
         );

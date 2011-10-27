@@ -4,7 +4,7 @@ import com.mmuca.expLab.domain.Require;
 
 import java.util.Random;
 
-abstract public class MarkovDistribution implements ITargetedDistribution {
+abstract public class MarkovDistribution implements IDistribution {
     protected int initialValue;
     protected Random randomGenerator;
     private ValueRange range;

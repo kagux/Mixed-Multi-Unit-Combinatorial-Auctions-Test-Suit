@@ -4,7 +4,8 @@ public enum Distribution {
     UNIFORM("Uniform"),
     CENTERED("Centered"),
     MARKOV_FORWARD("Markov Forward"),
-    MARKOV_BACKWARD("Markov Backward");
+    MARKOV_BACKWARD("Markov Backward"),
+    CONSTANT("Constant");
 
     private String distributionName;
 

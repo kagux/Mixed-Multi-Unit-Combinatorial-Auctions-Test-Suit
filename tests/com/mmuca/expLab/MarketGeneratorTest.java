@@ -9,7 +9,6 @@ import com.mmuca.expLab.domain.Market.transformations.IOTGenerator;
 import com.mmuca.expLab.domain.Market.transformations.ITGenerator;
 import com.mmuca.expLab.domain.Market.transformations.OTGenerator;
 import com.mmuca.expLab.domain.distributions.IDistribution;
-import com.mmuca.expLab.domain.distributions.ITargetedDistribution;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
@@ -60,7 +59,7 @@ public class MarketGeneratorTest {
     private IOTGenerator iotGenerator() {
         Integer targetLevelIndex=1;
         IDistribution numberOfBundlesDistribution = when(mock(IDistribution.class).nextInt()).thenReturn(1).getMock();
-        ITargetedDistribution bundleGoodLevelDistribution = when(mock(ITargetedDistribution.class).nextInt()).thenReturn(targetLevelIndex).getMock();
+        IDistribution bundleGoodLevelDistribution = when(mock(IDistribution.class).nextInt()).thenReturn(targetLevelIndex).getMock();
         BundlesGenerator bundlesGenerator = new BundlesGenerator(bundleGoodLevelDistribution, numberOfBundlesDistribution);
         IDistribution ioTransformationLevelDistribution = when(mock(IDistribution.class).nextInt()).thenReturn(targetLevelIndex).getMock();
         return new IOTGenerator(ioTransformationLevelDistribution, bundlesGenerator,bundlesGenerator);

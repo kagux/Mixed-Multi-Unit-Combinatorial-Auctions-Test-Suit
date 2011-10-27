@@ -21,4 +21,7 @@ public class UniformDistribution implements IDistribution {
     public void setValueRange(ValueRange range){
         this.range = range;
     }
+
+    @Override
+    public void setTarget(int index) {}
 }

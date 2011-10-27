@@ -4,7 +4,6 @@ import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.collections.GoodBundlesSet;
 import com.mmuca.expLab.domain.Require;
 import com.mmuca.expLab.domain.distributions.IDistribution;
-import com.mmuca.expLab.domain.distributions.ITargetedDistribution;
 import com.mmuca.expLab.domain.Market.goods.Good;
 import com.mmuca.expLab.domain.distributions.ValueRange;
 
@@ -12,10 +11,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class BundlesGenerator {
-    private ITargetedDistribution goodsLevelDistribution;
+    private IDistribution goodsLevelDistribution;
     private IDistribution numberOfBundlesDistribution;
 
-    public BundlesGenerator(ITargetedDistribution goodsLevelDistribution, IDistribution numberOfBundlesDistribution) {
+    public BundlesGenerator(IDistribution goodsLevelDistribution, IDistribution numberOfBundlesDistribution) {
         this.goodsLevelDistribution = goodsLevelDistribution;
         this.numberOfBundlesDistribution = numberOfBundlesDistribution;
     }

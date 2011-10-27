@@ -25,8 +25,8 @@ public class MarketGeneratorBuilderTest {
 
         IDistribution goodLevelDistribution = new UniformDistribution();
         IDistribution iotLevelDistribution = new UniformDistribution();
-        ITargetedDistribution inputBundlesGoodLevelDistribution = new MarkovForwardDistribution(0.1,0.1);
-        ITargetedDistribution outputBundlesGoodLevelDistribution = new MarkovBackwardDistribution(0.1,0.1);
+        IDistribution inputBundlesGoodLevelDistribution = new MarkovForwardDistribution(0.1,0.1);
+        IDistribution outputBundlesGoodLevelDistribution = new MarkovBackwardDistribution(0.1,0.1);
         IDistribution numberOfInputBundlesDistribution = new UniformDistribution();
         IDistribution numberOfOutputBundlesDistribution = new UniformDistribution();
 
