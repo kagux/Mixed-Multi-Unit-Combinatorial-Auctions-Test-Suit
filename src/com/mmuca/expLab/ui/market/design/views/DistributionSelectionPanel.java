@@ -1,29 +1,30 @@
 package com.mmuca.expLab.ui.market.design.views;
 
 import com.mmuca.expLab.domain.distributions.Distribution;
+import com.mmuca.expLab.ui.components.MinimizingCardPanel;
+import com.mmuca.expLab.ui.market.design.models.DistributionModel;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
 
-public class DistributionSelectionPanel extends JPanel{
+public class DistributionSelectionPanel extends JPanel implements ObserverView {
     private JLabel distributionChoiceLabel;
     private JComboBox<Distribution> distributionsComboBox;
-    private JPanel distributionSettingsPanel;
+    private MinimizingCardPanel distributionSettingsPanel;
 
 
-    private ArrayList<Distribution> distributions;
     private String title;
+    private DistributionModel model;
     private UniformDistributionPanel uniformDistributionPanel;
     private CenteredDistributionPanel centeredDistributionPanel;
     private MarkovDistributionPanel markovForwardDistributionPanel;
     private MarkovDistributionPanel markovBackwardDistributionPanel;
 
 
-    public DistributionSelectionPanel(String title, ArrayList<Distribution> distributions){
+    public DistributionSelectionPanel(String title, DistributionModel model){
         this.title = title;
-        this.distributions = distributions;
+        this.model = model;
+        model.addView(this);
         initComponents();
         layoutComponents();
     }
@@ -32,7 +33,7 @@ public class DistributionSelectionPanel extends JPanel{
         return distributionsComboBox;
     }
 
-    public JPanel getDistributionSettingsPanel() {
+    public MinimizingCardPanel getDistributionSettingsPanel() {
         return distributionSettingsPanel;
     }
 
@@ -59,23 +60,17 @@ public class DistributionSelectionPanel extends JPanel{
     }
 
     private void initDistributionSettingsPanel() {
-        distributionSettingsPanel = new JPanel();
-        distributionSettingsPanel.setLayout(new CardLayout());
+        distributionSettingsPanel = new MinimizingCardPanel();
         uniformDistributionPanel = new UniformDistributionPanel();
-        centeredDistributionPanel = new CenteredDistributionPanel();
+        centeredDistributionPanel = new CenteredDistributionPanel(model);
         markovForwardDistributionPanel = new MarkovDistributionPanel();
         markovBackwardDistributionPanel = new MarkovDistributionPanel();
-        distributionSettingsPanel.add(uniformDistributionPanel,Distribution.UNIFORM.toString());
-        distributionSettingsPanel.add(centeredDistributionPanel,Distribution.CENTERED.toString());
-        distributionSettingsPanel.add(markovForwardDistributionPanel,Distribution.MARKOV_FORWARD.toString());
-        distributionSettingsPanel.add(markovBackwardDistributionPanel,Distribution.MARKOV_BACKWARD.toString());
+
 
     }
 
     private void initDistributionsComboBox() {
-        distributionsComboBox = new JComboBox<Distribution>();
-        for (Distribution distribution: distributions)
-            distributionsComboBox.addItem(distribution);
+        distributionsComboBox = new JComboBox<Distribution>(model.validDistributions());
     }
 
     private void layoutComponents() {
@@ -86,8 +81,18 @@ public class DistributionSelectionPanel extends JPanel{
         ));
         add(distributionChoiceLabel);
         add(distributionsComboBox, "wrap");
-        add(distributionSettingsPanel,"span, push");
+        add(distributionSettingsPanel,"span, grow, push");
+        distributionSettingsPanel.add(uniformDistributionPanel,Distribution.UNIFORM.toString());
+        distributionSettingsPanel.add(centeredDistributionPanel,Distribution.CENTERED.toString());
+        distributionSettingsPanel.add(markovForwardDistributionPanel,Distribution.MARKOV_FORWARD.toString());
+        distributionSettingsPanel.add(markovBackwardDistributionPanel,Distribution.MARKOV_BACKWARD.toString());
+        distributionSettingsPanel.showCard(distributionsComboBox.getSelectedItem().toString());
     }
 
 
+    @Override
+    public void refresh() {
+        distributionSettingsPanel.revalidate();
+
+    }
 }

@@ -22,12 +22,12 @@ public class MarketGraphVisualizationServerProvider {
         this.graphProvider = graphProvider;
     }
 
-    public BasicVisualizationServer<Object,MarketEdge> getServerFor(Market market, Dimension size){
-        return createServer(market, new MarketVertexAllTransLayoutTransformer(market, size), TruePredicate.<Context<Graph<Object, MarketEdge>, Object>>getInstance());
+    public BasicVisualizationServer<Object,MarketEdge> getServerFor(Market market, Dimension size, double scale){
+        return createServer(market, new MarketVertexAllTransLayoutTransformer(market, size, scale), TruePredicate.<Context<Graph<Object, MarketEdge>, Object>>getInstance());
     }
 
-    public BasicVisualizationServer<Object,MarketEdge> getOnlyIOTServerFor(Market market, Dimension size){
-        return createServer(market, new MarketVertexOnlyIOTLayoutTransformer(market, size), new MarketVertexIncludeOnlyIOTPredicate());
+    public BasicVisualizationServer<Object,MarketEdge> getOnlyIOTServerFor(Market market, Dimension size, double scale){
+        return createServer(market, new MarketVertexOnlyIOTLayoutTransformer(market, size, scale), new MarketVertexIncludeOnlyIOTPredicate());
     }
 
     private BasicVisualizationServer<Object, MarketEdge> createServer(Market market, Transformer<Object, Point2D> transformer, Predicate<Context<Graph<Object, MarketEdge>, Object>> predicate) {

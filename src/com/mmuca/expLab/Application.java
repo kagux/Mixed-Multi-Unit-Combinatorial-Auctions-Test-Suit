@@ -10,7 +10,7 @@ public class Application{
         JFrame frame = new ApplicationFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
-        frame.setSize(800, 600);
+        frame.setSize(1024, 800);
         frame.setVisible(true);
     }
 }

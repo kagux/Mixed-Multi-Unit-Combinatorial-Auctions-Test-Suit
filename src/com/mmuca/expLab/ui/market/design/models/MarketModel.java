@@ -4,10 +4,7 @@ import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.MarketDistribution;
 import com.mmuca.expLab.domain.Market.MarketGenerator;
 import com.mmuca.expLab.domain.Market.MarketGeneratorBuilder;
-import com.mmuca.expLab.domain.distributions.IDistribution;
-import com.mmuca.expLab.domain.distributions.MarkovBackwardDistribution;
-import com.mmuca.expLab.domain.distributions.MarkovForwardDistribution;
-import com.mmuca.expLab.domain.distributions.UniformDistribution;
+import com.mmuca.expLab.domain.distributions.*;
 import com.mmuca.expLab.ui.market.design.views.ObserverView;
 
 import java.util.ArrayList;
@@ -15,7 +12,7 @@ import java.util.Observable;
 
 public class MarketModel extends Observable{
     public static final int DEFAULT_NUM_LEVELS = 6;
-    public static final int DEFAULT_NUM_GOODS = 10;
+    public static final int DEFAULT_NUM_GOODS = 15;
     public static final int DEFAULT_MIN_GOODS_PER_LEVEL = 2;
     public static final int DEFAULT_NUM_IOT = 5;
     public static final int MINIMUM_NUM_GOODS = 1;
@@ -25,39 +22,82 @@ public class MarketModel extends Observable{
     public static final boolean DEFAULT_SHOW_ONLY_IOT = true;
 
     private MarketGenerator.Parameters generatorParameters;
-    private MarketGenerator.Distributions generatorDistributions;
     private ArrayList<ObserverView> views;
     private boolean showOnlyIOT;
     private DistributionModel goodLevelDistrModel;
+    private DistributionModel inputBundlesNumDistrModel;
+    private DistributionModel outputBundlesNumDistrModel;
+    private DistributionModel inputBundleGoodLevelDistrModel;
+    private DistributionModel outputBundleGoodLevelDistrModel;
+    private DistributionModel iotLevelDistrModel;
 
     public MarketModel(){
         views = new ArrayList<ObserverView>();
-        generatorDistributions = new MarketGenerator.Distributions(
-                new UniformDistribution(),
-                new UniformDistribution(),
-                new MarkovForwardDistribution(0.1,0.1),
-                new MarkovBackwardDistribution(0.1,0.1),
-                new UniformDistribution(),
-                new UniformDistribution()
-        );
         generatorParameters = new MarketGenerator.Parameters(DEFAULT_NUM_LEVELS, DEFAULT_NUM_GOODS, DEFAULT_MIN_GOODS_PER_LEVEL, DEFAULT_NUM_IOT);
         showOnlyIOT= DEFAULT_SHOW_ONLY_IOT;
-        goodLevelDistrModel = new DistributionModel(MarketDistribution.GOOD_LEVEL.defaultDistribution());
+        initChildModels();
+    }
 
+    private void initChildModels() {
+        goodLevelDistrModel = new DistributionModel(MarketDistribution.GOOD_LEVEL.defaultDistribution(), MarketDistribution.GOOD_LEVEL.validDistributions(), new ValueRange(1, DEFAULT_NUM_LEVELS-1));
+        inputBundlesNumDistrModel = new DistributionModel(MarketDistribution.INPUT_BUNDLES_NUM.defaultDistribution(),MarketDistribution.INPUT_BUNDLES_NUM.validDistributions(), new ValueRange(2, DEFAULT_NUM_GOODS));
+        outputBundlesNumDistrModel = new DistributionModel(MarketDistribution.OUTPUT_BUNDLES_NUM.defaultDistribution(), MarketDistribution.OUTPUT_BUNDLES_NUM.validDistributions(),new ValueRange(2, DEFAULT_NUM_GOODS));
+        inputBundleGoodLevelDistrModel = new DistributionModel(MarketDistribution.INPUT_BUNDLE_GOOD_LEVEL.defaultDistribution(), MarketDistribution.INPUT_BUNDLE_GOOD_LEVEL.validDistributions(), new ValueRange(2,DEFAULT_NUM_LEVELS-1));
+        outputBundleGoodLevelDistrModel = new DistributionModel(MarketDistribution.OUTPUT_BUNDLE_GOOD_LEVEL.defaultDistribution(), MarketDistribution.OUTPUT_BUNDLE_GOOD_LEVEL.validDistributions(),new ValueRange(1,DEFAULT_NUM_LEVELS-1));
+        iotLevelDistrModel = new DistributionModel(MarketDistribution.IOT_LEVEL.defaultDistribution(), MarketDistribution.IOT_LEVEL.validDistributions(), new ValueRange(2,DEFAULT_NUM_LEVELS-1));
     }
 
     public void addView(ObserverView view){
         views.add(view);
         goodLevelDistrModel.addView(view);
+        inputBundleGoodLevelDistrModel.addView(view);
+        inputBundlesNumDistrModel.addView(view);
+        outputBundleGoodLevelDistrModel.addView(view);
+        outputBundlesNumDistrModel.addView(view);
+        iotLevelDistrModel.addView(view);
     }
 
-    public  void refreshViews(){
+    private void commitChanges(){
+        updateChildModels();
+        notifyViews();
+    }
+
+    private void notifyViews() {
         for(ObserverView view: views)
             view.refresh();
     }
 
+    private void updateChildModels() {
+        goodLevelDistrModel.setRangeEnd(generatorParameters.getNumLevels()-1);
+        inputBundlesNumDistrModel.setRangeEnd(generatorParameters.getNumGoods());
+        outputBundlesNumDistrModel.setRangeEnd(generatorParameters.getNumGoods());
+        inputBundleGoodLevelDistrModel.setRangeEnd(generatorParameters.getNumLevels()-1);
+        outputBundleGoodLevelDistrModel.setRangeEnd(generatorParameters.getNumLevels()-1);
+        iotLevelDistrModel.setRangeEnd(generatorParameters.getNumLevels()-1);
+    }
+
     public DistributionModel getGoodLevelDistrModel() {
         return goodLevelDistrModel;
+    }
+
+    public DistributionModel getInputBundlesNumDistrModel() {
+        return inputBundlesNumDistrModel;
+    }
+
+    public DistributionModel getOutputBundlesNumDistrModel() {
+        return outputBundlesNumDistrModel;
+    }
+
+    public DistributionModel getInputBundleGoodLevelDistrModel() {
+        return inputBundleGoodLevelDistrModel;
+    }
+
+    public DistributionModel getOutputBundleGoodLevelDistrModel() {
+        return outputBundleGoodLevelDistrModel;
+    }
+
+    public DistributionModel getIotLevelDistrModel() {
+        return iotLevelDistrModel;
     }
 
     public boolean isShowOnlyIOT() {
@@ -66,7 +106,7 @@ public class MarketModel extends Observable{
 
     public void setShowOnlyIOT(boolean showOnlyIOT) {
         this.showOnlyIOT = showOnlyIOT;
-        refreshViews();
+        commitChanges();
     }
 
     public int getNumGoods(){
@@ -75,7 +115,7 @@ public class MarketModel extends Observable{
 
     public void setNumGoods(int numGoods){
         generatorParameters.setNumGoods(numGoods);
-        refreshViews();
+        commitChanges();
     }
 
     public int getMinGoodsPerLevel(){
@@ -84,7 +124,7 @@ public class MarketModel extends Observable{
 
     public void setMinGoodsPerLevel(int minNumGoodsPerLevel){
         generatorParameters.setMinGoodsPerLevel(minNumGoodsPerLevel);
-        refreshViews();
+        commitChanges();
     }
 
     public int getNumLevels(){
@@ -93,7 +133,7 @@ public class MarketModel extends Observable{
 
     public void setNumLevels(int numLevels){
         generatorParameters.setNumLevels(numLevels);
-        refreshViews();
+        commitChanges();
     }
 
     public int getNumIOT(){
@@ -102,12 +142,26 @@ public class MarketModel extends Observable{
 
     public void setNumIOT(int numIOT){
         generatorParameters.setNumIOT(numIOT);
-        refreshViews();
+        commitChanges();
+    }
+
+    public void recreateMarket(){
+        commitChanges();
     }
 
     public Market market(){
-        generatorDistributions.setGoodLevelDistribution((IDistribution)goodLevelDistrModel.getDistribution());
-        return new MarketGeneratorBuilder(generatorParameters, generatorDistributions).build().nextMarket();
+        return new MarketGeneratorBuilder(generatorParameters, generatorDistributions()).build().nextMarket();
+    }
+
+    private MarketGenerator.Distributions generatorDistributions() {
+        return new MarketGenerator.Distributions(
+                    (IDistribution)goodLevelDistrModel.getDistribution(),
+                    (IDistribution)iotLevelDistrModel.getDistribution(),
+                    (ITargetedDistribution)inputBundleGoodLevelDistrModel.getDistribution(),
+                    (ITargetedDistribution)outputBundleGoodLevelDistrModel.getDistribution(),
+                    (IDistribution)inputBundlesNumDistrModel.getDistribution(),
+                    (IDistribution)outputBundlesNumDistrModel.getDistribution()
+            );
     }
 
 

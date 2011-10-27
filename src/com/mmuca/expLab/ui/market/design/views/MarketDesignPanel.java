@@ -1,6 +1,8 @@
 package com.mmuca.expLab.ui.market.design.views;
 
 import com.jgoodies.forms.factories.Borders;
+import com.mmuca.expLab.domain.Market.graphs.*;
+import com.mmuca.expLab.ui.market.design.models.MarketModel;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -8,16 +10,46 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
 public class MarketDesignPanel extends JPanel{
-    public static final String GENERATE_GRAPH_BUTTON = "Generate Graph";
+    public static final String GENERATE_MARKET_BUTTON = "Generate Graph";
     public static final String SETTINGS_PANEL_CAPTION = "Market Settings";
     public static final String GRAPH_PANEL_CAPTION = "Market Graph";
     private SettingsPanel settingsPanel;
     private GraphPanel graphPanel;
+    private MarketModel model;
+    private JButton generateMarketButton;
 
-    public MarketDesignPanel(SettingsPanel settingsPanel, GraphPanel graphPanel){
-        this.settingsPanel = settingsPanel;
-        this.graphPanel = graphPanel;
+    public MarketDesignPanel(MarketModel model){
+        this.model = model;
+        initComponents();
         layoutComponents();
+    }
+
+    public JButton getGenerateMarketButton() {
+        return generateMarketButton;
+    }
+
+    public SettingsPanel getSettingsPanel() {
+        return settingsPanel;
+    }
+
+    public GraphPanel getGraphPanel() {
+        return graphPanel;
+    }
+
+    private void initComponents() {
+        generateMarketButton = new JButton(GENERATE_MARKET_BUTTON);
+        initGraphPanel();
+        settingsPanel = new SettingsPanel(model);
+    }
+
+    private void initGraphPanel() {
+        MarketGraphVisualizationServerProvider.GraphTransformers graphTransformers= new MarketGraphVisualizationServerProvider.GraphTransformers(
+                new MarketVertexShapeTransformer(),
+                new MarketVertexColorTransformer(),
+                new MarketEdgeColorTransformer()
+        );
+        MarketGraphVisualizationServerProvider visualizationServerProvider = new MarketGraphVisualizationServerProvider(graphTransformers, new MarketGraphProvider());
+        graphPanel = new GraphPanel(model, visualizationServerProvider);
     }
 
     private void layoutComponents() {
@@ -35,7 +67,8 @@ public class MarketDesignPanel extends JPanel{
                 )
         );
         add(createScrollPanel(), "grow, pushy, spany, w 300!");
-        add(graphPanel, "push, grow");
+        add(graphPanel, "push, grow, wrap");
+        add(generateMarketButton,"skip,grow");
     }
 
     private JScrollPane createScrollPanel() {

@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 import static junit.framework.Assert.*;
 
@@ -77,6 +78,35 @@ public class MarketVertexAllTransLayoutTransformerTest {
         assertEquals("position of first good", firstGoodPosition, transformer.transform(new Good("good 0:0")));
         assertEquals("position of second good", secondGoodPosition, transformer.transform(new Good("good 0:1")));
         assertEquals("position of third good", thirdGoodPosition, transformer.transform(new Good("good 0:2")));
+    }
+
+
+    @Test
+    public void ScaleShouldBeTakenIntoAccount(){
+        Market market = newMarket(1,1);
+        Transformation transformation_1 = new Transformation();
+        Transformation transformation_2 =  new Transformation();
+        market.getLevel(0).addTransformation(transformation_1);
+        market.getLevel(0).addTransformation(transformation_2);
+
+        int width=100;
+        int height=100;
+        double scale=0.8;
+        Dimension size = new Dimension(width, height);
+        MarketVertexAllTransLayoutTransformer transformer = new MarketVertexAllTransLayoutTransformer(market, size, scale);
+
+        ArrayList<Point2D> expectedPositions = new ArrayList<Point2D>();
+        double scalingOffset = 100 * (1-0.8) / 2;
+        double horizontalOffset = 80.0 / 3;
+        double verticalOffset = 80.0 / 3;
+        expectedPositions.add(new Point2D.Double(horizontalOffset + scalingOffset, verticalOffset + scalingOffset));
+        expectedPositions.add(new Point2D.Double(horizontalOffset*2+scalingOffset,verticalOffset+scalingOffset));
+
+        ArrayList<Point2D> actualPositions = new ArrayList<Point2D>();
+        actualPositions.add(transformer.transform(transformation_1));
+        actualPositions.add(transformer.transform(transformation_2));
+
+        assertTrue("positions should take scaling into account", expectedPositions.containsAll(actualPositions));
     }
 
 

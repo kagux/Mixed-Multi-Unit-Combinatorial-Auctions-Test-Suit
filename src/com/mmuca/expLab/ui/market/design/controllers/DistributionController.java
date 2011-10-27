@@ -1,14 +1,11 @@
 package com.mmuca.expLab.ui.market.design.controllers;
 
-import com.mmuca.expLab.domain.distributions.CenteredDistribution;
-import com.mmuca.expLab.domain.distributions.Distribution;
-import com.mmuca.expLab.domain.distributions.UniformDistribution;
+import com.mmuca.expLab.domain.distributions.*;
 import com.mmuca.expLab.ui.market.design.models.DistributionModel;
 import com.mmuca.expLab.ui.market.design.views.DistributionSelectionPanel;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -24,20 +21,43 @@ public class DistributionController {
 
     private void addListeners() {
         view.getDistributionsComboBox().addItemListener(new ComboBoxItemListener());
-        view.getCenteredDistributionPanel().getAlphaSpinner().addChangeListener(new CenteredDistrChangeListener());
-        view.getCenteredDistributionPanel().getCenterSpinner().addChangeListener(new CenteredDistrChangeListener());
+        view.getCenteredDistributionPanel().getAlphaSpinner().addChangeListener(new SpinnerChangeListener());
+        view.getCenteredDistributionPanel().getCenterSpinner().addChangeListener(new SpinnerChangeListener());
+        view.getMarkovForwardDistributionPanel().getpChangeDirectionSpinner().addChangeListener(new SpinnerChangeListener());
+        view.getMarkovForwardDistributionPanel().getpChangeValueSpinner().addChangeListener(new SpinnerChangeListener());
+        view.getMarkovBackwardDistributionPanel().getpChangeDirectionSpinner().addChangeListener(new SpinnerChangeListener());
+        view.getMarkovBackwardDistributionPanel().getpChangeValueSpinner().addChangeListener(new SpinnerChangeListener());
     }
 
-    private void updateCenteredDistribution() {
+    private void setCenteredDistribution() {
         int center = (Integer)view.getCenteredDistributionPanel().getCenterSpinner().getValue()-1;
         double alpha = (Double)view.getCenteredDistributionPanel().getAlphaSpinner().getValue();
-        model.setDistribution(new CenteredDistribution(center,alpha));
+        model.setDistribution(new CenteredDistribution(center, alpha));
     }
 
-    private class CenteredDistrChangeListener implements ChangeListener{
+    private void setMarkovForwardDistribution(){
+        double pChangeValue = (Double)view.getMarkovForwardDistributionPanel().getpChangeValueSpinner().getValue();
+        double pChangeDirection = (Double)view.getMarkovForwardDistributionPanel().getpChangeDirectionSpinner().getValue();
+        model.setDistribution(new MarkovForwardDistribution(pChangeValue,pChangeDirection));
+    }
+
+    private void setMarkovBackwardDistribution(){
+        double pChangeValue = (Double)view.getMarkovBackwardDistributionPanel().getpChangeValueSpinner().getValue();
+        double pChangeDirection = (Double)view.getMarkovBackwardDistributionPanel().getpChangeDirectionSpinner().getValue();
+        model.setDistribution(new MarkovBackwardDistribution(pChangeValue,pChangeDirection));
+    }
+
+    private class SpinnerChangeListener implements ChangeListener{
         @Override
         public void stateChanged(ChangeEvent e) {
-            updateCenteredDistribution();
+            if (view.getDistributionsComboBox().getSelectedItem() == Distribution.CENTERED)
+                setCenteredDistribution();
+            else if (view.getDistributionsComboBox().getSelectedItem() == Distribution.MARKOV_FORWARD){
+                setMarkovForwardDistribution();
+            }
+            else if (view.getDistributionsComboBox().getSelectedItem() == Distribution.MARKOV_BACKWARD){
+                setMarkovBackwardDistribution();
+            }
         }
 
     }
@@ -46,14 +66,20 @@ public class DistributionController {
         @Override
         public void itemStateChanged(ItemEvent e) {
             if(e.getStateChange() == ItemEvent.SELECTED){
-                CardLayout layout = (CardLayout)view.getDistributionSettingsPanel().getLayout();
+
                 Distribution selectedItem = (Distribution) view.getDistributionsComboBox().getSelectedItem();
-                layout.show(view.getDistributionSettingsPanel(), selectedItem.toString());
+                view.getDistributionSettingsPanel().showCard(selectedItem.toString());
                 if (selectedItem == Distribution.UNIFORM){
                     model.setDistribution(new UniformDistribution());
                 }
                 else if(selectedItem == Distribution.CENTERED){
-                    updateCenteredDistribution();
+                    setCenteredDistribution();
+                }
+                else if (selectedItem == Distribution.MARKOV_FORWARD){
+                    setMarkovForwardDistribution();
+                }
+                else if (selectedItem == Distribution.MARKOV_BACKWARD){
+                    setMarkovBackwardDistribution();
                 }
             }
         }

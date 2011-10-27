@@ -14,7 +14,17 @@ public class SettingsController {
     public SettingsController(MarketModel model, SettingsPanel view){
         this.model = model;
         this.view = view;
+        initChildControllers();
         addListeners();
+    }
+
+    private void initChildControllers() {
+        new DistributionController(model.getGoodLevelDistrModel(), view.getGoodLevelDistrPanel());
+        new DistributionController(model.getIotLevelDistrModel(), view.getIotLevelDistrPanel());
+        new DistributionController(model.getInputBundlesNumDistrModel(), view.getInputBundlesNumDistrPanel());
+        new DistributionController(model.getInputBundleGoodLevelDistrModel(), view.getInputBundleGoodLevelDistrPanel());
+        new DistributionController(model.getOutputBundlesNumDistrModel(), view.getOutputBundlesNumDistrPanel());
+        new DistributionController(model.getOutputBundleGoodLevelDistrModel(), view.getOutputBundleGoodLevelDistrPanel());
     }
 
     private void addListeners() {

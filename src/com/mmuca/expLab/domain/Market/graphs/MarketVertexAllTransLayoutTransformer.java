@@ -15,11 +15,20 @@ import java.util.HashMap;
 public class MarketVertexAllTransLayoutTransformer implements Transformer<Object, Point2D>{
     protected Market market;
     protected Dimension size;
+    private double scale;
     protected HashMap<Object, Point2D> layoutMap;
 
     public MarketVertexAllTransLayoutTransformer(Market market, Dimension size) {
         this.market = market;
         this.size = size;
+        this.scale=1;
+    }
+
+    public MarketVertexAllTransLayoutTransformer(Market market, Dimension size, double scale) {
+        Require.that(scale <=1 && scale >0, "Scale should be in range (0,1]; was "+size);
+        this.market = market;
+        this.size = size;
+        this.scale = scale;
     }
 
     @Override
@@ -53,18 +62,26 @@ public class MarketVertexAllTransLayoutTransformer implements Transformer<Object
     }
 
     protected double getY(int row) {
-        return verticalDistance() *(row);
+        return verticalDistance() *(row) + verticalScaleOffset();
+    }
+
+    private double verticalScaleOffset() {
+        return (size.getHeight()*(1-scale)/2);
     }
 
     protected double getX(int col, int verticesCount) {
-        return horizontalDistance(verticesCount) *(col+1);
+        return horizontalDistance(verticesCount) *(col+1)+ horizontalScaleOffset();
+    }
+
+    private double horizontalScaleOffset() {
+        return (size.getWidth()*(1-scale)/2);
     }
 
     protected double horizontalDistance(int verticesCount){
-        return size.getWidth()/(verticesCount + 1);
+        return (size.getWidth()*scale)/(verticesCount + 1);
     }
 
     protected double verticalDistance() {
-        return size.getHeight()/(market.getAllLevels().size()*2+1);
+        return (size.getHeight()*scale)/(market.getAllLevels().size()*2+1);
     }
 }

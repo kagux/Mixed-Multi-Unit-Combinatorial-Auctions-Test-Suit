@@ -1,22 +1,27 @@
 package com.mmuca.expLab.domain.Market;
 
 import com.mmuca.expLab.domain.distributions.Distribution;
+import com.mmuca.expLab.domain.distributions.MarkovBackwardDistribution;
+import com.mmuca.expLab.domain.distributions.MarkovForwardDistribution;
 import com.mmuca.expLab.domain.distributions.UniformDistribution;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public enum MarketDistribution {
-    GOOD_LEVEL(new Distribution[]{Distribution.UNIFORM, Distribution.CENTERED}, new UniformDistribution());
-    private ArrayList<Distribution> distributionsList;
+    GOOD_LEVEL(new Distribution[]{Distribution.UNIFORM, Distribution.CENTERED}, new UniformDistribution()),
+    IOT_LEVEL(new Distribution[]{Distribution.UNIFORM, Distribution.CENTERED}, new UniformDistribution()),
+    INPUT_BUNDLES_NUM(new Distribution[]{Distribution.UNIFORM, Distribution.CENTERED}, new UniformDistribution()),
+    OUTPUT_BUNDLES_NUM(new Distribution[]{Distribution.UNIFORM, Distribution.CENTERED}, new UniformDistribution()),
+    INPUT_BUNDLE_GOOD_LEVEL(new Distribution[]{Distribution.MARKOV_FORWARD},new MarkovForwardDistribution(0.1,0.1)),
+    OUTPUT_BUNDLE_GOOD_LEVEL(new Distribution[]{Distribution.MARKOV_BACKWARD},new MarkovBackwardDistribution(0.1,0.1));
+
+    private Distribution[] distributions;
     private Object defaultDistribution;
 
     private MarketDistribution(Distribution[] distributions, Object defaultDistribution) {
         this.defaultDistribution = defaultDistribution;
-        this.distributionsList = new ArrayList<Distribution>(Arrays.asList(distributions));
+        this.distributions = distributions;
     }
-    public ArrayList<Distribution> validDistributions(){
-        return distributionsList;
+    public Distribution[] validDistributions(){
+        return distributions;
     }
     public Object defaultDistribution(){
         return defaultDistribution;

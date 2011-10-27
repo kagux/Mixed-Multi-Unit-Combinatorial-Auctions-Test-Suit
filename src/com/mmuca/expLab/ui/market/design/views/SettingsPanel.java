@@ -12,6 +12,12 @@ public class SettingsPanel extends JPanel{
     public static final String NUM_LEVELS_LABEL = "# of levels";
     public static final String NUM_IOT_LABEL = "# of IOT";
     public static final String SHOW_ONLY_IOT_CHECK_BOX = "Show only IOT";
+    public static final String GOOD_LEVEL_DISTR_PANEL_TITLE = "Goods between levels are";
+    public static final String INPUT_BUNDLES_NUM_DISTR_PANEL_TITLE = "# of inputs for IOT is";
+    public static final String OUTPUT_BUNDLES_NUM_DISTR_PANEL_TITLE = "# of outputs for IOT is";
+    public static final String INPUT_BUNDLE_GOOD_LEVEL_DISTR_PANEL_TITLE = "Good level for input is";
+    public static final String OUTPUT_BUNDLE_GOOD_LEVEL_DISTR_PANEL_TITLE = "Good level for output is";
+    public static final String IOT_LEVEL_DISTR_PANEL_TITLE = "IOT Level is";
 
     private JLabel numGoodsLabel;
     private JLabel minNumGoodsPerLevelLabel;
@@ -23,16 +29,45 @@ public class SettingsPanel extends JPanel{
     private JSpinner numLevelsSpinner;
     private JSpinner numIOTSpinner;
 
+    private DistributionSelectionPanel goodLevelDistrPanel;
+    private DistributionSelectionPanel inputBundlesNumDistrPanel;
+    private DistributionSelectionPanel outputBundlesNumDistrPanel;
+    private DistributionSelectionPanel inputBundleGoodLevelDistrPanel;
+    private DistributionSelectionPanel outputBundleGoodLevelDistrPanel;
+    private DistributionSelectionPanel iotLevelDistrPanel;
+
     private JCheckBox showOnlyIOTCheckBox;
     private MarketModel model;
-    private DistributionSelectionPanel goodNumDistrPanel;
 
 
-    public SettingsPanel(MarketModel model, DistributionSelectionPanel goodNumDistrPanel) {
+    public SettingsPanel(MarketModel model) {
         this.model = model;
-        this.goodNumDistrPanel = goodNumDistrPanel;
         initComponents();
         layoutComponents();
+    }
+
+    public DistributionSelectionPanel getIotLevelDistrPanel() {
+        return iotLevelDistrPanel;
+    }
+
+    public DistributionSelectionPanel getGoodLevelDistrPanel() {
+        return goodLevelDistrPanel;
+    }
+
+    public DistributionSelectionPanel getInputBundlesNumDistrPanel() {
+        return inputBundlesNumDistrPanel;
+    }
+
+    public DistributionSelectionPanel getOutputBundlesNumDistrPanel() {
+        return outputBundlesNumDistrPanel;
+    }
+
+    public DistributionSelectionPanel getInputBundleGoodLevelDistrPanel() {
+        return inputBundleGoodLevelDistrPanel;
+    }
+
+    public DistributionSelectionPanel getOutputBundleGoodLevelDistrPanel() {
+        return outputBundleGoodLevelDistrPanel;
     }
 
     public JCheckBox getShowOnlyIOTCheckBox() {
@@ -65,6 +100,13 @@ public class SettingsPanel extends JPanel{
         initNumLevelsSpinner();
         initNumIOTSpinner();
         showOnlyIOTCheckBox=new JCheckBox(SHOW_ONLY_IOT_CHECK_BOX,model.isShowOnlyIOT());
+        goodLevelDistrPanel = new DistributionSelectionPanel(GOOD_LEVEL_DISTR_PANEL_TITLE, model.getGoodLevelDistrModel());
+        inputBundlesNumDistrPanel = new DistributionSelectionPanel(INPUT_BUNDLES_NUM_DISTR_PANEL_TITLE,model.getOutputBundlesNumDistrModel());
+        outputBundlesNumDistrPanel = new DistributionSelectionPanel(OUTPUT_BUNDLES_NUM_DISTR_PANEL_TITLE,model.getOutputBundlesNumDistrModel());
+        iotLevelDistrPanel = new DistributionSelectionPanel(IOT_LEVEL_DISTR_PANEL_TITLE, model.getIotLevelDistrModel());
+        inputBundleGoodLevelDistrPanel = new DistributionSelectionPanel(INPUT_BUNDLE_GOOD_LEVEL_DISTR_PANEL_TITLE, model.getInputBundleGoodLevelDistrModel());
+        outputBundleGoodLevelDistrPanel = new DistributionSelectionPanel(OUTPUT_BUNDLE_GOOD_LEVEL_DISTR_PANEL_TITLE, model.getOutputBundleGoodLevelDistrModel());
+
     }
 
     private void initNumIOTSpinner() {
@@ -107,7 +149,7 @@ public class SettingsPanel extends JPanel{
                 ""  //rows
         ));
         add(numGoodsLabel);
-        add(numGoodsSpinner,"wrap, w 40!");
+        add(numGoodsSpinner, "wrap, w 40!");
         add(minNumGoodsPerLevelLabel);
         add(minGoodsPerLevelSpinner,"wrap, w 40!");
         add(numLevelsLabel);
@@ -115,7 +157,18 @@ public class SettingsPanel extends JPanel{
         add(numIOTLabel);
         add(numIOTSpinner,"wrap, w 40!");
         add(showOnlyIOTCheckBox, "span, wrap");
-        add(goodNumDistrPanel, "span");
+        add(new JSeparator(),"span, grow, pushx");
+        add(goodLevelDistrPanel, "span, grow, pushx,wrap");
+        add(new JSeparator(),"span, grow, pushx");
+        add(iotLevelDistrPanel, "span, grow, pushx, wrap");
+        add(new JSeparator(),"span, grow, pushx");
+        add(inputBundlesNumDistrPanel, "span, grow, pushx, wrap");
+        add(new JSeparator(),"span, grow, pushx");
+        add(outputBundlesNumDistrPanel, "span, grow, pushx, wrap");
+        add(new JSeparator(),"span, grow, pushx");
+        add(inputBundleGoodLevelDistrPanel, "span, grow, pushx, wrap");
+        add(new JSeparator(),"span, grow, pushx");
+        add(outputBundleGoodLevelDistrPanel, "span, grow, pushx, wrap");
     }
 
 }

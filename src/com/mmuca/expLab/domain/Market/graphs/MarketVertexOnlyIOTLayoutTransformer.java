@@ -13,6 +13,10 @@ public class MarketVertexOnlyIOTLayoutTransformer extends MarketVertexAllTransLa
         super(market, size);
     }
 
+    public MarketVertexOnlyIOTLayoutTransformer(Market market, Dimension size, double scale) {
+        super(market, size, scale);    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
     @Override
     protected ArrayList createTransformationsPool(ArrayList vertices) {
         for (Iterator iterator = vertices.iterator(); iterator.hasNext();) {

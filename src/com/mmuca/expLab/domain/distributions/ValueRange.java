@@ -15,8 +15,18 @@ public class ValueRange {
         return start;
     }
 
+    public void setStart(int start){
+        Require.that(end > start, "Range start should be less than end");
+        this.start=start;
+    }
+
     public int getEnd() {
         return end;
+    }
+
+    public void setEnd(int end){
+       Require.that(end > start, "Range end should be greater than start");
+        this.end=end;
     }
 
     public int size() {

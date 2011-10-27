@@ -18,18 +18,18 @@ public class MarketGeneratorBuilder {
     public MarketGenerator build() {
         return new MarketGenerator(
                 parameters,
-                new GoodsGenerator(distributions.getGoodLevelDistribution()),
+                new GoodsGenerator(distributions.getGoodLevel()),
                 new ITGenerator(),
                 new OTGenerator(),
                 new IOTGenerator(
                         distributions.getIOTLevelDistribution(),
                         new BundlesGenerator(
-                            distributions.getInputBundlesGoodLevelDistribution(),
-                            distributions.getInputBundlesNumDistribution()
+                            distributions.getInputBundleGoodLevel(),
+                            distributions.getInputBundlesNum()
                         ),
                         new BundlesGenerator(
-                            distributions.getOutputBundlesGoodLevelDistribution(),
-                            distributions.getOutputBundlesNumDistribution()
+                            distributions.getOutputBundleGoodLevel(),
+                            distributions.getOutputBundlesNum()
                         )
                 )
         );

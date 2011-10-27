@@ -78,75 +78,75 @@ public class MarketGenerator {
     }
 
     public static class Distributions {
-        private IDistribution goodLevelDistribution;
-        private IDistribution iotLevelDistribution;
-        private ITargetedDistribution inputBundlesGoodLevelDistribution;
-        private ITargetedDistribution outputBundlesGoodLevelDistribution;
-        private IDistribution inputBundlesNumDistribution;
-        private IDistribution outputBundlesNumDistribution;
+        private IDistribution goodLevel;
+        private IDistribution iotLevel;
+        private ITargetedDistribution inputBundleGoodLevel;
+        private ITargetedDistribution outputBundleGoodLevel;
+        private IDistribution inputBundlesNum;
+        private IDistribution outputBundlesNum;
 
         public Distributions(
-                IDistribution goodLevelDistribution,
-                IDistribution iotLevelDistribution,
-                ITargetedDistribution inputBundlesGoodLevelDistribution,
-                ITargetedDistribution outputBundlesGoodLevelDistribution,
-                IDistribution inputBundlesNumDistribution,
-                IDistribution outputBundlesNumDistribution
+                IDistribution goodLevel,
+                IDistribution iotLevel,
+                ITargetedDistribution inputBundleGoodLevel,
+                ITargetedDistribution outputBundleGoodLevel,
+                IDistribution inputBundlesNum,
+                IDistribution outputBundlesNum
         ) {
-            this.goodLevelDistribution = goodLevelDistribution;
-            this.iotLevelDistribution = iotLevelDistribution;
-            this.inputBundlesGoodLevelDistribution = inputBundlesGoodLevelDistribution;
-            this.outputBundlesGoodLevelDistribution = outputBundlesGoodLevelDistribution;
-            this.inputBundlesNumDistribution = inputBundlesNumDistribution;
-            this.outputBundlesNumDistribution = outputBundlesNumDistribution;
+            this.goodLevel = goodLevel;
+            this.iotLevel = iotLevel;
+            this.inputBundleGoodLevel = inputBundleGoodLevel;
+            this.outputBundleGoodLevel = outputBundleGoodLevel;
+            this.inputBundlesNum = inputBundlesNum;
+            this.outputBundlesNum = outputBundlesNum;
         }
 
-        public IDistribution getGoodLevelDistribution() {
-            return goodLevelDistribution;
+        public IDistribution getGoodLevel() {
+            return goodLevel;
         }
 
-        public void setGoodLevelDistribution(IDistribution goodLevelDistribution) {
-            this.goodLevelDistribution = goodLevelDistribution;
+        public void setGoodLevel(IDistribution goodLevel) {
+            this.goodLevel = goodLevel;
         }
 
         public IDistribution getIOTLevelDistribution() {
-            return iotLevelDistribution;
+            return iotLevel;
         }
 
-        public void setIotLevelDistribution(IDistribution iotLevelDistribution) {
-            this.iotLevelDistribution = iotLevelDistribution;
+        public void setIotLevel(IDistribution iotLevel) {
+            this.iotLevel = iotLevel;
         }
 
-        public ITargetedDistribution getInputBundlesGoodLevelDistribution() {
-            return inputBundlesGoodLevelDistribution;
+        public ITargetedDistribution getInputBundleGoodLevel() {
+            return inputBundleGoodLevel;
         }
 
-        public void setInputBundlesGoodLevelDistribution(ITargetedDistribution inputBundlesGoodLevelDistribution) {
-            this.inputBundlesGoodLevelDistribution = inputBundlesGoodLevelDistribution;
+        public void setInputBundleGoodLevel(ITargetedDistribution inputBundleGoodLevel) {
+            this.inputBundleGoodLevel = inputBundleGoodLevel;
         }
 
-        public ITargetedDistribution getOutputBundlesGoodLevelDistribution() {
-            return outputBundlesGoodLevelDistribution;
+        public ITargetedDistribution getOutputBundleGoodLevel() {
+            return outputBundleGoodLevel;
         }
 
-        public void setOutputBundlesGoodLevelDistribution(ITargetedDistribution outputBundlesGoodLevelDistribution) {
-            this.outputBundlesGoodLevelDistribution = outputBundlesGoodLevelDistribution;
+        public void setOutputBundleGoodLevel(ITargetedDistribution outputBundleGoodLevel) {
+            this.outputBundleGoodLevel = outputBundleGoodLevel;
         }
 
-        public IDistribution getInputBundlesNumDistribution() {
-            return inputBundlesNumDistribution;
+        public IDistribution getInputBundlesNum() {
+            return inputBundlesNum;
         }
 
-        public void setInputBundlesNumDistribution(IDistribution inputBundlesNumDistribution) {
-            this.inputBundlesNumDistribution = inputBundlesNumDistribution;
+        public void setInputBundlesNum(IDistribution inputBundlesNum) {
+            this.inputBundlesNum = inputBundlesNum;
         }
 
-        public IDistribution getOutputBundlesNumDistribution() {
-            return outputBundlesNumDistribution;
+        public IDistribution getOutputBundlesNum() {
+            return outputBundlesNum;
         }
 
-        public void setOutputBundlesNumDistribution(IDistribution outputBundlesNumDistribution) {
-            this.outputBundlesNumDistribution = outputBundlesNumDistribution;
+        public void setOutputBundlesNum(IDistribution outputBundlesNum) {
+            this.outputBundlesNum = outputBundlesNum;
         }
     }
 }

@@ -19,6 +19,14 @@ public class MarkovDistributionPanel extends JPanel{
         layoutComponents();
     }
 
+    public JSpinner getpChangeValueSpinner() {
+        return pChangeValueSpinner;
+    }
+
+    public JSpinner getpChangeDirectionSpinner() {
+        return pChangeDirectionSpinner;
+    }
+
     private void initComponents() {
         pChangeValueLabel = new JLabel(CHANGE_VALUE_LABEL);
         pChangeDirectionLabel = new JLabel(CHANGE_DIRECTION_LABEL);
@@ -27,7 +35,15 @@ public class MarkovDistributionPanel extends JPanel{
     }
 
     private void layoutComponents() {
-        setLayout(new MigLayout());
+        setLayout(new MigLayout(
+                "",        //layout
+                "0[][align right]0",  //columns
+                ""                    //rows
+        ));
+        add(pChangeDirectionLabel);
+        add(pChangeDirectionSpinner, "wrap, pushx, grow, w 40!");
+        add(pChangeValueLabel);
+        add(pChangeValueSpinner,"pushx, grow, w 40!");
 
     }
 
