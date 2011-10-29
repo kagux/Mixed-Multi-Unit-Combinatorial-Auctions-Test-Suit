@@ -9,13 +9,13 @@ import javax.swing.*;
 public class CenteredDistributionPanel extends JPanel implements ObserverView{
     public static final String CENTER_LABEL = "Center";
     public static final String ALPHA_LABEL = "Shape Factor";
-    public static final String SPINNER_WIDTH = "w 40!";
+    public static final String SPINNER_WIDTH = "w 60!";
     private JLabel centerLabel;
     private JLabel alphaLabel;
 
-    private JSpinner centerSpinner;
+    private NumberSpinner centerSpinner;
 
-    private JSpinner alphaSpinner;
+    private NumberSpinner alphaSpinner;
     private DistributionModel model;
 
     public CenteredDistributionPanel(DistributionModel model){
@@ -25,18 +25,12 @@ public class CenteredDistributionPanel extends JPanel implements ObserverView{
         layoutComponents();
     }
 
-    public JSpinner getCenterSpinner() {
+    public NumberSpinner getCenterSpinner() {
         return centerSpinner;
     }
 
-    public JSpinner getAlphaSpinner() {
+    public NumberSpinner getAlphaSpinner() {
         return alphaSpinner;
-    }
-
-    @Override
-    public void refresh() {
-       ((SpinnerNumberModel)centerSpinner.getModel()).setMaximum(model.getRangeEnd());
-       ((SpinnerNumberModel)centerSpinner.getModel()).setMinimum(model.getRangeStart());
     }
 
     private void layoutComponents() {
@@ -55,6 +49,19 @@ public class CenteredDistributionPanel extends JPanel implements ObserverView{
         centerLabel = new JLabel(CENTER_LABEL);
         alphaLabel = new JLabel(ALPHA_LABEL);
         centerSpinner = new NumberSpinner(model.getRangeStart(),model.getRangeStart(),model.getRangeEnd(),1);
+        centerSpinner.setVisualValueOffset(1-model.rangeOrigin());
         alphaSpinner = new NumberSpinner(0.1,0.1,0.9,0.1);
     }
+
+    @Override
+    public void update() {
+        ((NumberSpinner.SpinnerModel)centerSpinner.getModel()).setMaximum(model.getRangeEnd());
+        ((NumberSpinner.SpinnerModel)centerSpinner.getModel()).setMinimum(model.getRangeStart());
+    }
+
+    @Override
+    public void beginUpdate() {}
+
+    @Override
+    public void endUpdate() { }
 }

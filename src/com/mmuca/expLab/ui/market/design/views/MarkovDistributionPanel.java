@@ -9,8 +9,10 @@ public class MarkovDistributionPanel extends JPanel{
     public static final String CHANGE_VALUE_LABEL = "Probability to change value";
     public static final String CHANGE_DIRECTION_LABEL = "Probability to change direction";
 
-    private JSpinner pChangeValueSpinner;
-    private JSpinner pChangeDirectionSpinner;
+    public static final String SPINNER_WIDTH = "w 60!";
+
+    private NumberSpinner pChangeValueSpinner;
+    private NumberSpinner pChangeDirectionSpinner;
     private JLabel pChangeValueLabel;
     private JLabel pChangeDirectionLabel;
 
@@ -19,11 +21,11 @@ public class MarkovDistributionPanel extends JPanel{
         layoutComponents();
     }
 
-    public JSpinner getpChangeValueSpinner() {
+    public NumberSpinner getpChangeValueSpinner() {
         return pChangeValueSpinner;
     }
 
-    public JSpinner getpChangeDirectionSpinner() {
+    public NumberSpinner getpChangeDirectionSpinner() {
         return pChangeDirectionSpinner;
     }
 
@@ -41,9 +43,9 @@ public class MarkovDistributionPanel extends JPanel{
                 ""                    //rows
         ));
         add(pChangeDirectionLabel);
-        add(pChangeDirectionSpinner, "wrap, pushx, grow, w 40!");
+        add(pChangeDirectionSpinner, "wrap, pushx, grow," + SPINNER_WIDTH);
         add(pChangeValueLabel);
-        add(pChangeValueSpinner,"pushx, grow, w 40!");
+        add(pChangeValueSpinner,"pushx, grow," + SPINNER_WIDTH);
 
     }
 }

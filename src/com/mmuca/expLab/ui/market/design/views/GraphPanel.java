@@ -7,14 +7,13 @@ import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class GraphPanel extends JPanel implements ObserverView{
     private MarketModel model;
     private MarketGraphVisualizationServerProvider visualizationServerProvider;
-    private ExecutorService threadsQueue;
+    private ThreadPoolExecutor  threadsQueue;
+    private boolean transactionalUpdate;
 
 
     public GraphPanel(MarketModel model, MarketGraphVisualizationServerProvider visualizationServerProvider){
@@ -26,7 +25,7 @@ public class GraphPanel extends JPanel implements ObserverView{
     }
 
     private void initComponents() {
-        threadsQueue = Executors.newSingleThreadExecutor();
+        threadsQueue =  new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
     }
 
     private void layoutComponents() {
@@ -38,8 +37,22 @@ public class GraphPanel extends JPanel implements ObserverView{
     }
 
     @Override
-    public void refresh() {
-        threadsQueue.submit(new GraphUpdater());
+    public void beginUpdate() {
+        transactionalUpdate=true;
+    }
+
+    @Override
+    public void endUpdate() {
+       transactionalUpdate=false;
+       update();
+    }
+
+    @Override
+    public void update() {
+        if (!transactionalUpdate)
+            threadsQueue.submit(new GraphUpdater());
+        System.out.println(threadsQueue.getQueue().size());
+
     }
 
     private class GraphUpdater extends SwingWorker<Void, Void>{

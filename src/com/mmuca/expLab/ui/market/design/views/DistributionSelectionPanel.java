@@ -7,9 +7,9 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 
-public class DistributionSelectionPanel extends JPanel implements ObserverView {
+public class DistributionSelectionPanel extends JPanel{
     private JLabel distributionChoiceLabel;
-    private JComboBox<Distribution> distributionsComboBox;
+    private JComboBox distributionsComboBox;
     private MinimizingCardPanel distributionSettingsPanel;
 
 
@@ -19,22 +19,22 @@ public class DistributionSelectionPanel extends JPanel implements ObserverView {
     private CenteredDistributionPanel centeredDistributionPanel;
     private MarkovDistributionPanel markovForwardDistributionPanel;
     private MarkovDistributionPanel markovBackwardDistributionPanel;
+    private ConstantDistributionPanel constantDistributionPanel;
 
 
     public DistributionSelectionPanel(String title, DistributionModel model){
         this.title = title;
         this.model = model;
-        model.addView(this);
         initComponents();
         layoutComponents();
     }
 
-    public JComboBox<Distribution> getDistributionsComboBox() {
-        return distributionsComboBox;
+    public ConstantDistributionPanel getConstantDistributionPanel() {
+        return constantDistributionPanel;
     }
 
-    public MinimizingCardPanel getDistributionSettingsPanel() {
-        return distributionSettingsPanel;
+    public JComboBox getDistributionsComboBox() {
+        return distributionsComboBox;
     }
 
     public UniformDistributionPanel getUniformDistributionPanel() {
@@ -55,7 +55,7 @@ public class DistributionSelectionPanel extends JPanel implements ObserverView {
 
     private void initComponents() {
         distributionChoiceLabel = new JLabel(title);
-        initDistributionsComboBox();
+        distributionsComboBox = new JComboBox(model.validDistributions());
         initDistributionSettingsPanel();
     }
 
@@ -65,12 +65,9 @@ public class DistributionSelectionPanel extends JPanel implements ObserverView {
         centeredDistributionPanel = new CenteredDistributionPanel(model);
         markovForwardDistributionPanel = new MarkovDistributionPanel();
         markovBackwardDistributionPanel = new MarkovDistributionPanel();
+        constantDistributionPanel = new ConstantDistributionPanel(model);
 
 
-    }
-
-    private void initDistributionsComboBox() {
-        distributionsComboBox = new JComboBox<Distribution>(model.validDistributions());
     }
 
     private void layoutComponents() {
@@ -82,17 +79,21 @@ public class DistributionSelectionPanel extends JPanel implements ObserverView {
         add(distributionChoiceLabel);
         add(distributionsComboBox, "wrap");
         add(distributionSettingsPanel,"span, grow, push");
-        distributionSettingsPanel.add(uniformDistributionPanel,Distribution.UNIFORM.toString());
+        distributionSettingsPanel.add(uniformDistributionPanel, Distribution.UNIFORM.toString());
         distributionSettingsPanel.add(centeredDistributionPanel,Distribution.CENTERED.toString());
         distributionSettingsPanel.add(markovForwardDistributionPanel,Distribution.MARKOV_FORWARD.toString());
         distributionSettingsPanel.add(markovBackwardDistributionPanel,Distribution.MARKOV_BACKWARD.toString());
+        distributionSettingsPanel.add(constantDistributionPanel,Distribution.CONSTANT.toString());
         distributionSettingsPanel.showCard(distributionsComboBox.getSelectedItem().toString());
     }
 
 
-    @Override
-    public void refresh() {
-        distributionSettingsPanel.revalidate();
-
+    public void showSettingsFor(Distribution distribution){
+        distributionSettingsPanel.showCard(distribution.toString());
     }
+
+    public Distribution selectedDistribution(){
+        return (Distribution) distributionsComboBox.getSelectedItem();
+    }
+
 }

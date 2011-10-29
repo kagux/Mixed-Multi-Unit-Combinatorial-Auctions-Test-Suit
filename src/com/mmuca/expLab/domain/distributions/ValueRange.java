@@ -16,7 +16,7 @@ public class ValueRange {
     }
 
     public void setStart(int start){
-        Require.that(end > start, "Range start should be less than end");
+        Require.that(end >= start, "Range start should be less than or equal to end");
         this.start=start;
     }
 
@@ -25,7 +25,7 @@ public class ValueRange {
     }
 
     public void setEnd(int end){
-       Require.that(end > start, "Range end should be greater than start");
+       Require.that(end >= start, "Range end should be greater than or equal to start");
         this.end=end;
     }
 

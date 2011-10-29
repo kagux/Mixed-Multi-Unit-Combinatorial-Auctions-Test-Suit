@@ -14,14 +14,14 @@ public class MarketDesignController {
         this.model = model;
         this.view = view;
         addListeners();
-        initSubControllers();
+        initChildControllers();
     }
 
     private void addListeners() {
         view.getGenerateMarketButton().addActionListener(new ButtonActionListener());
     }
 
-    private void initSubControllers() {
+    private void initChildControllers() {
         new SettingsController(model,view.getSettingsPanel());
         new GraphController(view.getGraphPanel());
     }

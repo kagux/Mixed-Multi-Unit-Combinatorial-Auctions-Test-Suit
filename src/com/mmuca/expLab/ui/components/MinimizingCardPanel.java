@@ -135,8 +135,7 @@ public class MinimizingCardPanel extends JPanel
 	return -1;
     }
 
-
-    /** 
+    /**
      * Hide the currently visible child  "card" and show the
      * specified card.  If the specified card isn't a child
      * of the MinimizingCardPanel then we add it here.
@@ -235,5 +234,7 @@ public class MinimizingCardPanel extends JPanel
 	}
 	showCard(getComponent(getComponentCount() - 1));
     }
+
+
 }
 

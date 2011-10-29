@@ -1,5 +1,6 @@
 package com.mmuca.expLab.ui.market.design.controllers;
 
+import com.mmuca.expLab.ui.components.NumberSpinner;
 import com.mmuca.expLab.ui.market.design.models.MarketModel;
 import com.mmuca.expLab.ui.market.design.views.SettingsPanel;
 
@@ -75,7 +76,7 @@ public class SettingsController {
 
         @Override
         protected Object commandParameter(ChangeEvent e) {
-            return ((JSpinner)e.getSource()).getValue();
+            return ((NumberSpinner)e.getSource()).getRealValue();
         }
     }
 

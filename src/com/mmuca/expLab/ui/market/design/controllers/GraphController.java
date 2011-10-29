@@ -22,7 +22,7 @@ public class GraphController {
         @Override
         public void componentResized(ComponentEvent e) {
            if (e.getComponent().getWidth() > 0 && e.getComponent().getHeight() >0)
-                view.refresh();
+                view.update();
         }
         @Override
         public void componentMoved(ComponentEvent e) {}

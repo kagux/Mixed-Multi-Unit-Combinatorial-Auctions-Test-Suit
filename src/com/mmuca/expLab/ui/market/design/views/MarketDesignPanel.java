@@ -53,7 +53,11 @@ public class MarketDesignPanel extends JPanel{
     }
 
     private void layoutComponents() {
-        setLayout(new MigLayout());
+        setLayout(new MigLayout(
+                "",
+                "[fill, shrink][]",
+                ""
+        ));
         settingsPanel.setBorder(
                 new CompoundBorder(
                         new TitledBorder(SETTINGS_PANEL_CAPTION),
@@ -66,7 +70,7 @@ public class MarketDesignPanel extends JPanel{
                         Borders.DLU2_BORDER
                 )
         );
-        add(createScrollPanel(), "grow, pushy, spany, w 300!");
+        add(createScrollPanel(), "grow, pushy, spany, w 350!");
         add(graphPanel, "push, grow, wrap");
         add(generateMarketButton,"skip,grow");
     }

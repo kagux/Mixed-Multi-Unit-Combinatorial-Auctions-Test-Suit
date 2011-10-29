@@ -19,15 +19,17 @@ public class SettingsPanel extends JPanel{
     public static final String OUTPUT_BUNDLE_GOOD_LEVEL_DISTR_PANEL_TITLE = "Good level for output is";
     public static final String IOT_LEVEL_DISTR_PANEL_TITLE = "IOT Level is";
 
+    public static final String SPINNER_WIDTH = "w 60!";
+
     private JLabel numGoodsLabel;
     private JLabel minNumGoodsPerLevelLabel;
     private JLabel numLevelsLabel;
     private JLabel numIOTLabel;
 
-    private JSpinner numGoodsSpinner;
-    private JSpinner minGoodsPerLevelSpinner;
-    private JSpinner numLevelsSpinner;
-    private JSpinner numIOTSpinner;
+    private NumberSpinner numGoodsSpinner;
+    private NumberSpinner minGoodsPerLevelSpinner;
+    private NumberSpinner numLevelsSpinner;
+    private NumberSpinner numIOTSpinner;
 
     private DistributionSelectionPanel goodLevelDistrPanel;
     private DistributionSelectionPanel inputBundlesNumDistrPanel;
@@ -98,6 +100,7 @@ public class SettingsPanel extends JPanel{
         numGoodsSpinner = new NumberSpinner(model.getNumGoods(), model.MINIMUM_NUM_GOODS, Integer.MAX_VALUE, 1);
         minGoodsPerLevelSpinner = new NumberSpinner(model.getMinGoodsPerLevel(),model.MINIMUM_MIN_NUM_GOODS_PER_LEVEL,Integer.MAX_VALUE,1);
         numLevelsSpinner = new NumberSpinner(model.getNumLevels(),model.MINIMUM_NUM_LEVELS,Integer.MAX_VALUE,1);
+        numLevelsSpinner.setVisualValueOffset(-1);
         numIOTSpinner = new NumberSpinner(model.getNumIOT(),model.MINIMUM_NUM_IOT,Integer.MAX_VALUE,1);
         showOnlyIOTCheckBox=new JCheckBox(SHOW_ONLY_IOT_CHECK_BOX,model.isShowOnlyIOT());
         goodLevelDistrPanel = new DistributionSelectionPanel(GOOD_LEVEL_DISTR_PANEL_TITLE, model.getGoodLevelDistrModel());
@@ -116,13 +119,13 @@ public class SettingsPanel extends JPanel{
                 ""  //rows
         ));
         add(numGoodsLabel);
-        add(numGoodsSpinner, "wrap, w 40!");
+        add(numGoodsSpinner, "wrap," + SPINNER_WIDTH);
         add(minNumGoodsPerLevelLabel);
-        add(minGoodsPerLevelSpinner,"wrap, w 40!");
+        add(minGoodsPerLevelSpinner,"wrap," + SPINNER_WIDTH);
         add(numLevelsLabel);
-        add(numLevelsSpinner,"wrap, w 40!");
+        add(numLevelsSpinner,"wrap," + SPINNER_WIDTH);
         add(numIOTLabel);
-        add(numIOTSpinner,"wrap, w 40!");
+        add(numIOTSpinner,"wrap, " + SPINNER_WIDTH);
         add(showOnlyIOTCheckBox, "span, wrap");
         add(new JSeparator(),"span, grow, pushx");
         add(goodLevelDistrPanel, "span, grow, pushx,wrap");

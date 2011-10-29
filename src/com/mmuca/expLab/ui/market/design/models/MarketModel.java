@@ -4,7 +4,6 @@ import com.mmuca.expLab.domain.Market.Market;
 import com.mmuca.expLab.domain.Market.MarketDistribution;
 import com.mmuca.expLab.domain.Market.MarketGenerator;
 import com.mmuca.expLab.domain.Market.MarketGeneratorBuilder;
-import com.mmuca.expLab.domain.distributions.*;
 import com.mmuca.expLab.ui.market.design.views.ObserverView;
 
 import java.util.ArrayList;
@@ -39,12 +38,19 @@ public class MarketModel extends Observable{
     }
 
     private void initChildModels() {
-        goodLevelDistrModel = new DistributionModel(MarketDistribution.GOOD_LEVEL.defaultDistribution(), MarketDistribution.GOOD_LEVEL.validDistributions(), new ValueRange(1, DEFAULT_NUM_LEVELS-1));
-        inputBundlesNumDistrModel = new DistributionModel(MarketDistribution.INPUT_BUNDLES_NUM.defaultDistribution(),MarketDistribution.INPUT_BUNDLES_NUM.validDistributions(), new ValueRange(2, DEFAULT_NUM_GOODS));
-        outputBundlesNumDistrModel = new DistributionModel(MarketDistribution.OUTPUT_BUNDLES_NUM.defaultDistribution(), MarketDistribution.OUTPUT_BUNDLES_NUM.validDistributions(),new ValueRange(2, DEFAULT_NUM_GOODS));
-        inputBundleGoodLevelDistrModel = new DistributionModel(MarketDistribution.INPUT_BUNDLE_GOOD_LEVEL.defaultDistribution(), MarketDistribution.INPUT_BUNDLE_GOOD_LEVEL.validDistributions(), new ValueRange(2,DEFAULT_NUM_LEVELS-1));
-        outputBundleGoodLevelDistrModel = new DistributionModel(MarketDistribution.OUTPUT_BUNDLE_GOOD_LEVEL.defaultDistribution(), MarketDistribution.OUTPUT_BUNDLE_GOOD_LEVEL.validDistributions(),new ValueRange(1,DEFAULT_NUM_LEVELS-1));
-        iotLevelDistrModel = new DistributionModel(MarketDistribution.IOT_LEVEL.defaultDistribution(), MarketDistribution.IOT_LEVEL.validDistributions(), new ValueRange(2,DEFAULT_NUM_LEVELS-1));
+        MarketDistribution.GOOD_LEVEL.setRangeEnd(DEFAULT_NUM_LEVELS);
+        MarketDistribution.INPUT_BUNDLES_NUM.setRangeEnd(DEFAULT_NUM_GOODS);
+        MarketDistribution.OUTPUT_BUNDLES_NUM.setRangeEnd(DEFAULT_NUM_GOODS);
+        MarketDistribution.INPUT_BUNDLE_GOOD_LEVEL.setRangeEnd(DEFAULT_NUM_LEVELS);
+        MarketDistribution.OUTPUT_BUNDLE_GOOD_LEVEL.setRangeEnd(DEFAULT_NUM_LEVELS);
+        MarketDistribution.IOT_LEVEL.setRangeEnd(DEFAULT_NUM_LEVELS);
+
+        goodLevelDistrModel = new DistributionModel(MarketDistribution.GOOD_LEVEL);
+        inputBundlesNumDistrModel = new DistributionModel(MarketDistribution.INPUT_BUNDLES_NUM);
+        outputBundlesNumDistrModel = new DistributionModel(MarketDistribution.OUTPUT_BUNDLES_NUM);
+        inputBundleGoodLevelDistrModel = new DistributionModel(MarketDistribution.INPUT_BUNDLE_GOOD_LEVEL);
+        outputBundleGoodLevelDistrModel = new DistributionModel(MarketDistribution.OUTPUT_BUNDLE_GOOD_LEVEL);
+        iotLevelDistrModel = new DistributionModel(MarketDistribution.IOT_LEVEL);
     }
 
     public void addView(ObserverView view){
@@ -58,22 +64,29 @@ public class MarketModel extends Observable{
     }
 
     private void commitChanges(){
+        startUpdateTransaction();
         updateChildModels();
-        notifyViews();
+        endUpdateTransaction();
+
     }
 
-    private void notifyViews() {
+    private void endUpdateTransaction() {
         for(ObserverView view: views)
-            view.refresh();
+            view.endUpdate();
+    }
+
+    private void startUpdateTransaction() {
+        for(ObserverView view: views)
+            view.beginUpdate();
     }
 
     private void updateChildModels() {
-        goodLevelDistrModel.setRangeEnd(generatorParameters.getNumLevels()-1);
+        goodLevelDistrModel.setRangeEnd(generatorParameters.getNumLevels());
         inputBundlesNumDistrModel.setRangeEnd(generatorParameters.getNumGoods());
         outputBundlesNumDistrModel.setRangeEnd(generatorParameters.getNumGoods());
-        inputBundleGoodLevelDistrModel.setRangeEnd(generatorParameters.getNumLevels()-1);
-        outputBundleGoodLevelDistrModel.setRangeEnd(generatorParameters.getNumLevels()-1);
-        iotLevelDistrModel.setRangeEnd(generatorParameters.getNumLevels()-1);
+        inputBundleGoodLevelDistrModel.setRangeEnd(generatorParameters.getNumLevels());
+        outputBundleGoodLevelDistrModel.setRangeEnd(generatorParameters.getNumLevels());
+        iotLevelDistrModel.setRangeEnd(generatorParameters.getNumLevels());
     }
 
     public DistributionModel getGoodLevelDistrModel() {
